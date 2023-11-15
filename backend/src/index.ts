@@ -6,6 +6,8 @@ server.get('/', (req: Request, res: Response) => {
     return res.send('Hello World!');
 });
 
-server.listen(4000, () => {
+const port = process.env.PORT || 4000;
+
+server.listen(port, () => {
     console.log('Server is running');
 });

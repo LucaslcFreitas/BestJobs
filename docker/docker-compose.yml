@@ -1,0 +1,53 @@
+services:
+  postgres:
+    image: postgres:16.1-alpine
+    environment:
+      - POSTGRES_DB=bjdb
+      - POSTGRES_USER=bj
+      - POSTGRES_PASSWORD=best
+      - TZ=America/Sao_Paulo
+    volumes:
+      - ./volumes/postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      best_jobs:
+        ipv4_address: 169.254.0.5
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=bj@bj.com
+      - PGADMIN_DEFAULT_PASSWORD=best
+    ports:
+      - 80:80
+    volumes:
+      - ./volumes/pgadmin:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    networks:
+      best_jobs:
+        ipv4_address: 169.254.0.4
+  
+  backend:
+    build:
+      context: ../backend
+    environment:
+      - NODE_PORT=4000
+      - TZ=America/Sao_Paulo
+    volumes:
+      - ../backend:/code
+    ports:
+      - 4000:4000
+    networks:
+      best_jobs:
+        ipv4_address: 169.254.0.3
+
+networks:
+  best_jobs:
+    driver: bridge
+    name: best_jobs
+    ipam:
+      driver: default
+      config:
+        - subnet: 169.254.0.0/16
