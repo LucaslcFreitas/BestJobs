@@ -1,10 +1,9 @@
 import { Router } from 'express';
+import { GetAllStudyAreaController } from '../controllers/studyArea/GetAllStudyAreaController';
 
 const routes = Router();
 
-//TEMP
-routes.get('/', (req, res) => {
-    return res.send('Server is running');
-});
+//Study Areas
+routes.get('/study_area', new GetAllStudyAreaController().handle);
 
 export { routes };
