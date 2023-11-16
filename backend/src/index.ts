@@ -1,10 +1,14 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+import cors from 'cors';
+import { routes } from './router/routes';
 
 const server = express();
 
-server.get('/', (req: Request, res: Response) => {
-    return res.send('Hello World!');
-});
+server.use(cors());
+
+server.use(express.json());
+
+server.use(routes);
 
 const port = process.env.PORT || 4000;
 
