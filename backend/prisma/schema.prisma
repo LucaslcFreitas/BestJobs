@@ -46,7 +46,7 @@ model Academic_graduation {
 
 model Sector {
   id         String       @id @default(uuid())
-  name       String       @db.VarChar(128)
+  name       String       @unique @db.VarChar(128)
   Experience Experience[]
   Skil       Skill[]
   Vacancie   Vacancie[]

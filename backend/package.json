@@ -7,14 +7,20 @@
     "dev": "ts-node-dev src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "author": "Lucas Freitas",
   "license": "MIT",
   "dependencies": {
     "@prisma/client": "^5.6.0",
+    "cors": "^2.8.5",
     "express": "^4.18.2"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.16",
     "@types/express": "^4.17.21",
+    "@types/node": "^20.9.0",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@typescript-eslint/parser": "^6.11.0",
     "eslint": "^8.53.0",
