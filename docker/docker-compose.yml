@@ -37,6 +37,7 @@ services:
       - TZ=America/Sao_Paulo
     volumes:
       - ../backend:/code
+      - '/code/node_modules'
     ports:
       - 4000:4000
     networks:

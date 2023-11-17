@@ -2,6 +2,12 @@ import express from 'express';
 import cors from 'cors';
 import { routes } from './router/routes';
 
+declare module 'express-serve-static-core' {
+    interface Request {
+        auth_user_id?: string;
+    }
+}
+
 const server = express();
 
 server.use(cors());

@@ -6,7 +6,7 @@ export class GetSkillController {
         const { id_sector } = request.body;
 
         if (!id_sector) {
-            return response.status(400).json({ error: 'Invalid parameter' });
+            return response.status(400).json({ error: 'Missing parameters' });
         }
 
         const skills = await prismaClient.skill.findMany({
