@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { verifyJWT } from '../middleware/authToken';
 import { GetAllStudyAreaController } from '../controllers/studyArea/GetAllStudyAreaController';
 import { GetAllSectorsController } from '../controllers/sector/GetAllSectorsController';
 import { GetSkillController } from '../controllers/skill/GetSkillController';
@@ -9,11 +10,13 @@ import { LoginController } from '../controllers/candidate/LoginController';
 import { GetMyCandidateController } from '../controllers/candidate/GetMyCandicateController';
 import { UpdateCandidateController } from '../controllers/candidate/UpdateCandidateController';
 import { CreateAcademicGraduationController } from '../controllers/AcademicGraduation/CreateAcademicGraduationController';
-
-import { verifyJWT } from '../middleware/authToken';
 import { GetMyAcademicGraduationsController } from '../controllers/AcademicGraduation/GetMyAcademicGraduationsController';
 import { UpdateAcademicGraduationController } from '../controllers/AcademicGraduation/UpdateAcademicGraduationController';
 import { DeleteAcademicGraduationController } from '../controllers/AcademicGraduation/DeleteAcademicGraduationController';
+import { CreateExperienceController } from '../controllers/Experience/CreateExperienceController';
+import { GetMyExperienceController } from '../controllers/Experience/GetMyExperienceController';
+import { DeleteExperienceController } from '../controllers/Experience/DeleteExperienceController';
+import { UpdateExperienceGraduation } from '../controllers/Experience/UpdateExperienceController';
 
 const routes = Router();
 
@@ -42,6 +45,20 @@ routes.delete(
     '/graduation/:id',
     verifyJWT,
     new DeleteAcademicGraduationController().handle
+);
+
+//Experience
+routes.post('/experience', verifyJWT, new CreateExperienceController().handle);
+routes.get('/experience/my', verifyJWT, new GetMyExperienceController().handle);
+routes.put(
+    '/experience/:id',
+    verifyJWT,
+    new UpdateExperienceGraduation().handle
+);
+routes.delete(
+    '/experience/:id',
+    verifyJWT,
+    new DeleteExperienceController().handle
 );
 
 //PUBLIC ROUTES
