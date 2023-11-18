@@ -16,6 +16,7 @@ model Candidate {
   about_me            String
   Academic_graduation Academic_graduation[]
   Candidacy           Candidacy[]
+  Experience          Experience[]
 
   @@map("candidate")
 }
@@ -86,6 +87,8 @@ model Experience {
   job_type         Job_type      @relation(fields: [id_job_type], references: [id])
   start            DateTime
   end              DateTime
+  id_candidate     String
+  candidate        Candidate     @relation(fields: [id_candidate], references: [id])
 
   @@map("experience")
 }
