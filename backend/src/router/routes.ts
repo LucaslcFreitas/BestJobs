@@ -6,17 +6,21 @@ import { GetSkillController } from '../controllers/skill/GetSkillController';
 import { GetAllJobTypesController } from '../controllers/jobTypes/GetAllJobTypesController';
 import { GetAllTypeLocalitiesController } from '../controllers/typeLocality/GetAllTypeLocalitiesController';
 import { CreateCandidateController } from '../controllers/candidate/CreateCandidateController';
-import { LoginController } from '../controllers/candidate/LoginController';
+import { LoginCandidateController } from '../controllers/candidate/LoginCandidateController';
 import { GetMyCandidateController } from '../controllers/candidate/GetMyCandicateController';
 import { UpdateCandidateController } from '../controllers/candidate/UpdateCandidateController';
-import { CreateAcademicGraduationController } from '../controllers/AcademicGraduation/CreateAcademicGraduationController';
-import { GetMyAcademicGraduationsController } from '../controllers/AcademicGraduation/GetMyAcademicGraduationsController';
-import { UpdateAcademicGraduationController } from '../controllers/AcademicGraduation/UpdateAcademicGraduationController';
-import { DeleteAcademicGraduationController } from '../controllers/AcademicGraduation/DeleteAcademicGraduationController';
-import { CreateExperienceController } from '../controllers/Experience/CreateExperienceController';
-import { GetMyExperienceController } from '../controllers/Experience/GetMyExperienceController';
-import { DeleteExperienceController } from '../controllers/Experience/DeleteExperienceController';
-import { UpdateExperienceGraduation } from '../controllers/Experience/UpdateExperienceController';
+import { CreateAcademicGraduationController } from '../controllers/academicGraduation/CreateAcademicGraduationController';
+import { GetMyAcademicGraduationsController } from '../controllers/academicGraduation/GetMyAcademicGraduationsController';
+import { UpdateAcademicGraduationController } from '../controllers/academicGraduation/UpdateAcademicGraduationController';
+import { DeleteAcademicGraduationController } from '../controllers/academicGraduation/DeleteAcademicGraduationController';
+import { CreateExperienceController } from '../controllers/experience/CreateExperienceController';
+import { GetMyExperienceController } from '../controllers/experience/GetMyExperienceController';
+import { DeleteExperienceController } from '../controllers/experience/DeleteExperienceController';
+import { UpdateExperienceGraduation } from '../controllers/experience/UpdateExperienceController';
+import { CreateCompanyController } from '../controllers/company/CreateCompanyController';
+import { LoginCompanyController } from '../controllers/company/LoginCompanyController';
+import { GetMyCompanyController } from '../controllers/company/GetMyCompanyController';
+import { UpdateCompanyController } from '../controllers/company/UpdateCompanyController';
 
 const routes = Router();
 
@@ -61,6 +65,10 @@ routes.delete(
     new DeleteExperienceController().handle
 );
 
+//Company
+routes.get('/company/my', verifyJWT, new GetMyCompanyController().handle);
+routes.put('/company', verifyJWT, new UpdateCompanyController().handle);
+
 //PUBLIC ROUTES
 //Study Area
 routes.get('/study_area', new GetAllStudyAreaController().handle);
@@ -79,6 +87,10 @@ routes.get('/type_locality', new GetAllTypeLocalitiesController().handle);
 
 //Candidate
 routes.post('/candidate', new CreateCandidateController().handle);
-routes.post('/candidate/login', new LoginController().handle);
+routes.post('/candidate/login', new LoginCandidateController().handle);
+
+//Company
+routes.post('/company', new CreateCompanyController().handle);
+routes.post('/company/login', new LoginCompanyController().handle);
 
 export { routes };
