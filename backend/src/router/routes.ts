@@ -21,6 +21,12 @@ import { CreateCompanyController } from '../controllers/company/CreateCompanyCon
 import { LoginCompanyController } from '../controllers/company/LoginCompanyController';
 import { GetMyCompanyController } from '../controllers/company/GetMyCompanyController';
 import { UpdateCompanyController } from '../controllers/company/UpdateCompanyController';
+import { CreateVacancieController } from '../controllers/vacancie/CreateVacancieController';
+import { GetMyVacancieController } from '../controllers/vacancie/GetMyVacancieController';
+import { DeleteVacancieController } from '../controllers/vacancie/DeleteVacancieController';
+import { UpdateVacancieController } from '../controllers/vacancie/UpdateVacancieController';
+import { GetVacancieController } from '../controllers/vacancie/GetVacancieController';
+import { SearchVacancieController } from '../controllers/vacancie/SearchVacancieController';
 
 const routes = Router();
 
@@ -68,6 +74,18 @@ routes.delete(
 //Company
 routes.get('/company/my', verifyJWT, new GetMyCompanyController().handle);
 routes.put('/company', verifyJWT, new UpdateCompanyController().handle);
+
+//Vacancie
+routes.post('/vacancie', verifyJWT, new CreateVacancieController().handle);
+routes.get('/vacancie/my', verifyJWT, new GetMyVacancieController().handle);
+routes.get('/vacancie/:id', verifyJWT, new GetVacancieController().handle);
+routes.get('/vacancie', verifyJWT, new SearchVacancieController().handle);
+routes.delete(
+    '/vacancie/:id',
+    verifyJWT,
+    new DeleteVacancieController().handle
+);
+routes.put('/vacancie/:id', verifyJWT, new UpdateVacancieController().handle);
 
 //PUBLIC ROUTES
 //Study Area

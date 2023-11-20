@@ -94,13 +94,14 @@ model Experience {
 }
 
 model Company {
-  id                  String @id @default(uuid())
-  name                String @db.VarChar(255)
+  id                  String     @id @default(uuid())
+  name                String     @db.VarChar(255)
   slogan              String
-  number_of_employees String @db.VarChar(255)
-  email               String @unique @db.VarChar(255)
-  password            String @db.VarChar(512)
+  number_of_employees String     @db.VarChar(255)
+  email               String     @unique @db.VarChar(255)
+  password            String     @db.VarChar(512)
   description         String
+  Vacancie            Vacancie[]
 
   @@map("company")
 }
@@ -117,6 +118,8 @@ model Skill {
 
 model Vacancie {
   id                 String           @id @default(uuid())
+  id_company         String
+  company            Company          @relation(fields: [id_company], references: [id])
   name_position      String           @db.VarChar(255)
   about              String
   id_sector          String
