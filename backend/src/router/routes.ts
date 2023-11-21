@@ -27,6 +27,12 @@ import { DeleteVacancieController } from '../controllers/vacancie/DeleteVacancie
 import { UpdateVacancieController } from '../controllers/vacancie/UpdateVacancieController';
 import { GetVacancieController } from '../controllers/vacancie/GetVacancieController';
 import { SearchVacancieController } from '../controllers/vacancie/SearchVacancieController';
+import { CreateCandidacyController } from '../controllers/candidacy/CreateCandidacyController';
+import { DeleteCandidacyController } from '../controllers/candidacy/DeleteCandidacyController';
+import { ApproveCandidacyController } from '../controllers/candidacy/ApproveCandidacyController';
+import { DisapproveCandidacyController } from '../controllers/candidacy/DesapproveCandidacyController';
+import { GetMyCandidaciesController } from '../controllers/candidacy/GetMyCandidaciesController';
+import { GetCandidateController } from '../controllers/candidate/GetCandidateController';
 
 const routes = Router();
 
@@ -34,6 +40,7 @@ const routes = Router();
 //Candidate
 routes.get('/candidate/my', verifyJWT, new GetMyCandidateController().handle);
 routes.put('/candidate', verifyJWT, new UpdateCandidateController().handle);
+routes.get('/candidate/:id', verifyJWT, new GetCandidateController().handle);
 
 //Academic Graduation
 routes.post(
@@ -86,6 +93,25 @@ routes.delete(
     new DeleteVacancieController().handle
 );
 routes.put('/vacancie/:id', verifyJWT, new UpdateVacancieController().handle);
+
+//Candidacy
+routes.post('/candidacy', verifyJWT, new CreateCandidacyController().handle);
+routes.delete(
+    '/candidacy/:id',
+    verifyJWT,
+    new DeleteCandidacyController().handle
+);
+routes.get('/candidacy/my', verifyJWT, new GetMyCandidaciesController().handle);
+routes.put(
+    '/candidacy/approve/:id',
+    verifyJWT,
+    new ApproveCandidacyController().handle
+);
+routes.put(
+    '/candidacy/disapprove/:id',
+    verifyJWT,
+    new DisapproveCandidacyController().handle
+);
 
 //PUBLIC ROUTES
 //Study Area

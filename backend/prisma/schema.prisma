@@ -154,6 +154,8 @@ model Candidacy {
   candidate    Candidate @relation(fields: [id_candidate], references: [id])
   id_vacancie  String
   vacancie     Vacancie  @relation(fields: [id_vacancie], references: [id])
+  finished     Boolean   @default(false)
+  approved     Boolean   @default(false)
   create_at    DateTime  @default(now())
 
   @@map("candidacy")

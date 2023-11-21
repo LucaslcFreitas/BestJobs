@@ -40,7 +40,46 @@ export class GetMyVacancieController {
                         skill: true,
                     },
                 },
-                Candidacy: true,
+                Candidacy: {
+                    select: {
+                        finished: true,
+                        approved: true,
+                        candidate: {
+                            select: {
+                                name: true,
+                                email: true,
+                                cpf: true,
+                                about_me: true,
+                                Academic_graduation: {
+                                    select: {
+                                        id: true,
+                                        instituition: true,
+                                        course_name: true,
+                                        study_area: true,
+                                        start_date: true,
+                                        date_conclusion: true,
+                                        conclued: true,
+                                        description: true,
+                                    },
+                                },
+                                Experience: {
+                                    select: {
+                                        id: true,
+                                        description: true,
+                                        sector: true,
+                                        position: true,
+                                        company_name: true,
+                                        locality: true,
+                                        type_locality: true,
+                                        job_type: true,
+                                        start: true,
+                                        end: true,
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
             },
         });
 

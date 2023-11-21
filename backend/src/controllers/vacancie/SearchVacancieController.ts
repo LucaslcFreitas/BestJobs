@@ -22,6 +22,7 @@ export class SearchVacancieController {
                 id_sector: sector,
                 id_job_type: job_type,
                 id_type_locality: type_locality,
+                publisehd: true,
             },
         });
 
@@ -41,6 +42,7 @@ export class SearchVacancieController {
                 id_sector: sector,
                 id_job_type: job_type,
                 id_type_locality: type_locality,
+                publisehd: true,
             },
             skip: offset,
             take: 10,
