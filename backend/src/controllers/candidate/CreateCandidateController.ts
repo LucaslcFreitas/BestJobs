@@ -46,7 +46,7 @@ export class CreateCandidateController {
                 expiresIn: 43200,
             });
 
-            return response.json({ auth: true, token });
+            return response.json({ auth: true, token, name: candidate.name, email: candidate.email, type: 'candidate' });
         } catch (e) {
             return response
                 .status(400)

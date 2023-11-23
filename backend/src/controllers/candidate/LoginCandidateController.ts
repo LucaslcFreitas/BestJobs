@@ -46,6 +46,9 @@ export class LoginCandidateController {
         return response.json({
             auth: true,
             token,
+            name: candidate.name,
+            email: candidate.email,
+            type: 'candidate'
         });
     }
 }

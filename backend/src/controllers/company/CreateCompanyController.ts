@@ -61,7 +61,7 @@ export class CreateCompanyController {
                 expiresIn: 43200,
             });
 
-            return response.json({ auth: true, token });
+            return response.json({ auth: true, token, name: company.name, email: company.email, type: 'company' });
         } catch (e) {
             return response
                 .status(400)

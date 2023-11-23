@@ -48,6 +48,9 @@ export class LoginCompanyController {
         return response.json({
             auth: true,
             token,
+            name: company.name,
+            email: company.email,
+            type: 'company'
         });
     }
 }
