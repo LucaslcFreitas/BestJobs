@@ -4,11 +4,13 @@ import Footer from '../components/Footer';
 
 function DefaultLayout() {
     return (
-        <div>
+        <>
             <NavBar />
-            <Outlet />
+            <main className="main-content">
+                <Outlet />
+            </main>
             <Footer />
-        </div>
+        </>
     );
 }
 

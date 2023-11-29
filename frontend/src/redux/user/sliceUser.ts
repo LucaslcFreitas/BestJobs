@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: User = {
     token: 'teste',
-    name: null,
+    name: 'Lucas Freitas',
     email: null,
     type: null
 };
