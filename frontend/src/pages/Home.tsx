@@ -1,9 +1,10 @@
 import '../styles/pages/Home.sass';
+import Content1 from '../components/home/Context1';
 
 function Home() {
     return (
         <>
-            <h1>Best Jobs</h1>
+            <Content1 />
         </>
     );
 }
