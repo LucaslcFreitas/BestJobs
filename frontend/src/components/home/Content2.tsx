@@ -18,7 +18,7 @@ const dataCards: CardPropsContent2[] = [
     {
         title: 'Vagas para todo tipo de perfil',
         description:
-            'Não importa se é para seu primeiro emprego ou uma posição mais desafiadora, nós temos a vaga ideal.',
+            'Não importa se é para seu primeiro emprego ou uma recolocação no mercado, nós temos a vaga ideal.',
         icon: <FaUsers />,
     },
     {

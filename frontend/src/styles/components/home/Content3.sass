@@ -1,0 +1,19 @@
+@use '../../variables'
+@use '../../mixins'
+
+.content3
+    background-color: variables.$background-alternative
+    padding: variables.$padding-container-small
+    padding-top: 25px
+    padding-bottom: 25px
+
+    >h1
+        text-align: center
+        font-size: 40px
+        color: variables.$color-alternative
+        font-family: 'Calibri'
+        margin-bottom: 30px
+
+.content3-cards
+    @include mixins.center
+    gap: 1.5rem
