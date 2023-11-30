@@ -2,6 +2,7 @@ import '../styles/pages/Home.sass';
 import Content1 from '../components/home/Content1';
 import Content2 from '../components/home/Content2';
 import Content3 from '../components/home/Content3';
+import Content4 from '../components/home/Content4';
 
 function Home() {
     return (
@@ -9,6 +10,7 @@ function Home() {
             <Content1 />
             <Content2 />
             <Content3 />
+            <Content4 />
         </>
     );
 }
