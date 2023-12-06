@@ -1,33 +1,26 @@
 import '../styles/components/InputText.sass';
 
-type InputProps = {
-    type: string;
+type InputTextAreaProps = {
     label: string;
     value: string;
     onChangeInput: (value: string) => void;
     error?: string;
-    maxLength?: number | undefined;
 };
 
-function InputText({
-    type,
+function InputTextArea({
     label,
     value,
     onChangeInput,
     error,
-    maxLength,
-}: InputProps) {
+}: InputTextAreaProps) {
     return (
         <div className="input-group">
-            <input
+            <textarea
                 required
-                autoComplete="off"
-                type={type}
-                name="text"
+                name="textarea"
                 value={value}
                 onChange={(e) => onChangeInput(e.target.value)}
                 className="input"
-                maxLength={maxLength}
             />
             <label className="user-label">{label}</label>
             {error && <p>{error}</p>}
@@ -35,4 +28,4 @@ function InputText({
     );
 }
 
-export default InputText;
+export default InputTextArea;

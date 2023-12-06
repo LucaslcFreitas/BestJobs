@@ -25,11 +25,11 @@
     transform: translateY(12px)
     transition: 0.3s cubic-bezier(0.4,0,0.2,1)
 
-.input:focus, input:valid
+.input:focus, input:valid, textarea:valid
     outline: none
     border: 2px solid variables.$background-alternative
 
-.input:focus ~ label, input:valid ~ label
+.input:focus ~ label, input:valid ~ label, textarea:valid ~ label
     transform: translateY(-50%) scale(0.8)
     background-color: variables.$background-secondary
     padding: 0 .2em

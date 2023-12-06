@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/pages/Signin.sass';
+import { useDispatch } from 'react-redux';
+import { startLoad, stopLoad } from '../redux/loader/sliceLoader';
 
 import InputText from '../components/InputText';
 import SwitchUserLogin from '../components/SwitchUserLogin';
 import ButtonPrimary from '../components/ButtonPrimary';
 
 function Signin() {
+    const dispatch = useDispatch();
+
     const [email, setEmail] = useState('');
     const [emailError, setEmailError] = useState('');
     const [password, setPassword] = useState('');
@@ -19,11 +23,13 @@ function Signin() {
 
         if (!inLogin) {
             setInLogin(true);
+            dispatch(startLoad());
             setEmailError('');
             console.log('foi');
 
             setTimeout(() => {
                 setInLogin(false);
+                dispatch(stopLoad());
             }, 5000);
         }
     };
