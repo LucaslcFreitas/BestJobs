@@ -84,6 +84,7 @@ function FormTypeCompany({
                 text="Cadastrar"
                 onClickButton={() => onSubmit(null)}
                 disable={inSignup}
+                isSubmit={true}
             />
         </form>
     );

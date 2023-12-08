@@ -15,17 +15,25 @@ function Signin() {
     const [emailError, setEmailError] = useState('');
     const [password, setPassword] = useState('');
     const [isCandidate, setIsCandidate] = useState(true);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const [inLogin, setInLogin] = useState(false);
 
     const handleLogin = (e: React.FormEvent | null) => {
-        if (e) e.preventDefault();
+        if (e) {
+            e.preventDefault();
+        }
+        setErrorMessage('');
+
+        if (!email || !password) {
+            setErrorMessage('Preencha todos os campos!');
+            return;
+        }
 
         if (!inLogin) {
             setInLogin(true);
             dispatch(startLoad());
             setEmailError('');
-            console.log('foi');
 
             setTimeout(() => {
                 setInLogin(false);
@@ -57,10 +65,14 @@ function Signin() {
                         typeCandidate={isCandidate}
                         setType={setIsCandidate}
                     />
+                    {errorMessage && (
+                        <p className="signup-error">{errorMessage}</p>
+                    )}
                     <ButtonPrimary
                         text="Entrar"
                         onClickButton={() => handleLogin(null)}
                         disable={inLogin}
+                        isSubmit={true}
                     />
                     <div className="signin-not-user">
                         <Link to={'/signup'}>Quero me cadastrar</Link>

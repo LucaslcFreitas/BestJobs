@@ -7,6 +7,7 @@
     padding: 10px
     margin: auto
     border-radius: 10px
+    border: none
     width: 100%
 
     &:hover
@@ -18,9 +19,9 @@
         font-weight: bold
         text-align: center
 
-.button-primary-disable
-    background-color: variables.$color-default
-    cursor: default
-
-    &:hover
+    &:disabled
         background-color: variables.$color-default
+        cursor: default
+
+        &:hover
+            background-color: variables.$color-default

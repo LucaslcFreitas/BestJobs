@@ -40,6 +40,7 @@ function Signup() {
 
     const [isCandidate, setIsCandidate] = useState(true);
     const [inSignup, setInSignup] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('');
 
     //Candidate properties
     const [nameCD, setNameCD] = useState('');
@@ -59,19 +60,54 @@ function Signup() {
     const [descriptionCP, setDescriptionCP] = useState('');
 
     const handleSubmit = (e: React.FormEvent | null) => {
-        if (e) e.preventDefault();
-        if (!inSignup) {
-            setInSignup(true);
-            dispatch(startLoad());
-            setTimeout(() => {
-                setInSignup(false);
-                dispatch(stopLoad());
-            }, 5000);
+        if (e) {
+            e.preventDefault();
         }
+        setErrorMsg('');
+        if (!inSignup) {
+            if (isCandidate) signupCandidate();
+            else signupCompany();
+        }
+    };
+
+    const signupCandidate = () => {
+        if (!nameCD || !emailCD || !cpfCD || !passwordCD || !aboutMeCD) {
+            setErrorMsg('Preencha todos os campos!');
+            return;
+        }
+
+        setInSignup(true);
+        dispatch(startLoad());
+        setTimeout(() => {
+            setInSignup(false);
+            dispatch(stopLoad());
+        }, 5000);
+    };
+
+    const signupCompany = () => {
+        if (
+            !nameCP ||
+            !sloganCP ||
+            !numberOfEmployeersCP ||
+            !emailCP ||
+            !passwordCP ||
+            !descriptionCP
+        ) {
+            setErrorMsg('Preencha todos os campos!');
+            return;
+        }
+
+        setInSignup(true);
+        dispatch(startLoad());
+        setTimeout(() => {
+            setInSignup(false);
+            dispatch(stopLoad());
+        }, 5000);
     };
 
     const handleChangeTypeUser = (type: boolean) => {
         if (!inSignup) {
+            setErrorMsg('');
             setIsCandidate(type);
         }
     };
@@ -98,6 +134,9 @@ function Signup() {
                         Sou Empresa
                     </p>
                 </div>
+                <h4>
+                    Cadastre {isCandidate ? 'seu currículo' : 'sua empresa'}
+                </h4>
                 <div className="signup-form">
                     {isCandidate ? (
                         <FormTypeCandidate
@@ -113,6 +152,7 @@ function Signup() {
                             setAboutMe={setAboutMeCD}
                             onSubmit={handleSubmit}
                             inSignup={inSignup}
+                            errorMessage={errorMsg}
                         />
                     ) : (
                         <FormTypeCompany
@@ -133,6 +173,7 @@ function Signup() {
                             setDescription={setDescriptionCP}
                             onSubmit={handleSubmit}
                             inSignup={inSignup}
+                            errorMessage={errorMsg}
                         />
                     )}
                     <div className="signup-to-signin">
