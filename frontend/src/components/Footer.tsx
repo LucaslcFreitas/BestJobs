@@ -6,41 +6,43 @@ import { FaSquareXTwitter } from 'react-icons/fa6';
 function Footer() {
     return (
         <footer className="footer">
-            <div className="footer-main">
-                <div>
-                    <p>
-                        Best <span>Jobs</span>
-                    </p>
+            <div className="footer-container">
+                <div className="footer-main">
                     <div>
-                        <a href="https://www.facebook.com">
-                            <FaFacebook style={{ color: '#3983ff' }} />
-                        </a>
-                        <a href="https://twitter.com">
-                            <FaSquareXTwitter style={{ color: '#000' }} />
-                        </a>
-                        <a href="https://www.linkedin.com/">
-                            <FaLinkedin style={{ color: '#087bb9' }} />
-                        </a>
-                        <a href="https://www.instagram.com/">
-                            <FaInstagram style={{ color: '#bb3995' }} />
-                        </a>
-                        <a href="https://www.youtube.com">
-                            <FaYoutube style={{ color: '#ff0808' }} />
-                        </a>
+                        <p>
+                            Best <span>Jobs</span>
+                        </p>
+                        <div>
+                            <a href="https://www.facebook.com">
+                                <FaFacebook style={{ color: '#3983ff' }} />
+                            </a>
+                            <a href="https://twitter.com">
+                                <FaSquareXTwitter style={{ color: '#000' }} />
+                            </a>
+                            <a href="https://www.linkedin.com/">
+                                <FaLinkedin style={{ color: '#087bb9' }} />
+                            </a>
+                            <a href="https://www.instagram.com/">
+                                <FaInstagram style={{ color: '#bb3995' }} />
+                            </a>
+                            <a href="https://www.youtube.com">
+                                <FaYoutube style={{ color: '#ff0808' }} />
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Para Candidatos</p>
+                        <Link to={'/candidate'}>Homepage</Link>
+                        <Link to={'/vacancie'}>Encontrar Vagas</Link>
+                    </div>
+                    <div>
+                        <p>Para Empresas</p>
+                        <Link to={'/company'}>Homepage</Link>
+                        <Link to={'/company/create'}>Publicar Vagas</Link>
                     </div>
                 </div>
-                <div>
-                    <p>Para Candidatos</p>
-                    <Link to={'/candidate'}>Homepage</Link>
-                    <Link to={'/vacancie'}>Encontrar Vagas</Link>
-                </div>
-                <div>
-                    <p>Para Empresas</p>
-                    <Link to={'/company'}>Homepage</Link>
-                    <Link to={'/company/create'}>Publicar Vagas</Link>
-                </div>
+                <p>&copy; Best Jobs - 2023 - Todos os Direitos Reservados</p>
             </div>
-            <p>&copy; Best Jobs - 2023 - Todos os Direitos Reservados</p>
         </footer>
     );
 }

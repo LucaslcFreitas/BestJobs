@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import '../styles/components/InputSelect.sass';
 
 type InputSelectProps = {
@@ -13,11 +14,14 @@ type OptionSelect = {
 };
 
 function InputSelect({ options, value, onChange, label }: InputSelectProps) {
+    const id = useId();
+
     return (
         <div className="input-select">
-            <label>{label}</label>
+            <label htmlFor={id}>{label}</label>
             <select
                 required
+                id={id}
                 name="inputselect"
                 value={value}
                 onChange={(e) => onChange(e.target.value)}

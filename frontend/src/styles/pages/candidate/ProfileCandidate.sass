@@ -1,0 +1,19 @@
+@use '../../variables'
+@use '../../mixins'
+
+.profile-candidate
+    @include mixins.width-container-small
+
+    >h1, >p
+        color: variables.$color-default
+
+    >p
+        font-size: 18px
+        margin-top: 5px
+        line-height: 25px
+
+.profile-candidate-cards
+    display: flex
+    flex-direction: column
+    gap: 2rem
+    padding: 15px 0

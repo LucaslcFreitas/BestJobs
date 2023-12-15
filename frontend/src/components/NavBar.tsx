@@ -37,32 +37,34 @@ function NavBar() {
 
     return (
         <nav className="navbar">
-            <div className="nav-title">
-                <h1 onClick={handleHome}>
-                    Best <span>Jobs</span>
-                </h1>
-                <MdWork />
-            </div>
+            <div className="navbar-container">
+                <div className="nav-title">
+                    <h1 onClick={handleHome}>
+                        Best <span>Jobs</span>
+                    </h1>
+                    <MdWork />
+                </div>
 
-            <div className="nav-links">
-                <Link to="/candidate">Candidato</Link>
-                <Link to="/company">Empresa</Link>
-            </div>
+                <div className="nav-links">
+                    <Link to="/candidate">Candidato</Link>
+                    <Link to="/company">Empresa</Link>
+                </div>
 
-            <div className="nav-user">
-                {user.token ? (
-                    <>
-                        <p>{user.name}</p>
-                        <IoExitOutline onClick={handleLogout} />
-                    </>
-                ) : (
-                    <>
-                        <ButtonPrimary
-                            text="Entrar"
-                            onClickButton={handleLogin}
-                        />
-                    </>
-                )}
+                <div className="nav-user">
+                    {user.token ? (
+                        <>
+                            <p>{user.name}</p>
+                            <IoExitOutline onClick={handleLogout} />
+                        </>
+                    ) : (
+                        <>
+                            <ButtonPrimary
+                                text="Entrar"
+                                onClickButton={handleLogin}
+                            />
+                        </>
+                    )}
+                </div>
             </div>
         </nav>
     );

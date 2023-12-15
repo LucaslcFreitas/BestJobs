@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/pages/Signin.sass';
 import { useDispatch } from 'react-redux';
 import { startLoad, stopLoad } from '../redux/loader/sliceLoader';
@@ -10,6 +10,7 @@ import ButtonPrimary from '../components/ButtonPrimary';
 
 function Signin() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [emailError, setEmailError] = useState('');
@@ -38,7 +39,8 @@ function Signin() {
             setTimeout(() => {
                 setInLogin(false);
                 dispatch(stopLoad());
-            }, 5000);
+                navigate('/home');
+            }, 3000);
         }
     };
 

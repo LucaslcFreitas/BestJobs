@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/pages/Signup.sass';
 import { OptionSelect } from '../components/InputSelect';
 import { useDispatch } from 'react-redux';
@@ -37,6 +37,7 @@ const numberOfEmployeersOptions: OptionSelect[] = [
 
 function Signup() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [isCandidate, setIsCandidate] = useState(true);
     const [inSignup, setInSignup] = useState(false);
@@ -81,6 +82,7 @@ function Signup() {
         setTimeout(() => {
             setInSignup(false);
             dispatch(stopLoad());
+            navigate('/candidate/profile');
         }, 5000);
     };
 
@@ -102,6 +104,7 @@ function Signup() {
         setTimeout(() => {
             setInSignup(false);
             dispatch(stopLoad());
+            navigate('/company/profile');
         }, 5000);
     };
 

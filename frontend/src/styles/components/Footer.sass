@@ -1,11 +1,14 @@
 @use '../variables'
+@use '../mixins'
 
 .footer
-    padding: variables.$padding-container-normal
     padding-top: 25px
     padding-bottom: 25px
     background-color: variables.$background-primary
     height: 300px
+
+.footer-container
+    @include mixins.width-container-normal
 
     >p
         color: variables.$color-default

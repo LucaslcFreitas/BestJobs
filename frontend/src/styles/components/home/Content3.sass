@@ -3,9 +3,11 @@
 
 .content3
     background-color: variables.$background-alternative
-    padding: variables.$padding-container-small
     padding-top: 25px
     padding-bottom: 25px
+
+.content3-container
+    @include mixins.width-container-small
 
     >h1
         text-align: center

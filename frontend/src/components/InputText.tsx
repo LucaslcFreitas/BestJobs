@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import '../styles/components/InputText.sass';
 
 type InputProps = {
@@ -7,6 +8,7 @@ type InputProps = {
     onChangeInput: (value: string) => void;
     error?: string;
     maxLength?: number | undefined;
+    disable?: boolean;
 };
 
 function InputText({
@@ -16,11 +18,15 @@ function InputText({
     onChangeInput,
     error,
     maxLength,
+    disable = false,
 }: InputProps) {
+    const id = useId();
+
     return (
         <div className="input-group">
             <input
                 required
+                id={id}
                 autoComplete="off"
                 type={type}
                 name="text"
@@ -28,8 +34,11 @@ function InputText({
                 onChange={(e) => onChangeInput(e.target.value)}
                 className="input"
                 maxLength={maxLength}
+                disabled={disable}
             />
-            <label className="user-label">{label}</label>
+            <label htmlFor={id} className="user-label">
+                {label}
+            </label>
             {error && <p>{error}</p>}
         </div>
     );

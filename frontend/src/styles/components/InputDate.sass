@@ -1,0 +1,22 @@
+@use '../variables'
+
+.input-date
+    position: relative
+    width: auto
+
+    label
+        display: block
+        color: variables.$color-default
+
+    input
+        border: solid 2px variables.$background-alternative
+        padding: 5px
+        font-size: 15px
+        color: variables.$color-default
+        border-radius: 10px
+        width: 100%
+        height: 50px
+
+        &:disabled
+            background-color: #e0e0e0
+            border: solid 2px #9e9e9e

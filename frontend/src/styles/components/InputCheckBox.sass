@@ -1,0 +1,18 @@
+@use '../variables'
+
+.checkbox-group
+    display: flex
+    gap: .7rem
+    margin: 5px 0
+    align-items: center
+
+    label
+        color: variables.$color-default
+
+    input
+        accent-color: variables.$color-primary
+        width: 15px
+
+        &:disabled
+            accent-color: #e0e0e0
+            background-color: #e0e0e0

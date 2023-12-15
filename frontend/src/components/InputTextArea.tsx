@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import '../styles/components/InputText.sass';
 
 type InputTextAreaProps = {
@@ -5,6 +6,7 @@ type InputTextAreaProps = {
     value: string;
     onChangeInput: (value: string) => void;
     error?: string;
+    disable?: boolean;
 };
 
 function InputTextArea({
@@ -12,17 +14,24 @@ function InputTextArea({
     value,
     onChangeInput,
     error,
+    disable = false,
 }: InputTextAreaProps) {
+    const id = useId();
+
     return (
         <div className="input-group">
             <textarea
                 required
+                id={id}
                 name="textarea"
                 value={value}
                 onChange={(e) => onChangeInput(e.target.value)}
                 className="input"
+                disabled={disable}
             />
-            <label className="user-label">{label}</label>
+            <label id={id} className="user-label">
+                {label}
+            </label>
             {error && <p>{error}</p>}
         </div>
     );
