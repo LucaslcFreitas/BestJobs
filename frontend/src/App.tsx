@@ -1,5 +1,5 @@
 import Router from './router/Router';
-import Loader from './components/Loader';
+import LoaderModal from './components/LoaderModal';
 import { useSelector } from 'react-redux';
 import { useLoader } from './redux/loader/sliceLoader';
 
@@ -8,7 +8,7 @@ function App() {
 
     return (
         <>
-            <Loader show={loader} />
+            <LoaderModal show={loader} />
             <Router />
         </>
     );

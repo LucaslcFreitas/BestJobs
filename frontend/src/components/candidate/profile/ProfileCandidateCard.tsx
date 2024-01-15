@@ -1,16 +1,19 @@
 import '../../../styles/components/candidate/profile/ProfileCandidateCard.sass';
 import { JSX, ReactNode } from 'react';
+import LoaderLocal from '../../LoaderLocal';
 
 type ProfileCandidateCardProps = {
     title: string;
     icons?: ReactNode[];
     children?: JSX.Element[] | JSX.Element;
+    loading: boolean;
 };
 
 function ProfileCandidateCard({
     title,
     icons = [],
     children,
+    loading,
 }: ProfileCandidateCardProps) {
     return (
         <section className="profile-candidate-card">
@@ -20,7 +23,11 @@ function ProfileCandidateCard({
                     {icons.map((icon) => icon)}
                 </div>
             </header>
-            {children ? (
+            {loading ? (
+                <div className="profile-candidate-card-loading">
+                    <LoaderLocal show={true} />
+                </div>
+            ) : children ? (
                 children
             ) : (
                 <p className="profile-candidate-card-no-data">

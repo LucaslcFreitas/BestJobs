@@ -26,7 +26,7 @@ export class SearchVacancieController {
             },
         });
 
-        const pages = number_vacancies / 10 + 1;
+        const pages = Math.floor(number_vacancies / 10) + 1;
 
         if (page < 1 || page > pages) {
             return response.status(400).json({ error: 'Invalid page' });
@@ -80,6 +80,6 @@ export class SearchVacancieController {
             },
         });
 
-        return response.json(vacancies);
+        return response.json({ vacancies, pages });
     }
 }

@@ -6,6 +6,7 @@ type IconButtonProps = {
     backgroundColor: string;
     icon: React.ReactNode;
     onClick: () => void;
+    disable?: boolean;
 };
 
 function IconButton({
@@ -13,11 +14,16 @@ function IconButton({
     backgroundColor,
     icon,
     onClick,
+    disable = false,
 }: IconButtonProps) {
     return (
         <button
             onClick={onClick}
-            style={{ backgroundColor, color }}
+            disabled={disable}
+            style={{
+                backgroundColor: disable ? '#707070' : backgroundColor,
+                color: disable ? '#fff' : color,
+            }}
             className="icon-button"
         >
             {icon}

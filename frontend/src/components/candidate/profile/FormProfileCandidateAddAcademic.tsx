@@ -69,7 +69,10 @@ function FormProfileCandidateAddAcademic({
     }
 
     return (
-        <div className="form-profile-cadidate-add-academic">
+        <div
+            id="formAddAcademic"
+            className="form-profile-cadidate-add-academic"
+        >
             <h3>{title}</h3>
             <form onSubmit={handleAddAcademicGraduation}>
                 <InputText
