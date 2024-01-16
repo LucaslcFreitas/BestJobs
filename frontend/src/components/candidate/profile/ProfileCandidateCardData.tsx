@@ -1,20 +1,9 @@
+import { UserType } from '../../../shared/types/UserData';
 import '../../../styles/components/candidate/profile/ProfileCandidateCardData.sass';
 import InputText from '../../InputText';
 import InputTextArea from '../../InputTextArea';
 
-type ProfileCandidateCardDataProps = {
-    name: string;
-    email: string;
-    cpf: string;
-    description: string;
-};
-
-function ProfileCandidateCardData({
-    name,
-    email,
-    cpf,
-    description,
-}: ProfileCandidateCardDataProps) {
+function ProfileCandidateCardData({ name, email, cpf, description }: UserType) {
     return (
         <div className="profile-candidate-card-data">
             <InputText
@@ -22,31 +11,30 @@ function ProfileCandidateCardData({
                 value={name}
                 onChangeInput={() => {}}
                 type="text"
-                disable={true}
+                disable
             />
             <InputText
                 label="E-mail:"
                 value={email}
                 onChangeInput={() => {}}
                 type="text"
-                disable={true}
+                disable
             />
             <InputText
                 label="CPF:"
                 value={cpf}
                 onChangeInput={() => {}}
                 type="text"
-                disable={true}
+                disable
             />
             <InputTextArea
                 label="Descrição:"
                 value={description}
                 onChangeInput={() => {}}
-                disable={true}
+                disable
             />
         </div>
     );
 }
 
 export default ProfileCandidateCardData;
-export type { ProfileCandidateCardDataProps };

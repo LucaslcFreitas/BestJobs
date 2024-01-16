@@ -7,22 +7,28 @@ import InputTextArea from '../../InputTextArea';
 import InputDate from '../../InputDate';
 import ButtonPrimary from '../../ButtonPrimary';
 import ButtonSecondary from '../../ButtonSecondary';
+import {
+    ExperienceType,
+    LocalityType,
+    JobType,
+    SectorType,
+} from '../../../shared/types/ExperienceType';
 
 type FormProfileCandidateAddExperienceProps = {
     title: string;
-    show: boolean;
-    onAddForm: (
-        position: string,
-        company_name: string,
-        locality: string,
-        type_locality_id: string,
-        job_type_id: string,
-        sector_id: string,
-        description: string,
-        start: string,
-        end: string
-    ) => void;
+    onAddForm: (experience: ExperienceType) => void;
     changeVisible: (show: boolean) => void;
+    addOperation?: boolean;
+    preId?: string;
+    prePosition?: string;
+    preCompanyName?: string;
+    preLocality?: string;
+    preTypeLocality?: LocalityType;
+    preJobType?: JobType;
+    preSector?: SectorType;
+    preDescription?: string;
+    preStart?: string;
+    preEnd?: string;
 };
 
 const auxInitialValuesSector = [
@@ -58,44 +64,50 @@ const auxInitialValuesJobType = [
 
 function FormProfileCandidateAddExperience({
     title,
-    show,
     onAddForm,
     changeVisible,
+    addOperation = true,
+    preId = '',
+    prePosition = '',
+    preCompanyName = '',
+    preLocality = '',
+    preTypeLocality = auxInitialValuesTypeLocality[0],
+    preJobType = auxInitialValuesJobType[0],
+    preSector = auxInitialValuesSector[0],
+    preDescription = '',
+    preStart = moment().format('YYYY-MM-DD'),
+    preEnd = moment().format('YYYY-MM-DD'),
 }: FormProfileCandidateAddExperienceProps) {
-    const [position, setPosition] = useState('');
-    const [companyName, setCompanyName] = useState('');
-    const [locality, setLocality] = useState('');
-    const [typeLocality, setTypeLocality] = useState(
-        auxInitialValuesTypeLocality[0].id
-    );
-    const [jobType, setJobType] = useState(auxInitialValuesJobType[0].id);
-    const [sector, setSector] = useState(auxInitialValuesSector[0].id);
-    const [description, setDescription] = useState('');
-    const [start, setStart] = useState(moment().format('YYYY-MM-DD'));
-    const [end, setEnd] = useState(moment().format('YYYY-MM-DD'));
+    const [id] = useState(preId);
+    const [position, setPosition] = useState(prePosition);
+    const [companyName, setCompanyName] = useState(preCompanyName);
+    const [locality, setLocality] = useState(preLocality);
+    const [typeLocality, setTypeLocality] = useState(preTypeLocality);
+    const [jobType, setJobType] = useState(preJobType);
+    const [sector, setSector] = useState(preSector);
+    const [description, setDescription] = useState(preDescription);
+    const [start, setStart] = useState(moment(preStart).format('YYYY-MM-DD'));
+    const [end, setEnd] = useState(moment(preEnd).format('YYYY-MM-DD'));
 
     const handleAddAcademicGraduation = (e: React.FormEvent) => {
         e.preventDefault();
-        onAddForm(
+        onAddForm({
+            id,
             position,
-            companyName,
+            company_name: companyName,
             locality,
-            typeLocality,
-            jobType,
+            type_locality: typeLocality,
+            job_type: jobType,
             sector,
             description,
             start,
-            end
-        );
+            end,
+        });
     };
 
     const handleCancelAddGraduation = () => {
         changeVisible(false);
     };
-
-    if (!show) {
-        return <></>;
-    }
 
     return (
         <div
@@ -126,7 +138,7 @@ function FormProfileCandidateAddExperience({
                 <div className="form-profile-cadidate-add-academic-flex">
                     <InputSelect
                         label="Atuação"
-                        value={typeLocality}
+                        value={typeLocality.id}
                         onChange={setTypeLocality}
                         options={auxInitialValuesTypeLocality.map(
                             (typeLoc) => ({
@@ -137,7 +149,7 @@ function FormProfileCandidateAddExperience({
                     />
                     <InputSelect
                         label="Tipo de trabalho"
-                        value={jobType}
+                        value={jobType.id}
                         onChange={setJobType}
                         options={auxInitialValuesJobType.map((jobTy) => ({
                             label: jobTy.name,
@@ -146,7 +158,7 @@ function FormProfileCandidateAddExperience({
                     />
                     <InputSelect
                         label="Setor"
-                        value={sector}
+                        value={sector.id}
                         onChange={setSector}
                         options={auxInitialValuesSector.map((sec) => ({
                             label: sec.name,
@@ -179,7 +191,7 @@ function FormProfileCandidateAddExperience({
                     />
                     <ButtonPrimary
                         isSubmit={true}
-                        text="Adicionar"
+                        text={addOperation ? 'Adicionar' : 'Salvar'}
                         onClickButton={() => handleAddAcademicGraduation}
                     />
                 </div>

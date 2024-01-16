@@ -8,65 +8,82 @@ import InputDate from '../../InputDate';
 import InputCheckBox from '../../InputCheckBox';
 import ButtonPrimary from '../../ButtonPrimary';
 import ButtonSecondary from '../../ButtonSecondary';
+import { AcademicGraduationType } from '../../../shared/types/AcademicGraduationType';
 
 type FormProfileCandidateAddAcademicProps = {
     title: string;
-    show: boolean;
-    onAddForm: (
-        courseName: string,
-        instituition: string,
-        studyAreaId: string,
-        startDate: string,
-        endDate: string,
-        conclued: boolean,
-        description: string
-    ) => void;
+    onAddForm: (academicData: AcademicGraduationType) => void;
+    addOperation?: boolean;
+    preId?: string;
+    preCourseName?: string;
+    preInstituition?: string;
+    preStudyArea?: {
+        id: string;
+        name: string;
+    };
+    preStartDate?: string;
+    preEndDate?: string;
+    preInProgress?: boolean;
+    preConclued?: boolean;
+    preDescription?: string;
     changeVisible: (show: boolean) => void;
 };
 
 const auxInitialValuesStudyArea = [
-    { label: 'Engenharia/Tecnoligia', value: 'Engenharia/Tecnoligia' },
-    { label: 'Ciências Humanas', value: 'Ciências Humanas' },
-    { label: 'Ciências Exatas', value: 'Ciências Exatas' },
+    {
+        id: '16a95e25-a6c7-44ed-b23c-fb6198b1bec6',
+        name: 'Engenharia/Tecnoligia',
+    },
+    { id: '16a95e25-a6c7-44ed-b23c-fb6198b1bec7', name: 'Ciências Humanas' },
+    { id: '16a95e25-a6c7-44ed-b23c-fb6198b1bec8', name: 'Ciências Exatas' },
 ];
 
 function FormProfileCandidateAddAcademic({
     title,
-    show,
     onAddForm,
     changeVisible,
+    addOperation = true,
+    preId = '',
+    preCourseName = '',
+    preInstituition = '',
+    preStudyArea = auxInitialValuesStudyArea[0],
+    preStartDate = moment().format('YYYY-MM-DD'),
+    preEndDate = moment().format('YYYY-MM-DD'),
+    preInProgress = false,
+    preConclued = false,
+    preDescription = '',
 }: FormProfileCandidateAddAcademicProps) {
-    const [courseName, setCourseName] = useState('');
-    const [instituition, setInstituition] = useState('');
-    const [studyArea, setStudyArea] = useState(
-        auxInitialValuesStudyArea[0].value
+    const [id] = useState(preId);
+    const [courseName, setCourseName] = useState(preCourseName);
+    const [instituition, setInstituition] = useState(preInstituition);
+    const [studyArea, setStudyArea] = useState(preStudyArea);
+    const [startDate, setStartDate] = useState(
+        moment(preStartDate).format('YYYY-MM-DD')
     );
-    const [startDate, setStartDate] = useState(moment().format('YYYY-MM-DD'));
-    const [endDate, setEndDate] = useState(moment().format('YYYY-MM-DD'));
-    const [inProgress, setInProgress] = useState(false);
-    const [conclued, setConclued] = useState(false);
-    const [description, setDescription] = useState('');
+    const [endDate, setEndDate] = useState(
+        moment(preEndDate).format('YYYY-MM-DD')
+    );
+    const [inProgress, setInProgress] = useState(preInProgress);
+    const [conclued, setConclued] = useState(preConclued);
+    const [description, setDescription] = useState(preDescription);
 
     const handleAddAcademicGraduation = (e: React.FormEvent) => {
         e.preventDefault();
-        onAddForm(
+        onAddForm({
+            id,
             courseName,
             instituition,
             studyArea,
             startDate,
-            endDate,
+            endDate: inProgress ? '' : endDate,
             conclued,
-            description
-        );
+            description,
+        });
     };
 
     const handleCancelAddGraduation = () => {
         changeVisible(false);
     };
-
-    if (!show) {
-        return <></>;
-    }
 
     return (
         <div
@@ -89,9 +106,12 @@ function FormProfileCandidateAddAcademic({
                 />
                 <InputSelect
                     label="Área de estudo"
-                    value={studyArea}
+                    value={studyArea.id}
                     onChange={setStudyArea}
-                    options={auxInitialValuesStudyArea}
+                    options={auxInitialValuesStudyArea.map((item) => ({
+                        value: item.id,
+                        label: item.name,
+                    }))}
                 />
                 <div className="form-profile-cadidate-add-academic-flex">
                     <InputDate
@@ -130,7 +150,7 @@ function FormProfileCandidateAddAcademic({
                     />
                     <ButtonPrimary
                         isSubmit={true}
-                        text="Adicionar"
+                        text={addOperation ? 'Adicionar' : 'Salvar'}
                         onClickButton={() => handleAddAcademicGraduation}
                     />
                 </div>

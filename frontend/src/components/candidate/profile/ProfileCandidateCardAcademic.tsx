@@ -1,24 +1,12 @@
 import '../../../styles/components/candidate/profile/ProfileCandidateCardAcademic.sass';
-import TextInfo from '../../TextInfo';
 import IconButton from '../../IconButton';
-import { FaEdit } from 'react-icons/fa';
+import { FaEdit, FaTrash } from 'react-icons/fa';
+import { AcademicGraduationType } from '../../../shared/types/AcademicGraduationType';
 
 type ProfileCandidateCardAcademicProps = {
-    id: string;
-    instituition: string;
-    courseName: string;
-    studyArea: StudyArea[];
-    startDate: string;
-    dateConclusion?: string | undefined;
-    conclued: true;
-    description: string;
-    onClickEdit?: (id: string) => void;
-};
-
-type StudyArea = {
-    id: string;
-    name: string;
-};
+    onClickEdit: (AcademicData: AcademicGraduationType) => void;
+    onClickDelete: (id: string) => void;
+} & AcademicGraduationType;
 
 function ProfileCandidateCardAcademic({
     id,
@@ -26,52 +14,74 @@ function ProfileCandidateCardAcademic({
     courseName,
     studyArea,
     startDate,
-    dateConclusion,
+    endDate,
     conclued,
     description,
     onClickEdit,
+    onClickDelete,
 }: ProfileCandidateCardAcademicProps) {
-    const studyAreas = studyArea.map((area) => area.name);
     const dateStartFormated = new Date(startDate).toLocaleDateString('pt-br');
-    const dateEndFormated = dateConclusion
-        ? new Date(dateConclusion).toLocaleDateString('pt-br')
+    const dateEndFormated = endDate
+        ? new Date(endDate).toLocaleDateString('pt-br')
         : null;
 
     const handleClickEdit = () => {
-        if (onClickEdit !== undefined) onClickEdit(id);
+        onClickEdit({
+            id,
+            instituition,
+            courseName,
+            studyArea,
+            startDate,
+            endDate,
+            conclued,
+            description,
+        });
+    };
+
+    const handleClickDelete = () => {
+        onClickDelete(id);
+        console.log('delete');
     };
 
     return (
         <div className="profile-candidate-card-academic">
-            <div className="profile-candidate-card-academic-multiple-data-flex">
-                <TextInfo label="Nome do curso:" text={courseName} />
-                <IconButton
-                    key={1}
-                    color="#fff"
-                    backgroundColor="#00f"
-                    icon={<FaEdit />}
-                    onClick={handleClickEdit}
-                />
+            <div className="profile-card-academic-data">
+                <div>
+                    <h4>{courseName}</h4>
+                    <p className="profile-card-academic-paragraph">
+                        {instituition}
+                    </p>
+                    <p className="profile-card-academic-paragraph">
+                        {dateStartFormated} -{' '}
+                        {!endDate ? 'Em progresso' : dateEndFormated} •{' '}
+                        {endDate
+                            ? conclued
+                                ? 'Concluído'
+                                : 'Não Concluído'
+                            : ''}
+                    </p>
+                    <p className="profile-card-academic-paragraph">
+                        Área: {studyArea.name}
+                    </p>
+                </div>
+                <div className="profile-card-academic-buttons">
+                    <IconButton
+                        color="#fff"
+                        backgroundColor="#1E90FF"
+                        icon={<FaEdit />}
+                        onClick={handleClickEdit}
+                    />
+                    <IconButton
+                        color="#fff"
+                        backgroundColor="#EB0303"
+                        icon={<FaTrash />}
+                        onClick={handleClickDelete}
+                    />
+                </div>
             </div>
-            <div className="profile-candidate-card-academic-multiple-data-flex">
-                <TextInfo label="Instituição:" text={instituition} />
-                <TextInfo
-                    label="Área de estudo:"
-                    text={studyAreas.toString()}
-                />
-            </div>
-            <div className="profile-candidate-card-academic-multiple-data-flex">
-                <TextInfo label="Data de início:" text={dateStartFormated} />
-                <TextInfo
-                    label="Data de termino: "
-                    text={dateEndFormated ? dateEndFormated : 'Até o momento'}
-                />
-                <TextInfo label="Concluido: " text={conclued ? 'Sim' : 'Não'} />
-            </div>
-            <TextInfo label="Descrição:" text={description} />
+            <p className="profile-card-academic-description">{description}</p>
         </div>
     );
 }
 
 export default ProfileCandidateCardAcademic;
-export type { ProfileCandidateCardAcademicProps };

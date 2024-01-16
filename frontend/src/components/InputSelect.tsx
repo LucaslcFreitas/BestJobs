@@ -4,7 +4,7 @@ import '../styles/components/InputSelect.sass';
 type InputSelectProps = {
     options: OptionSelect[];
     value: string;
-    onChange: (value: string) => void;
+    onChange: ({ id, name }: { id: string; name: string }) => void;
     label: string;
 };
 
@@ -16,6 +16,15 @@ type OptionSelect = {
 function InputSelect({ options, value, onChange, label }: InputSelectProps) {
     const id = useId();
 
+    const handleOnChange = (selectedValue: string) => {
+        let selected = options[0];
+        for (let item of options) {
+            if (item.value === selectedValue) selected = item;
+        }
+        console.log(selected);
+        onChange({ id: selected.value, name: selected.label });
+    };
+
     return (
         <div className="input-select">
             <label htmlFor={id}>{label}</label>
@@ -24,7 +33,7 @@ function InputSelect({ options, value, onChange, label }: InputSelectProps) {
                 id={id}
                 name="inputselect"
                 value={value}
-                onChange={(e) => onChange(e.target.value)}
+                onChange={(e) => handleOnChange(e.target.value)}
             >
                 {options.map((item, index) => (
                     <option key={index} value={item.value}>

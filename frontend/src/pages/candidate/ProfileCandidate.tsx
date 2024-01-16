@@ -1,63 +1,60 @@
 import '../../styles/pages/candidate/ProfileCandidate.sass';
 import ProfileCandidateCard from '../../components/candidate/profile/ProfileCandidateCard';
-import ProfileCandidateCardData, {
-    ProfileCandidateCardDataProps,
-} from '../../components/candidate/profile/ProfileCandidateCardData';
-import { FaEdit } from 'react-icons/fa';
+import ProfileCandidateCardData from '../../components/candidate/profile/ProfileCandidateCardData';
 import { MdOutlineAdd } from 'react-icons/md';
-import IconLink from '../../components/IconLink';
 import IconButton from '../../components/IconButton';
-import ProfileCandidateCardAcademic, {
-    ProfileCandidateCardAcademicProps,
-} from '../../components/candidate/profile/ProfileCandidateCardAcademic';
+import ProfileCandidateCardAcademic from '../../components/candidate/profile/ProfileCandidateCardAcademic';
 import FormProfileCandidateAddAcademic from '../../components/candidate/profile/FormProfileCandidateAddAcademic';
 import { useEffect, useState } from 'react';
-import ProfileCandidateCardExperience, {
-    ProfileCandidateCardExperienceProps,
-} from '../../components/candidate/profile/ProfileCandidateCardExperience';
+import ProfileCandidateCardExperience from '../../components/candidate/profile/ProfileCandidateCardExperience';
 import FormProfileCandidateAddExperience from '../../components/candidate/profile/FormProfileCandidateAddExperience';
+import ContainerFormCondidateProfile from '../../components/candidate/profile/ContainerFormCondidateProfile';
 
-const userDataPre: ProfileCandidateCardDataProps = {
+//types
+import { AcademicGraduationType } from '../../shared/types/AcademicGraduationType';
+import { ExperienceType } from '../../shared/types/ExperienceType';
+import ModalEditProfile from '../../components/candidate/profile/ModalEditProfile';
+import { UserType } from '../../shared/types/UserData';
+
+const userDataPre: UserType = {
     name: 'Lucas Freitas',
     email: 'lucaslcfjf@hotmail.com',
     cpf: '11111111111',
     description: 'Desenvolvedor Front-end',
 };
 
-const academicGraduationsDataPre: ProfileCandidateCardAcademicProps[] = [
+const academicGraduationsDataPre: AcademicGraduationType[] = [
     {
         id: '79f4b4ea-570a-43ee-83f5-b591b638fe8e',
-        instituition: 'UFJF',
+        instituition: 'Universidade Federal de Juiz de Fora',
         courseName: 'Sistemas de Informação',
-        studyArea: [
-            {
-                id: 'd3b5b254-0e19-464c-9a33-33cc633b6312',
-                name: 'Engenharia/Tecnologia',
-            },
-        ],
+        studyArea: {
+            id: 'd3b5b254-0e19-464c-9a33-33cc633b6312',
+            name: 'Engenharia/Tecnologia',
+        },
         startDate: '2023-06-15T16:35:19.047Z',
-        dateConclusion: '2023-06-15T16:39:19.047Z',
+        endDate: '2023-06-15T16:39:19.047Z',
         conclued: true,
-        description: 'Curso Universitário',
+        description:
+            'Curso Universitário da área de tecnologia realizado em uma das principáis universidade de Minas Gerais.',
     },
     {
         id: '79f4b4ea-570a-43ee-83f5-b591b638fe8f',
-        instituition: 'IFET',
+        instituition: 'Instituto Federal de Juiz de Fora',
         courseName: 'Informática para Internet',
-        studyArea: [
-            {
-                id: 'd3b5b254-0e19-464c-9a33-33cc633b6312',
-                name: 'Engenharia/Tecnologia',
-            },
-        ],
+        studyArea: {
+            id: 'd3b5b254-0e19-464c-9a33-33cc633b6312',
+            name: 'Engenharia/Tecnologia',
+        },
         startDate: '2023-06-15T16:35:19.047Z',
-        dateConclusion: '2023-06-15T16:39:19.047Z',
+        endDate: '2023-06-15T16:39:19.047Z',
         conclued: true,
-        description: 'Curso Técnico',
+        description:
+            'Curso técnico voltado para desenvolvimento de sistemas web.',
     },
 ];
 
-const experiencesDataPre: ProfileCandidateCardExperienceProps[] = [
+const experiencesDataPre: ExperienceType[] = [
     {
         id: '1466d8e9-a3a8-411f-aa43-a685ca64e672',
         position: 'Desenvolvedor Fron-end',
@@ -102,20 +99,56 @@ const experiencesDataPre: ProfileCandidateCardExperienceProps[] = [
     },
 ];
 
+const academicDataEmpty: AcademicGraduationType = {
+    id: '',
+    courseName: '',
+    instituition: '',
+    studyArea: {
+        id: '',
+        name: '',
+    },
+    startDate: '',
+    endDate: '',
+    conclued: false,
+    description: '',
+};
+
+const experienceDataEmpty: ExperienceType = {
+    id: '',
+    position: '',
+    company_name: '',
+    locality: '',
+    type_locality: {
+        id: '',
+        name: '',
+    },
+    job_type: {
+        id: '',
+        name: '',
+    },
+    sector: {
+        id: '',
+        name: '',
+    },
+    description: '',
+    start: '',
+    end: '',
+};
+
 function ProfileCandidate() {
     //Datas
-    const [userData, setUserData] = useState<ProfileCandidateCardDataProps>({
+    const [userData, setUserData] = useState<UserType>({
         name: '',
         email: '',
         cpf: '',
         description: '',
     });
     const [academicGraduationsData, setAcademicGraduationData] = useState<
-        ProfileCandidateCardAcademicProps[]
+        AcademicGraduationType[]
     >([]);
-    const [experiencesData, setExperienceData] = useState<
-        ProfileCandidateCardExperienceProps[]
-    >([]);
+    const [experiencesData, setExperiencesData] = useState<ExperienceType[]>(
+        []
+    );
 
     //Loaders
     const [userLoading, setUserLoading] = useState(true);
@@ -125,12 +158,18 @@ function ProfileCandidate() {
     //FormsShows
     const [showAddFormAcademic, setShowAddFormAcademic] = useState(false);
     const [showAddFormExperience, setShowAddFormExperience] = useState(false);
+    const [showEditFormAcademic, setShowEditFormAcademic] = useState(false);
+    const [academicEditData, setAcademicEditData] =
+        useState<AcademicGraduationType>(academicDataEmpty);
+    const [showEditFormExperience, setShowEditFormExperience] = useState(false);
+    const [experienceEditData, setExperienceEditData] =
+        useState<ExperienceType>(experienceDataEmpty);
 
     useEffect(() => {
         const userTimeout = setTimeout(() => {
             setUserData(userDataPre);
             setAcademicGraduationData(academicGraduationsDataPre);
-            setExperienceData(experiencesDataPre);
+            setExperiencesData(experiencesDataPre);
 
             setUserLoading(false);
             setAcademicLoading(false);
@@ -143,51 +182,62 @@ function ProfileCandidate() {
     }, []);
 
     //Academic Functions
-    const handleEditAcademicPost = (id: string) => {
-        console.log(id);
+    const handleSetEditAcademic = (academicData: AcademicGraduationType) => {
+        setAcademicEditData(academicData);
+        setShowEditFormAcademic(true);
+        console.log(academicData);
     };
     const handleAddAcademicGraduation = (
-        courseName: string,
-        instituition: string,
-        studyAreaId: string,
-        startDate: string,
-        endDate: string,
-        conclued: boolean,
-        description: string
+        graduation: AcademicGraduationType
     ) => {
+        const newGraduations = academicGraduationsData.concat([graduation]);
+        //Setar loadind para API
+        setAcademicGraduationData(newGraduations);
+        setShowAddFormAcademic(false);
+    };
+    const handleEditAcademicGraduation = ({
+        id,
+        courseName,
+        instituition,
+        studyArea,
+        startDate,
+        endDate,
+        conclued,
+        description,
+    }: AcademicGraduationType) => {
         console.log(
+            id,
             courseName,
             instituition,
-            studyAreaId,
+            studyArea,
             startDate,
             endDate,
             conclued,
             description
         );
     };
+    const handleDeleteAcademic = (id: string) => {
+        console.log(id);
+    };
 
-    const handleAddAcademicExperience = (
-        position: string,
-        company_name: string,
-        locality: string,
-        type_locality_id: string,
-        job_type_id: string,
-        sector_id: string,
-        description: string,
-        start: string,
-        end: string
-    ) => {
-        console.log(
-            position,
-            company_name,
-            locality,
-            type_locality_id,
-            job_type_id,
-            sector_id,
-            description,
-            start,
-            end
-        );
+    //Experience Functions
+    const handleSetEditExperience = (experienceData: ExperienceType) => {
+        setExperienceEditData(experienceData);
+        setShowEditFormExperience(true);
+        console.log(experienceData);
+    };
+    const handleAddExperience = (experience: ExperienceType) => {
+        const newExperiences = experiencesData.concat([experience]);
+        //Setar loadind para API
+        setExperiencesData(newExperiences);
+        setShowAddFormExperience(false);
+    };
+    const handleEditExperience = (experience: ExperienceType) => {
+        console.log(experience);
+    };
+
+    const handleDeleteExperience = (id: string) => {
+        console.log(id);
     };
 
     const handleShowFormAddAcademic = () => {
@@ -233,16 +283,7 @@ function ProfileCandidate() {
             <div className="profile-candidate-cards">
                 <ProfileCandidateCard
                     title="Dados Pessoais"
-                    icons={[
-                        <IconLink
-                            key={1}
-                            color="#fff"
-                            backgroundColor="#1E90FF"
-                            icon={<FaEdit />}
-                            to="/home"
-                            disable={userLoading}
-                        />,
-                    ]}
+                    icons={[]}
                     loading={userLoading}
                 >
                     <ProfileCandidateCardData {...userData} />
@@ -262,21 +303,67 @@ function ProfileCandidate() {
                     loading={academicLoading}
                 >
                     <>
+                        <ModalEditProfile
+                            show={showEditFormAcademic}
+                            onDismiss={() => setShowEditFormAcademic(false)}
+                        >
+                            <FormProfileCandidateAddAcademic
+                                changeVisible={setShowEditFormAcademic}
+                                title="Editar formação"
+                                onAddForm={handleEditAcademicGraduation}
+                                addOperation={false}
+                                preId={academicEditData.id}
+                                preCourseName={academicEditData.courseName}
+                                preInstituition={academicEditData.instituition}
+                                preStudyArea={academicEditData.studyArea}
+                                preStartDate={academicEditData.startDate}
+                                preEndDate={academicEditData.endDate}
+                                preInProgress={
+                                    academicEditData.endDate ? false : true
+                                }
+                                preConclued={academicEditData.conclued}
+                                preDescription={academicEditData.description}
+                            />
+                        </ModalEditProfile>
                         {academicGraduationsData &&
-                            academicGraduationsData.map((graduation) => (
-                                <ProfileCandidateCardAcademic
-                                    key={graduation.id}
-                                    {...graduation}
-                                    onClickEdit={handleEditAcademicPost}
-                                />
-                            ))}
-
-                        <FormProfileCandidateAddAcademic
+                            academicGraduationsData.map(
+                                (graduation, index, academicArray) => {
+                                    if (index < academicArray.length - 1) {
+                                        return (
+                                            <>
+                                                <ProfileCandidateCardAcademic
+                                                    key={graduation.id}
+                                                    {...graduation}
+                                                    onClickEdit={
+                                                        handleSetEditAcademic
+                                                    }
+                                                    onClickDelete={
+                                                        handleDeleteAcademic
+                                                    }
+                                                />
+                                                <hr />
+                                            </>
+                                        );
+                                    }
+                                    return (
+                                        <ProfileCandidateCardAcademic
+                                            key={graduation.id}
+                                            {...graduation}
+                                            onClickEdit={handleSetEditAcademic}
+                                            onClickDelete={handleDeleteAcademic}
+                                        />
+                                    );
+                                }
+                            )}
+                        <ContainerFormCondidateProfile
                             show={showAddFormAcademic}
-                            changeVisible={setShowAddFormAcademic}
-                            title="Adicionar nova formação"
-                            onAddForm={handleAddAcademicGraduation}
-                        />
+                        >
+                            <FormProfileCandidateAddAcademic
+                                changeVisible={setShowAddFormAcademic}
+                                title="Adicionar nova formação"
+                                onAddForm={handleAddAcademicGraduation}
+                            />
+                        </ContainerFormCondidateProfile>
                     </>
                 </ProfileCandidateCard>
                 <ProfileCandidateCard
@@ -294,19 +381,69 @@ function ProfileCandidate() {
                     loading={experienceLoading}
                 >
                     <>
+                        <ModalEditProfile
+                            show={showEditFormExperience}
+                            onDismiss={() => setShowEditFormExperience(false)}
+                        >
+                            <FormProfileCandidateAddExperience
+                                changeVisible={setShowEditFormExperience}
+                                title="Editar experiência"
+                                onAddForm={handleEditExperience}
+                                addOperation={false}
+                                preId={experienceEditData.id}
+                                prePosition={experienceEditData.position}
+                                preCompanyName={experienceEditData.company_name}
+                                preLocality={experienceEditData.locality}
+                                preJobType={experienceEditData.job_type}
+                                preSector={experienceEditData.sector}
+                                preDescription={experienceEditData.description}
+                                preStart={experienceEditData.start}
+                                preEnd={experienceEditData.end}
+                            />
+                        </ModalEditProfile>
                         {experiencesData &&
-                            experiencesData.map((experience) => (
-                                <ProfileCandidateCardExperience
-                                    key={experience.id}
-                                    {...experience}
-                                />
-                            ))}
-                        <FormProfileCandidateAddExperience
+                            experiencesData.map(
+                                (experience, index, experienceArray) => {
+                                    if (index < experienceArray.length - 1) {
+                                        return (
+                                            <>
+                                                <ProfileCandidateCardExperience
+                                                    key={experience.id}
+                                                    {...experience}
+                                                    onClickEdit={
+                                                        handleSetEditExperience
+                                                    }
+                                                    onClickDelete={
+                                                        handleDeleteExperience
+                                                    }
+                                                />
+                                                <hr />
+                                            </>
+                                        );
+                                    }
+                                    return (
+                                        <ProfileCandidateCardExperience
+                                            key={experience.id}
+                                            {...experience}
+                                            onClickEdit={
+                                                handleSetEditExperience
+                                            }
+                                            onClickDelete={
+                                                handleDeleteExperience
+                                            }
+                                        />
+                                    );
+                                }
+                            )}
+                        <ContainerFormCondidateProfile
                             show={showAddFormExperience}
-                            changeVisible={setShowAddFormExperience}
-                            title="Adicionar nova experiência"
-                            onAddForm={handleAddAcademicExperience}
-                        />
+                        >
+                            <FormProfileCandidateAddExperience
+                                changeVisible={setShowAddFormExperience}
+                                title="Adicionar nova experiência"
+                                onAddForm={handleAddExperience}
+                            />
+                        </ContainerFormCondidateProfile>
                     </>
                 </ProfileCandidateCard>
             </div>
