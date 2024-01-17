@@ -1,12 +1,14 @@
 import { Request, Response } from 'express';
 import { prismaClient } from '../../database/prismaClient';
 
-export class GetMyVacancieController {
+export class GetVacancieCompanyController {
     async handle(request: Request, response: Response) {
-        const userId = request.auth_user_id;
+        const { id } = request.params;
+        const userId: string = request.auth_user_id!;
 
-        const myVacancies = await prismaClient.vacancie.findMany({
+        const vacancie = await prismaClient.vacancie.findUnique({
             where: {
+                id,
                 id_company: userId,
             },
             select: {
@@ -35,11 +37,6 @@ export class GetMyVacancieController {
                         name: true,
                     },
                 },
-                Vacancie_skill: {
-                    select: {
-                        skill: true,
-                    },
-                },
                 company: {
                     select: {
                         name: true,
@@ -47,6 +44,11 @@ export class GetMyVacancieController {
                         number_of_employees: true,
                         slogan: true
                     }
+                },
+                Vacancie_skill: {
+                    select: {
+                        skill: true,
+                    },
                 },
                 Candidacy: {
                     select: {
@@ -92,6 +94,10 @@ export class GetMyVacancieController {
             },
         });
 
-        return response.json(myVacancies);
+        if (!vacancie) {
+            return response.status(404).json({ error: 'Vacancie not found' });
+        }
+
+        return response.json(vacancie);
     }
 }

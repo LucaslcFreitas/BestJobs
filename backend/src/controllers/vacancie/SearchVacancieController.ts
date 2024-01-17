@@ -10,6 +10,7 @@ type SearchVacancieQuery = {
 
 export class SearchVacancieController {
     async handle(request: Request, response: Response) {
+        const userId = request.auth_user_id!;
         const {
             page = 1,
             sector,
@@ -77,9 +78,44 @@ export class SearchVacancieController {
                         skill: true,
                     },
                 },
+                company: {
+                    select: {
+                        name: true,
+                        description: true,
+                        number_of_employees: true,
+                        slogan: true
+                    }
+                },
+                Candidacy: {
+                    select: {
+                        id: true,
+                        id_candidate: true,
+                    }
+                }
             },
         });
 
-        return response.json({ vacancies, pages });
+        const vacanciesResposnse = vacancies.map((item) => {
+            let isCandidate = false;
+
+            if (item.Candidacy.some(e => e.id_candidate === userId)) {
+                isCandidate = true;
+            }
+
+            return (
+                {
+                    ...item,
+                    Candidacy: item.Candidacy.length,
+                    is_candidate: isCandidate
+                }
+            );
+        });
+
+        // [
+        //     ...vacancies,
+        //     // Candidacy: vacancies., //Tentar tirar as candidaturas e incluir sua contagem
+        // ];
+
+        return response.json({ vacancies: vacanciesResposnse, pages, number_vacancies });
     }
 }

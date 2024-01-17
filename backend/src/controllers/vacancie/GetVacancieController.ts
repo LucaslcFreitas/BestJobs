@@ -4,6 +4,7 @@ import { prismaClient } from '../../database/prismaClient';
 export class GetVacancieController {
     async handle(request: Request, response: Response) {
         const { id } = request.params;
+        const userId = request.auth_user_id!;
 
         const vacancie = await prismaClient.vacancie.findUnique({
             where: {
@@ -40,6 +41,20 @@ export class GetVacancieController {
                         skill: true,
                     },
                 },
+                company: {
+                    select: {
+                        name: true,
+                        description: true,
+                        number_of_employees: true,
+                        slogan: true
+                    }
+                },
+                Candidacy: {
+                    select: {
+                        id: true,
+                        id_candidate: true,
+                    }
+                },
             },
         });
 
@@ -47,6 +62,17 @@ export class GetVacancieController {
             return response.status(404).json({ error: 'Vacancie not found' });
         }
 
-        return response.json(vacancie);
+        let isCandidate = false;
+        if (vacancie.Candidacy.some(item => item.id_candidate === userId)) {
+            isCandidate = true;
+        }
+
+        const vacancieResposnse = {
+            ...vacancie,
+            Candidacy: vacancie.Candidacy.length,
+            is_candidate: isCandidate
+        };
+
+        return response.json(vacancieResposnse);
     }
 }

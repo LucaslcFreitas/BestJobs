@@ -46,11 +46,34 @@ export class GetMyCandidaciesController {
                                 skill: true,
                             },
                         },
+                        company: {
+                            select: {
+                                name: true,
+                                description: true,
+                                number_of_employees: true,
+                                slogan: true
+                            }
+                        },
+                        Candidacy: {
+                            select: {
+                                id: true
+                            }
+                        }
                     },
                 },
             },
         });
 
-        return response.json(candidacies);
+        const candidaciesResposnse = candidacies.map((item) => (
+            {
+                ...item,
+                vacancie: {
+                    ...item.vacancie,
+                    Candidacy: item.vacancie.Candidacy.length
+                },
+            }
+        ));
+
+        return response.json(candidaciesResposnse);
     }
 }
