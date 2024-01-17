@@ -34,6 +34,7 @@ import { DisapproveCandidacyController } from '../controllers/candidacy/Desappro
 import { GetMyCandidaciesController } from '../controllers/candidacy/GetMyCandidaciesController';
 import { GetCandidateController } from '../controllers/candidate/GetCandidateController';
 import { GetVacancieCompanyController } from '../controllers/vacancie/GetVacancieCompanyController';
+import { CloseVacancieController } from '../controllers/vacancie/CloseVacancieController';
 
 const routes = Router();
 
@@ -95,6 +96,7 @@ routes.delete(
     new DeleteVacancieController().handle
 );
 routes.put('/vacancie/:id', verifyJWT, new UpdateVacancieController().handle);
+routes.put('/vacancie/close/:id', verifyJWT, new CloseVacancieController().handle);
 
 //Candidacy
 routes.post('/candidacy', verifyJWT, new CreateCandidacyController().handle);

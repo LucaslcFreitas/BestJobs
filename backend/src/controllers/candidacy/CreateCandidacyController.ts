@@ -23,6 +23,7 @@ export class CreateCandidacyController {
         const vacancie = await prismaClient.vacancie.findUnique({
             where: {
                 id: id_vacancie,
+                publisehd: true,
             },
         });
 

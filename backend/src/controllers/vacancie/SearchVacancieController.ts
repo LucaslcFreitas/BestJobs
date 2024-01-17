@@ -111,11 +111,6 @@ export class SearchVacancieController {
             );
         });
 
-        // [
-        //     ...vacancies,
-        //     // Candidacy: vacancies., //Tentar tirar as candidaturas e incluir sua contagem
-        // ];
-
         return response.json({ vacancies: vacanciesResposnse, pages, number_vacancies });
     }
 }
