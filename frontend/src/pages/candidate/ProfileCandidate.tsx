@@ -365,33 +365,17 @@ function ProfileCandidate() {
                         </ModalEditProfile>
                         {academicGraduationsData &&
                             academicGraduationsData.map(
-                                (graduation, index, academicArray) => {
-                                    if (index < academicArray.length - 1) {
-                                        return (
-                                            <>
-                                                <ProfileCandidateCardAcademic
-                                                    key={graduation.id}
-                                                    {...graduation}
-                                                    onClickEdit={
-                                                        handleSetEditAcademic
-                                                    }
-                                                    onClickDelete={
-                                                        handleDeleteAcademic
-                                                    }
-                                                />
-                                                <hr />
-                                            </>
-                                        );
-                                    }
-                                    return (
-                                        <ProfileCandidateCardAcademic
-                                            key={graduation.id}
-                                            {...graduation}
-                                            onClickEdit={handleSetEditAcademic}
-                                            onClickDelete={handleDeleteAcademic}
-                                        />
-                                    );
-                                }
+                                (graduation, index, academicArray) => (
+                                    <ProfileCandidateCardAcademic
+                                        key={graduation.id}
+                                        {...graduation}
+                                        onClickEdit={handleSetEditAcademic}
+                                        onClickDelete={handleDeleteAcademic}
+                                        separator={
+                                            index < academicArray.length - 1
+                                        }
+                                    />
+                                )
                             )}
                         <ContainerFormCondidateProfile
                             show={showAddFormAcademic}
@@ -441,37 +425,17 @@ function ProfileCandidate() {
                         </ModalEditProfile>
                         {experiencesData &&
                             experiencesData.map(
-                                (experience, index, experienceArray) => {
-                                    if (index < experienceArray.length - 1) {
-                                        return (
-                                            <>
-                                                <ProfileCandidateCardExperience
-                                                    key={experience.id}
-                                                    {...experience}
-                                                    onClickEdit={
-                                                        handleSetEditExperience
-                                                    }
-                                                    onClickDelete={
-                                                        handleDeleteExperience
-                                                    }
-                                                />
-                                                <hr />
-                                            </>
-                                        );
-                                    }
-                                    return (
-                                        <ProfileCandidateCardExperience
-                                            key={experience.id}
-                                            {...experience}
-                                            onClickEdit={
-                                                handleSetEditExperience
-                                            }
-                                            onClickDelete={
-                                                handleDeleteExperience
-                                            }
-                                        />
-                                    );
-                                }
+                                (experience, index, experienceArray) => (
+                                    <ProfileCandidateCardExperience
+                                        key={experience.id}
+                                        {...experience}
+                                        onClickEdit={handleSetEditExperience}
+                                        onClickDelete={handleDeleteExperience}
+                                        separator={
+                                            index < experienceArray.length - 1
+                                        }
+                                    />
+                                )
                             )}
                         <ContainerFormCondidateProfile
                             show={showAddFormExperience}

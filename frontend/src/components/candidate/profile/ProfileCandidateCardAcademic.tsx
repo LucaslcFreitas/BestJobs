@@ -6,6 +6,7 @@ import { AcademicGraduationType } from '../../../shared/types/AcademicGraduation
 type ProfileCandidateCardAcademicProps = {
     onClickEdit: (AcademicData: AcademicGraduationType) => void;
     onClickDelete: (id: string) => void;
+    separator?: boolean;
 } & AcademicGraduationType;
 
 function ProfileCandidateCardAcademic({
@@ -19,6 +20,7 @@ function ProfileCandidateCardAcademic({
     description,
     onClickEdit,
     onClickDelete,
+    separator = false,
 }: ProfileCandidateCardAcademicProps) {
     const dateStartFormated = new Date(startDate).toLocaleDateString('pt-br');
     const dateEndFormated = endDate
@@ -44,43 +46,48 @@ function ProfileCandidateCardAcademic({
     };
 
     return (
-        <div className="profile-candidate-card-academic">
-            <div className="profile-card-academic-data">
-                <div>
-                    <h4>{courseName}</h4>
-                    <p className="profile-card-academic-paragraph">
-                        {instituition}
-                    </p>
-                    <p className="profile-card-academic-paragraph">
-                        {dateStartFormated} -{' '}
-                        {!endDate ? 'Em progresso' : dateEndFormated} •{' '}
-                        {endDate
-                            ? conclued
-                                ? 'Concluído'
-                                : 'Não Concluído'
-                            : ''}
-                    </p>
-                    <p className="profile-card-academic-paragraph">
-                        Área: {studyArea.name}
-                    </p>
+        <>
+            <div className="profile-candidate-card-academic">
+                <div className="profile-card-academic-data">
+                    <div>
+                        <h4>{courseName}</h4>
+                        <p className="profile-card-academic-paragraph">
+                            {instituition}
+                        </p>
+                        <p className="profile-card-academic-paragraph">
+                            {dateStartFormated} -{' '}
+                            {!endDate ? 'Em progresso' : dateEndFormated} •{' '}
+                            {endDate
+                                ? conclued
+                                    ? 'Concluído'
+                                    : 'Não Concluído'
+                                : ''}
+                        </p>
+                        <p className="profile-card-academic-paragraph">
+                            Área: {studyArea.name}
+                        </p>
+                    </div>
+                    <div className="profile-card-academic-buttons">
+                        <IconButton
+                            color="#fff"
+                            backgroundColor="#1E90FF"
+                            icon={<FaEdit />}
+                            onClick={handleClickEdit}
+                        />
+                        <IconButton
+                            color="#fff"
+                            backgroundColor="#EB0303"
+                            icon={<FaTrash />}
+                            onClick={handleClickDelete}
+                        />
+                    </div>
                 </div>
-                <div className="profile-card-academic-buttons">
-                    <IconButton
-                        color="#fff"
-                        backgroundColor="#1E90FF"
-                        icon={<FaEdit />}
-                        onClick={handleClickEdit}
-                    />
-                    <IconButton
-                        color="#fff"
-                        backgroundColor="#EB0303"
-                        icon={<FaTrash />}
-                        onClick={handleClickDelete}
-                    />
-                </div>
+                <p className="profile-card-academic-description">
+                    {description}
+                </p>
             </div>
-            <p className="profile-card-academic-description">{description}</p>
-        </div>
+            {separator && <hr />}
+        </>
     );
 }
 

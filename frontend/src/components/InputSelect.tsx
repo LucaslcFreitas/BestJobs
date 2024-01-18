@@ -6,6 +6,7 @@ type InputSelectProps = {
     value: string;
     onChange: ({ id, name }: { id: string; name: string }) => void;
     label: string;
+    light?: boolean;
 };
 
 type OptionSelect = {
@@ -13,7 +14,13 @@ type OptionSelect = {
     label: string;
 };
 
-function InputSelect({ options, value, onChange, label }: InputSelectProps) {
+function InputSelect({
+    options,
+    value,
+    onChange,
+    label,
+    light = false,
+}: InputSelectProps) {
     const id = useId();
 
     const handleOnChange = (selectedValue: string) => {
@@ -26,7 +33,7 @@ function InputSelect({ options, value, onChange, label }: InputSelectProps) {
     };
 
     return (
-        <div className="input-select">
+        <div className={`input-select ${light && 'input-select-light'}`}>
             <label htmlFor={id}>{label}</label>
             <select
                 required
