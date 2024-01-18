@@ -7,17 +7,15 @@ import DefaultLayout from '../layouts/DefaultLayout';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import Home from '../pages/Home';
-import CompanyHomepage from '../pages/company/CompanyHomepage';
-import ProfileCompany from '../pages/company/ProfileCompany';
+import NotFound404 from '../pages/NotFound404';
+//company
 import MyVacancies from '../pages/company/MyVacancies';
 import CreateEditVacancie from '../pages/company/CreateEditVacancie';
-import CandidateHomepage from '../pages/candidate/CandidateHomepage';
+import ViewVacancie from '../pages/company/ViewVacancie';
+//Candidate
 import ProfileCandidate from '../pages/candidate/ProfileCandidate';
-import CreateEditExperience from '../pages/candidate/CreateEditExperience';
-import CreateEditGraduation from '../pages/candidate/CreateEditGraduation';
 import MyCandidacy from '../pages/candidate/MyCandidacy';
 import SearchVacancies from '../pages/candidate/SearchVacancies';
-import Vacancie from '../pages/candidate/Vacancie';
 
 function Router() {
     return (
@@ -28,50 +26,31 @@ function Router() {
                 <Route path="/" element={<DefaultLayout />}>
                     <Route index element={<Home />} />
                     <Route path="/home" element={<Home />} />
-                    <Route path="/company" element={<CompanyHomepage />} />
-                    <Route
-                        path="/company/profile"
-                        element={<ProfileCompany />}
-                    />
+                    <Route path="/company" element={<MyVacancies />} />
                     <Route
                         path="/company/myvacancies"
                         element={<MyVacancies />}
                     />
-                    <Route
-                        path="/company/create"
-                        element={<CreateEditVacancie />}
-                    />
-                    <Route
-                        path="/company/edit/:id"
-                        element={<CreateEditVacancie />}
-                    />
-                    <Route path="/candidate" element={<CandidateHomepage />} />
+                    <Route path="/candidate" element={<ProfileCandidate />} />
                     <Route
                         path="/candidate/profile"
                         element={<ProfileCandidate />}
-                    />
-                    <Route
-                        path="/candidate/experience"
-                        element={<CreateEditExperience />}
-                    />
-                    <Route
-                        path="/candidate/experience/:id"
-                        element={<CreateEditExperience />}
-                    />
-                    <Route
-                        path="/candidate/graduation"
-                        element={<CreateEditGraduation />}
-                    />
-                    <Route
-                        path="/candidate/graduation/:id"
-                        element={<CreateEditGraduation />}
                     />
                     <Route
                         path="/candidate/candidacy"
                         element={<MyCandidacy />}
                     />
                     <Route path="/vacancie" element={<SearchVacancies />} />
-                    <Route path="/vacancie/:id" element={<Vacancie />} />
+                    <Route path="/vacancie/:id" element={<ViewVacancie />} />
+                    <Route
+                        path="/vacancie/create"
+                        element={<CreateEditVacancie />}
+                    />
+                    <Route
+                        path="/vacancie/edit/:id"
+                        element={<CreateEditVacancie />}
+                    />
+                    <Route path="*" element={<NotFound404 />} />
                 </Route>
             </Routes>
         </BrowserRouter>
