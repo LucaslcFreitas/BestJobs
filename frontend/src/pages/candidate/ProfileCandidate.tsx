@@ -1,4 +1,9 @@
 import '../../styles/pages/candidate/ProfileCandidate.sass';
+import { useDispatch } from 'react-redux';
+import {
+    showAlertConfirm,
+    hideAlertConfirm,
+} from '../../redux/alert/sliceAlertConfirm';
 import ProfileCandidateCard from '../../components/candidate/profile/ProfileCandidateCard';
 import ProfileCandidateCardData from '../../components/candidate/profile/ProfileCandidateCardData';
 import { MdOutlineAdd } from 'react-icons/md';
@@ -136,6 +141,9 @@ const experienceDataEmpty: ExperienceType = {
 };
 
 function ProfileCandidate() {
+    // const alertInfo = useSelector(useAlertInfo);
+    const dispatch = useDispatch();
+
     //Datas
     const [userData, setUserData] = useState<UserType>({
         name: '',
@@ -217,6 +225,21 @@ function ProfileCandidate() {
         );
     };
     const handleDeleteAcademic = (id: string) => {
+        dispatch(
+            showAlertConfirm({
+                title: 'Exclusão de Formação Acadêmica',
+                info: 'Deseja realmente excluir este registro de formação?',
+                textButtonCancel: 'Cancelar',
+                textButtonConfirm: 'Excluir',
+                show: true,
+                onDismiss: () => dispatch(hideAlertConfirm()),
+                onConfirm: () => {
+                    console.log('excluido!');
+                    //Chamar API para exclusão de formação acadêmica
+                    dispatch(hideAlertConfirm());
+                },
+            })
+        );
         console.log(id);
     };
 
@@ -237,6 +260,21 @@ function ProfileCandidate() {
     };
 
     const handleDeleteExperience = (id: string) => {
+        dispatch(
+            showAlertConfirm({
+                title: 'Exclusão de Experiência',
+                info: 'Deseja realmente excluir este registro de experiência?',
+                textButtonCancel: 'Cancelar',
+                textButtonConfirm: 'Excluir',
+                show: true,
+                onDismiss: () => dispatch(hideAlertConfirm()),
+                onConfirm: () => {
+                    console.log('excluido!');
+                    //Chamar API para exclusão de experiência
+                    dispatch(hideAlertConfirm());
+                },
+            })
+        );
         console.log(id);
     };
 

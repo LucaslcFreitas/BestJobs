@@ -41,7 +41,7 @@ function Footer() {
                         <Link to={'/company/create'}>Publicar Vagas</Link>
                     </div>
                 </div>
-                <p>&copy; Best Jobs - 2023 - Todos os Direitos Reservados</p>
+                <p>&copy; Best Jobs - 2024 - Todos os Direitos Reservados</p>
             </div>
         </footer>
     );
