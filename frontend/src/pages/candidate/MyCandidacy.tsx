@@ -320,7 +320,7 @@ function MyCandidacy() {
                           />
                       ))
                     : !loading && (
-                          <div>
+                          <div className="my-candidacy-no-data">
                               <p>Nenhuma candidatura encontrada.</p>
                           </div>
                       )}

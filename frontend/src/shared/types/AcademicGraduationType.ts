@@ -1,13 +1,13 @@
 export type AcademicGraduationType = {
     id: string;
-    courseName: string;
+    course_name: string;
     instituition: string;
-    studyArea: {
+    study_area: {
         id: string,
         name: string
     };
-    startDate: string;
-    endDate: string;
+    start_date: string;
+    date_conclusion: string;
     conclued: boolean;
     description: string;
 }
