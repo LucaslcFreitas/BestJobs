@@ -24,9 +24,9 @@ function ButtonSecondary({
             className="button-secondary"
             type={'button'}
             onClick={handleClick}
-            style={{ color, backgroundColor }}
+            style={{ backgroundColor }}
         >
-            <p>{text}</p>
+            <p style={{ color }}>{text}</p>
         </button>
     );
 }

@@ -10,12 +10,15 @@
     bottom: 0
     right: 0
     background-color: rgba(46, 44, 44, 0.5)
+    animation: fadeIn 300ms
 
 .alert-confirm-content
     width: 400px
     background-color: variables.$background-primary
     border-radius: 5px
     overflow: hidden
+    transform: translateY(-10px)
+    animation: showContent 300ms
 
     >h3
         padding: 10px
@@ -38,3 +41,17 @@
     flex-direction: row
     gap: 5px
     width: 60%
+
+@keyframes fadeIn
+    0%
+        opacity: 0
+    100%
+        opacity: 1
+
+@keyframes showContent
+    0%
+        transform: translateY(10px)
+        opacity: 0
+    100%
+        transform: translateY(-10px)
+        opacity: 1

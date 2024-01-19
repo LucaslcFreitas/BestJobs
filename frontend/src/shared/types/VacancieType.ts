@@ -5,6 +5,14 @@ type SearchVacancieType = {
     number_vacancies: number;
 }
 
+type MyCandidacyType = {
+    id: string;
+    create_at: string;
+    approved: boolean;
+    finished: boolean;
+    vacancie: VacancieType;
+}
+
 type VacancieType = {
     id: string;
     name_position: string;
@@ -19,7 +27,7 @@ type VacancieType = {
     Vacancie_skill: { skill: SkillType }[];
     company: CompanyType;
     Candidacy: number;
-    is_candidate: boolean;
+    is_candidate?: boolean;
 }
 
 type LocalityType = {
@@ -50,4 +58,4 @@ type CompanyType = {
     slogan: string;
 }
 
-export type { SearchVacancieType, VacancieType, LocalityType, SectorType, JobType, SkillType, CompanyType };
+export type { SearchVacancieType, MyCandidacyType, VacancieType, LocalityType, SectorType, JobType, SkillType, CompanyType };
