@@ -32,13 +32,13 @@ const academicGraduationsDataPre: AcademicGraduationType[] = [
     {
         id: '79f4b4ea-570a-43ee-83f5-b591b638fe8e',
         instituition: 'Universidade Federal de Juiz de Fora',
-        courseName: 'Sistemas de Informação',
-        studyArea: {
+        course_name: 'Sistemas de Informação',
+        study_area: {
             id: 'd3b5b254-0e19-464c-9a33-33cc633b6312',
             name: 'Engenharia/Tecnologia',
         },
-        startDate: '2023-06-15T16:35:19.047Z',
-        endDate: '2023-06-15T16:39:19.047Z',
+        start_date: '2023-06-15T16:35:19.047Z',
+        date_conclusion: '2023-06-15T16:39:19.047Z',
         conclued: true,
         description:
             'Curso Universitário da área de tecnologia realizado em uma das principáis universidade de Minas Gerais.',
@@ -46,13 +46,13 @@ const academicGraduationsDataPre: AcademicGraduationType[] = [
     {
         id: '79f4b4ea-570a-43ee-83f5-b591b638fe8f',
         instituition: 'Instituto Federal de Juiz de Fora',
-        courseName: 'Informática para Internet',
-        studyArea: {
+        course_name: 'Informática para Internet',
+        study_area: {
             id: 'd3b5b254-0e19-464c-9a33-33cc633b6312',
             name: 'Engenharia/Tecnologia',
         },
-        startDate: '2023-06-15T16:35:19.047Z',
-        endDate: '2023-06-15T16:39:19.047Z',
+        start_date: '2023-06-15T16:35:19.047Z',
+        date_conclusion: '2023-06-15T16:39:19.047Z',
         conclued: true,
         description:
             'Curso técnico voltado para desenvolvimento de sistemas web.',
@@ -106,14 +106,14 @@ const experiencesDataPre: ExperienceType[] = [
 
 const academicDataEmpty: AcademicGraduationType = {
     id: '',
-    courseName: '',
+    course_name: '',
     instituition: '',
-    studyArea: {
+    study_area: {
         id: '',
         name: '',
     },
-    startDate: '',
-    endDate: '',
+    start_date: '',
+    date_conclusion: '',
     conclued: false,
     description: '',
 };
@@ -203,26 +203,10 @@ function ProfileCandidate() {
         setAcademicGraduationData(newGraduations);
         setShowAddFormAcademic(false);
     };
-    const handleEditAcademicGraduation = ({
-        id,
-        courseName,
-        instituition,
-        studyArea,
-        startDate,
-        endDate,
-        conclued,
-        description,
-    }: AcademicGraduationType) => {
-        console.log(
-            id,
-            courseName,
-            instituition,
-            studyArea,
-            startDate,
-            endDate,
-            conclued,
-            description
-        );
+    const handleEditAcademicGraduation = (
+        graduation: AcademicGraduationType
+    ) => {
+        console.log(graduation);
     };
     const handleDeleteAcademic = (id: string) => {
         dispatch(
@@ -351,13 +335,15 @@ function ProfileCandidate() {
                                 onAddForm={handleEditAcademicGraduation}
                                 addOperation={false}
                                 preId={academicEditData.id}
-                                preCourseName={academicEditData.courseName}
+                                preCourseName={academicEditData.course_name}
                                 preInstituition={academicEditData.instituition}
-                                preStudyArea={academicEditData.studyArea}
-                                preStartDate={academicEditData.startDate}
-                                preEndDate={academicEditData.endDate}
+                                preStudyArea={academicEditData.study_area}
+                                preStartDate={academicEditData.start_date}
+                                preEndDate={academicEditData.date_conclusion}
                                 preInProgress={
-                                    academicEditData.endDate ? false : true
+                                    academicEditData.date_conclusion
+                                        ? false
+                                        : true
                                 }
                                 preConclued={academicEditData.conclued}
                                 preDescription={academicEditData.description}

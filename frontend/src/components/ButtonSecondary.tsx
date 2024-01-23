@@ -23,6 +23,7 @@ function ButtonSecondary({
         <button
             className="button-secondary"
             type={'button'}
+            disabled={disable}
             onClick={handleClick}
             style={{ backgroundColor }}
         >

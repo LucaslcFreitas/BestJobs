@@ -12,29 +12,29 @@ type ProfileCandidateCardAcademicProps = {
 function ProfileCandidateCardAcademic({
     id,
     instituition,
-    courseName,
-    studyArea,
-    startDate,
-    endDate,
+    course_name,
+    study_area,
+    start_date,
+    date_conclusion,
     conclued,
     description,
     onClickEdit,
     onClickDelete,
     separator = false,
 }: ProfileCandidateCardAcademicProps) {
-    const dateStartFormated = new Date(startDate).toLocaleDateString('pt-br');
-    const dateEndFormated = endDate
-        ? new Date(endDate).toLocaleDateString('pt-br')
+    const dateStartFormated = new Date(start_date).toLocaleDateString('pt-br');
+    const dateEndFormated = date_conclusion
+        ? new Date(date_conclusion).toLocaleDateString('pt-br')
         : null;
 
     const handleClickEdit = () => {
         onClickEdit({
             id,
             instituition,
-            courseName,
-            studyArea,
-            startDate,
-            endDate,
+            course_name,
+            study_area,
+            start_date,
+            date_conclusion,
             conclued,
             description,
         });
@@ -50,21 +50,24 @@ function ProfileCandidateCardAcademic({
             <div className="profile-candidate-card-academic">
                 <div className="profile-card-academic-data">
                     <div>
-                        <h4>{courseName}</h4>
+                        <h4>{course_name}</h4>
                         <p className="profile-card-academic-paragraph">
                             {instituition}
                         </p>
                         <p className="profile-card-academic-paragraph">
                             {dateStartFormated} -{' '}
-                            {!endDate ? 'Em progresso' : dateEndFormated} •{' '}
-                            {endDate
+                            {!date_conclusion
+                                ? 'Em progresso'
+                                : dateEndFormated}{' '}
+                            •{' '}
+                            {date_conclusion
                                 ? conclued
                                     ? 'Concluído'
                                     : 'Não Concluído'
                                 : ''}
                         </p>
                         <p className="profile-card-academic-paragraph">
-                            Área: {studyArea.name}
+                            Área: {study_area.name}
                         </p>
                     </div>
                     <div className="profile-card-academic-buttons">
