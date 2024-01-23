@@ -12,18 +12,21 @@ const dataCards: CardPropsContent3[] = [
         description:
             'Plataforma totalmente livre de cobranças, tanto para empresas quanto para candidatos',
         icon: <BsCashCoin />,
+        animationDelay: 0.2,
     },
     {
         title: 'A nº 1 em Contratações',
         description:
             'Temos orgulho de ser a maior companhia de anuncios de vagas em todo Brasil',
         icon: <TbRosetteNumber1 />,
+        animationDelay: 0.4,
     },
     {
         title: 'O céu é o Limite',
         description:
             'Impusionamos as vagas para que tenha o maior alcance possível',
         icon: <FaChartLine />,
+        animationDelay: 0.6,
     },
 ];
 
@@ -34,12 +37,7 @@ function Content3() {
                 <h1>A plataforma ideal para sua empresa</h1>
                 <div className="content3-cards">
                     {dataCards.map((card, index) => (
-                        <CardContent3
-                            key={index}
-                            title={card.title}
-                            description={card.description}
-                            icon={card.icon}
-                        />
+                        <CardContent3 key={index} {...card} />
                     ))}
                 </div>
             </div>
