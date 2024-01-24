@@ -11,7 +11,7 @@ interface User {
     token: string | null,
     name: string | null,
     email: string | null,
-    type: string | null
+    type: 'Candidate' | 'Company' | null
 }
 
 const sliceUser = createSlice({

@@ -12,7 +12,7 @@
     display: flex
     align-items: center
     justify-content: space-between
-    min-height: 50px
+    height: 50px
 
 .nav-title
     @include mixins.center
@@ -32,14 +32,29 @@
 .nav-links
     @include mixins.center
     gap: 1rem
+    height: 100%
+    position: relative
 
-    a
-        color: variables.$color-default
-        transition: 0.2s
-        font-weight: bold
+.nav-link
+    position: relative
+    color: variables.$color-default
+    font-weight: bold
+    width: auto
+    height: 23px
 
-    a:hover
-        border-bottom: 4px solid variables.$color-primary
+.nav-link::after
+    content: ''
+    position: absolute
+    bottom: 0
+    left: 50%
+    width: 0
+    height: 4px
+    background-color: variables.$color-primary
+    transition: 0.2s
+
+.nav-link:hover::after
+    left: 0
+    width: 100%
 
 .nav-user
     @include mixins.center

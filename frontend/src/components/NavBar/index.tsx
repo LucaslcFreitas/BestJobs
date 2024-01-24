@@ -36,7 +36,7 @@ function NavBar() {
     };
 
     return (
-        <nav className="navbar">
+        <nav className="navbar" id="top">
             <div className="navbar-container">
                 <div className="nav-title">
                     <h1 onClick={handleHome}>
@@ -46,8 +46,43 @@ function NavBar() {
                 </div>
 
                 <div className="nav-links">
-                    <Link to="/candidate">Candidato</Link>
-                    <Link to="/company">Empresa</Link>
+                    {!user.token ? (
+                        <>
+                            <Link className="nav-link" to="/signin">
+                                Candidato
+                            </Link>
+                            <Link className="nav-link" to="/signin">
+                                Empresa
+                            </Link>
+                        </>
+                    ) : user.type === 'Candidate' ? (
+                        <>
+                            <Link className="nav-link" to="/candidate/profile">
+                                Perfil
+                            </Link>
+                            <Link className="nav-link" to="/vacancie">
+                                Encontrar Vagas
+                            </Link>
+                            <Link
+                                className="nav-link"
+                                to="/candidate/candidacy"
+                            >
+                                Minhas Candidaturas
+                            </Link>
+                        </>
+                    ) : (
+                        <>
+                            <Link className="nav-link" to="/vacancie/create">
+                                Criar Vaga
+                            </Link>
+                            <Link
+                                className="nav-link"
+                                to="/company/myvacancies"
+                            >
+                                Minhas Vagas
+                            </Link>
+                        </>
+                    )}
                 </div>
 
                 <div className="nav-user">

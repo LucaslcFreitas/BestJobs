@@ -32,13 +32,18 @@ function Footer() {
                     </div>
                     <div>
                         <p>Para Candidatos</p>
-                        <Link to={'/candidate'}>Homepage</Link>
-                        <Link to={'/vacancie'}>Encontrar Vagas</Link>
+                        <Link to={'/candidate/profile#top'}>Perfil</Link>
+                        <Link to={'/vacancie#top'}>Encontrar Vagas</Link>
+                        <Link to={'/candidate/candidacy#top'}>
+                            Minhas Candidaturas
+                        </Link>
                     </div>
                     <div>
                         <p>Para Empresas</p>
-                        <Link to={'/company'}>Homepage</Link>
-                        <Link to={'/company/create'}>Publicar Vagas</Link>
+                        <Link to={'/vacancie/create#top'}>Publicar Vagas</Link>
+                        <Link to={'/company/myvacancies#top'}>
+                            Minhas Vagas
+                        </Link>
                     </div>
                 </div>
                 <p>&copy; Best Jobs - 2024 - Todos os Direitos Reservados</p>
