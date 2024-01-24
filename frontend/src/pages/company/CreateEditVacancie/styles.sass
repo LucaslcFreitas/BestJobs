@@ -1,0 +1,46 @@
+@use '../../../styles/mixins'
+@use '../../../styles/variables'
+
+.create-vacancie-container
+    @include mixins.width-container-small
+    min-height: 600px
+    box-shadow: 0 0px 7px -2px #c9c9c9
+    border-radius: 10px
+    border: 1px solid #E4E4E4
+    background-color: variables.$background-primary
+
+    header
+        padding: 25px
+        border-bottom: 2px solid #C9C9C9
+
+.create-vacancie-form
+    position: relative
+    width: 100%
+    display: grid
+    grid-template-columns: 1fr 1fr
+    height: 100%
+    padding: 15px
+
+.create-vacancie-form-part
+    min-height: 490px //Ajustar na media query
+    padding: 10px
+
+    &:first-child
+        border-right: 2px solid #C3C3C3
+
+.create-vacancie-input-container
+    margin: 15px 0
+
+.create-vacancie-skills
+    display: flex
+    gap: 5px
+    flex-wrap: wrap
+    margin: 10px 0
+    padding: 5px
+
+.create-vacancie-button
+    display: flex
+    justify-content: flex-end
+
+.create-vacancie-button-container
+    width: 200px

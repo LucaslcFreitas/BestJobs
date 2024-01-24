@@ -1,0 +1,36 @@
+@use '../../../styles/variables'
+@use '../../../styles/mixins'
+
+.content2
+    @include mixins.width-container-small
+    padding-top: 25px
+    padding-bottom: 25px
+
+    >h1
+        text-align: center
+        font-size: 40px
+        color: variables.$color-default
+        font-family: 'Calibri'
+        margin-bottom: 30px
+
+.content2-container
+    display: flex
+    justify-content: space-around
+    flex-flow: row wrap
+    align-items: stretch
+
+    .content2-texts
+        // display: flex
+        flex: 1
+
+        h1
+            color: variables.$color-default
+            margin-bottom: 10px
+
+    .content2-image
+        // display: flex
+        flex: 1
+
+        img
+            width: 100%
+            height: auto

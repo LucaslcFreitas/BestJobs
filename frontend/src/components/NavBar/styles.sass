@@ -1,0 +1,59 @@
+@use '../../styles/variables'
+@use '../../styles/mixins'
+
+.navbar
+    background-color: variables.$background-primary
+    box-shadow: 0 2px 10px -2px #c9c9c9
+
+.navbar-container
+    @include mixins.width-container-normal
+    margin-top: 0
+    margin-bottom: 0
+    display: flex
+    align-items: center
+    justify-content: space-between
+    min-height: 50px
+
+.nav-title
+    @include mixins.center
+    gap: .5rem
+    cursor: pointer
+
+    h1
+        font-weight: 600
+        font-size: 1.5rem
+
+    span, svg
+        color: variables.$color-primary
+
+    svg
+        font-size: 25px
+
+.nav-links
+    @include mixins.center
+    gap: 1rem
+
+    a
+        color: variables.$color-default
+        transition: 0.2s
+        font-weight: bold
+
+    a:hover
+        border-bottom: 4px solid variables.$color-primary
+
+.nav-user
+    @include mixins.center
+    width: 150px
+    gap: .5rem
+
+    >p
+        padding-right: 10px
+        border-right: 2px solid #c2c2c2
+
+    svg
+        color: variables.$color-primary
+        font-size: 25px
+        cursor: pointer
+
+        &:hover
+            color: variables.$color-primary-hover

@@ -1,0 +1,23 @@
+@use '../../../styles/mixins'
+@use '../../../styles/variables'
+
+.my-vacancies-container
+    @include mixins.width-container-small
+    min-height: 600px
+    box-shadow: 0 0px 7px -2px #c9c9c9
+    border-radius: 10px
+    border: 1px solid #E4E4E4
+    background-color: variables.$background-primary
+
+    header
+        display: flex
+        justify-content: space-between
+        align-items: center
+        padding: 19px 25px
+        border-bottom: 2px solid #C9C9C9
+
+.my-vacancies-no-data
+    margin: 25px 0
+
+    p
+        text-align: center

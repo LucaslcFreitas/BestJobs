@@ -1,0 +1,27 @@
+@use '../../../../styles/variables'
+
+.view-vacancie-card
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 15px
+    color: variables.$color-default
+    transition: 100ms ease-in-out
+
+    &:hover
+        background-color: rgba(108, 99, 255, 0.3)
+        cursor: pointer
+
+    svg
+        font-size: 20px
+
+.view-vacancie-card-selected
+    background-color: rgba(108, 99, 255, 0.3)
+
+.view-vacancie-card-labels
+    h3
+        font-size: 16px
+        letter-spacing: 1px
+
+    p
+        font-size: 16px
