@@ -59,7 +59,7 @@ function FormTypeCompany({
             <InputSelect
                 label="Número de Funcionários:"
                 value={numberOfEmployeers}
-                onChange={setNumberOfEmployeers}
+                onChange={({ id, name }) => setNumberOfEmployeers(id)}
                 options={numberOfEmployeersOptions}
             />
             <InputText

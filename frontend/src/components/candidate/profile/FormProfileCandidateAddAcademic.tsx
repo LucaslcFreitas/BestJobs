@@ -71,11 +71,11 @@ function FormProfileCandidateAddAcademic({
         e.preventDefault();
         onAddForm({
             id,
-            courseName,
+            course_name: courseName,
             instituition,
-            studyArea,
-            startDate,
-            endDate: inProgress ? '' : endDate,
+            study_area: studyArea,
+            start_date: startDate,
+            date_conclusion: inProgress ? '' : endDate,
             conclued,
             description,
         });
