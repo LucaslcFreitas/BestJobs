@@ -47,7 +47,7 @@ function Signin() {
     return (
         <section className="signin-container">
             <h1>Best Jobs</h1>
-            <div className="signin-content">
+            <div className="content">
                 <h3>É bom te ver de volta</h3>
                 <form onSubmit={handleLogin}>
                     <InputText
@@ -67,16 +67,14 @@ function Signin() {
                         typeCandidate={isCandidate}
                         setType={setIsCandidate}
                     />
-                    {errorMessage && (
-                        <p className="signup-error">{errorMessage}</p>
-                    )}
+                    {errorMessage && <p className="error">{errorMessage}</p>}
                     <ButtonPrimary
                         text="Entrar"
                         onClickButton={() => handleLogin(null)}
                         disable={inLogin}
                         isSubmit={true}
                     />
-                    <div className="signin-not-user">
+                    <div className="not-user">
                         <Link to={'/signup'}>Quero me cadastrar</Link>
                     </div>
                 </form>

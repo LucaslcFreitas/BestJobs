@@ -6,7 +6,7 @@
     padding-top: 25px
     padding-bottom: 25px
 
-    >h1
+    >h2
         text-align: center
         font-size: 40px
         color: variables.$color-default
@@ -23,7 +23,8 @@
         // display: flex
         flex: 1
 
-        h1
+        >h3
+            font-size: 25px
             color: variables.$color-default
             margin-bottom: 10px
 
@@ -34,3 +35,61 @@
         img
             width: 100%
             height: auto
+
+@media(max-width: 600px)
+    .content2
+        .content2-image
+            img
+                width: 90% !important
+
+@media(max-width: 778px)
+    .content2
+        @include mixins.width-container-xxx-small
+        padding: 30px
+        h2
+            font-size: 28px
+
+        .content2-container
+            flex-direction: column
+
+            .content2-texts
+                >h3
+                    font-size: 20px
+
+        .content2-image
+            display: flex
+            justify-content: center
+
+            img
+                width: 70%
+
+@media(min-width: 768px) and (max-width: 992px)
+    .content2
+        @include mixins.width-container-xx-small
+        h2
+            font-size: 30px
+
+    .content2-container
+        .content2-texts
+            >h3
+                font-size: 20px
+
+    .content2-image
+
+        img
+            width: 100%
+
+@media(min-width: 992px) and (max-width: 1200px)
+    .content2
+        @include mixins.width-container-x-small
+        h2
+            font-size: 35px
+
+    .content2-container
+        .content2-texts
+            >h3
+                font-size: 23px
+
+    .content2-image
+        img
+            width: 90%

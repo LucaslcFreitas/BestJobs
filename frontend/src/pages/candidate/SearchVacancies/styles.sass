@@ -11,6 +11,7 @@
     display: grid
     grid-template-columns: 1fr 2fr
     overflow: hidden
+    position: relative
 
 .search-vacancies-result
     display: flex
@@ -21,7 +22,7 @@
 
     header
         @include mixins.center
-        justify-content: flex-start
+        justify-content: space-between
         padding: 5px
         height: 50px
         border-bottom: 2px solid #C3C3C3
@@ -29,6 +30,10 @@
         >p
             color: variables.$color-default
             margin-left: 15px
+            font-size: 16px
+
+.search-vacancies-filter-button
+    display: none
 
 .search-vacancies-list
     height: auto
@@ -68,18 +73,28 @@
     display: flex
     justify-content: space-between
 
+    p
+        font-size: 16px
+
 .search-vacancies-content-header-texts
     h2
         font-size: 25px
 
 .search-vacancies-publication-date
     margin-top: 15px
-    font-size: 14px
+    font-size: 14px !important
 
 .search-vacancies-infos
     p
         margin: 3px 0
         letter-spacing: 0.5px
+        font-size: 16px
+
+.search-vacancies-descriptions
+    p, li
+        font-size: 16px
+    h3
+        font-size: 19px
 
 .search-vacancies-about
     margin: 5px 0 25px 0
@@ -90,3 +105,96 @@
 
 .search-vacancies-footer-button
     width: 200px
+
+.search-vacancies-close
+    display: none
+
+@media(max-width: 600px)
+    .search-container
+        @include mixins.width-container-xxx-small
+        grid-template-columns: 1fr
+
+    .search-vacancies-result
+        border-right: none
+
+    .search-vacancies-content
+        display: none
+
+    .search-vacancies-filter-button
+        display: block
+
+    .search-vacancies-content-view
+        display: block
+        position: absolute
+        width: 100%
+        height: 100%
+        z-index: 100
+        background-color: variables.$background-primary
+
+    .search-vacancies-close
+        display: block
+
+    .search-vacancies-content-header-texts
+        h2
+            font-size: 22px
+
+    .search-vacancies-content-header p, .search-vacancies-infos p, .search-vacancies-descriptions p, .search-vacancies-descriptions li
+        font-size: 15px
+
+    .search-vacancies-descriptions
+        h3
+            font-size: 18px
+
+    .search-vacancies-publication-date
+        font-size: 12px !important
+
+@media(min-width: 600px) and (max-width: 768px)
+    .search-container
+        @include mixins.width-container-xxx-small
+
+    .search-vacancies-content-header-texts
+        h2
+            font-size: 20px
+
+    .search-vacancies-content-header p, .search-vacancies-infos p, .search-vacancies-descriptions p, .search-vacancies-descriptions li
+        font-size: 13px
+
+    .search-vacancies-descriptions
+        h3
+            font-size: 16px
+
+    .search-vacancies-publication-date
+        font-size: 12px !important
+
+@media(min-width: 768px) and (max-width: 992px)
+    .search-container
+        @include mixins.width-container-xx-small
+
+    .search-vacancies-content-header-texts
+        h2
+            font-size: 21px
+
+    .search-vacancies-content-header p, .search-vacancies-infos p, .search-vacancies-descriptions p, .search-vacancies-descriptions li
+        font-size: 14px
+
+    .search-vacancies-descriptions
+        h3
+            font-size: 17px
+
+    .search-vacancies-publication-date
+        font-size: 13px !important
+
+@media(min-width: 992px) and (max-width: 1200px)
+    .search-container
+        @include mixins.width-container-x-small
+
+    .search-vacancies-content-header-texts
+        h2
+            font-size: 22px
+
+    .search-vacancies-content-header p, .search-vacancies-infos p, .search-vacancies-descriptions p, .search-vacancies-descriptions li
+        font-size: 15px
+
+    .search-vacancies-descriptions
+        h3
+            font-size: 18px

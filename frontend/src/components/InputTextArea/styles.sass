@@ -7,7 +7,7 @@
         color: variables.$color-error
         margin-left: 5px
 
-.input
+.input-textarea
     border: solid 2px #9e9e9e
     border-radius: 10px
     background: none
@@ -35,13 +35,21 @@
     transform: translateY(12px)
     transition: 0.3s cubic-bezier(0.4,0,0.2,1)
 
-.input:focus, .input:valid, textarea:valid
+.input-textarea:focus, .input-textarea:valid, textarea:valid
     outline: none
     border: 2px solid variables.$background-alternative
 
-.input:focus ~ .user-label, input:valid ~ .user-label, textarea:valid ~ .user-label
+.input-textarea:focus ~ .user-label, input:valid ~ .user-label, textarea:valid ~ .user-label
     transform: translateY(-50%) scale(0.8)
     background-color: variables.$background-secondary
     padding: 0 .2em
     color: variables.$color-default
     font-weight: bold
+
+@media(max-width: 768px)
+    .input-textarea
+        font-size: 14px !important
+        padding: 10px !important
+
+    .user-label
+        font-size: 15px

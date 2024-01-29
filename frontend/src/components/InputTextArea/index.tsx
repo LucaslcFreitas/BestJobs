@@ -26,7 +26,7 @@ function InputTextArea({
                 name="textarea"
                 value={value}
                 onChange={(e) => onChangeInput(e.target.value)}
-                className="input"
+                className="input-textarea"
                 disabled={disable}
             />
             <label id={id} className="user-label">

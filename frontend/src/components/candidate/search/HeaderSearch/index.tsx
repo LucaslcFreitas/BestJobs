@@ -5,6 +5,8 @@ import {
     SectorType,
     JobType,
 } from '../../../../shared/types/VacancieType';
+import IconButtonSmall from '../../../IconButtonSmall';
+import { IoClose } from 'react-icons/io5';
 
 type HeaderSearchProps = {
     sector: SectorType;
@@ -16,6 +18,8 @@ type HeaderSearchProps = {
     localityType: LocalityType;
     localityTypes: LocalityType[];
     onChangeLocalityType: (newLocalityType: LocalityType) => void;
+    inView?: boolean;
+    closeInView?: (inView: boolean) => void;
 };
 
 function HeaderSearch({
@@ -28,10 +32,37 @@ function HeaderSearch({
     localityType,
     localityTypes,
     onChangeLocalityType,
+    inView = false,
+    closeInView = () => {},
 }: HeaderSearchProps) {
+    const handleChangeSector = (newSector: SectorType) => {
+        onChangeSector(newSector);
+        closeInView(false);
+    };
+    const handleChangeJobType = (newJobType: JobType) => {
+        onChangeJobType(newJobType);
+        closeInView(false);
+    };
+    const handleChangeLocalityType = (newLocalityType: LocalityType) => {
+        onChangeLocalityType(newLocalityType);
+        closeInView(false);
+    };
+
     return (
-        <header className="header-search">
+        <header
+            className={`header-search ${inView ? 'header-search-view' : ''}`}
+        >
             <div className="header-search-container">
+                <div className="header-search-close">
+                    <IconButtonSmall
+                        backgroundColor="#f2f4fd"
+                        color="#3b3b3b"
+                        icon={<IoClose />}
+                        onClick={() => {
+                            closeInView(false);
+                        }}
+                    />
+                </div>
                 <div className="header-search-item">
                     <InputSelect
                         options={sectors.map((item) => ({
@@ -40,7 +71,7 @@ function HeaderSearch({
                         }))}
                         label="Setor"
                         value={sector.id}
-                        onChange={onChangeSector}
+                        onChange={handleChangeSector}
                         light
                     />
                 </div>
@@ -52,7 +83,7 @@ function HeaderSearch({
                         }))}
                         label="Tipo de Trabalho"
                         value={jobType.id}
-                        onChange={onChangeJobType}
+                        onChange={handleChangeJobType}
                         light
                     />
                 </div>
@@ -64,7 +95,7 @@ function HeaderSearch({
                         }))}
                         label="Modelo"
                         value={localityType.id}
-                        onChange={onChangeLocalityType}
+                        onChange={handleChangeLocalityType}
                         light
                     />
                 </div>

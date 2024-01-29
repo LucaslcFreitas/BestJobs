@@ -18,6 +18,9 @@ import {
     hideAlertInfo,
 } from '../../../redux/alert/sliceAlertInfo';
 import { startLoad, stopLoad } from '../../../redux/loader/sliceLoader';
+import IconButtonSmall from '../../../components/IconButtonSmall';
+import { FaFilter } from 'react-icons/fa';
+import { IoArrowBack, IoClose } from 'react-icons/io5';
 
 const sectorsData: SectorType[] = [
     {
@@ -205,6 +208,10 @@ function SearchVacancies() {
     const [selectedVacancie, setSelectedVacancie] = useState<VacancieType>();
     const page = Number(queryParameters.get('page')) || 1;
 
+    //ToMediaQuery
+    const [inViewVacancie, setInViewVacancie] = useState(false);
+    const [inViewFilter, setInViewFilter] = useState(false);
+
     useEffect(() => {
         dispatch(startLoad());
 
@@ -293,6 +300,8 @@ function SearchVacancies() {
                 localityType={localityType}
                 localityTypes={localityTypes}
                 onChangeLocalityType={setLocalityType}
+                inView={inViewFilter}
+                closeInView={setInViewFilter}
             />
             <section className="search-container">
                 <div className="search-vacancies-result">
@@ -301,6 +310,16 @@ function SearchVacancies() {
                             <p>
                                 <b>Vagas:</b> <small>32 encontradas</small>
                             </p>
+                            <div className="search-vacancies-filter-button">
+                                <IconButtonSmall
+                                    backgroundColor="#f2f4fd"
+                                    color="#3b3b3b"
+                                    icon={<FaFilter />}
+                                    onClick={() => {
+                                        setInViewFilter(true);
+                                    }}
+                                />
+                            </div>
                         </header>
                         <div className="search-vacancies-list">
                             {vacancies?.vacancies.map(
@@ -312,6 +331,7 @@ function SearchVacancies() {
                                             subtitle={item.company.name}
                                             onClick={() => {
                                                 setSelectedVacancie(item);
+                                                setInViewVacancie(true);
                                             }}
                                             selected={
                                                 item.id == selectedVacancie?.id
@@ -328,9 +348,23 @@ function SearchVacancies() {
                     </div>
                     <div className="search-vacancies-pages">{...pages}</div>
                 </div>
-                <div className="search-vacancies-content">
+                <div
+                    className={`search-vacancies-content ${
+                        inViewVacancie ? 'search-vacancies-content-view' : ''
+                    }`}
+                >
                     {selectedVacancie ? (
                         <>
+                            <div className="search-vacancies-close">
+                                <IconButtonSmall
+                                    backgroundColor="#f2f4fd"
+                                    color="#3b3b3b"
+                                    icon={<IoArrowBack />}
+                                    onClick={() => {
+                                        setInViewVacancie(false);
+                                    }}
+                                />
+                            </div>
                             <div>
                                 <div className="search-vacancies-content-header">
                                     <div className="search-vacancies-content-header-texts">
@@ -381,21 +415,23 @@ function SearchVacancies() {
                                         {selectedVacancie.locality}
                                     </p>
                                 </div>
-                                <hr />
-                                <h3>Descrição:</h3>
-                                <p className="search-vacancies-about">
-                                    {selectedVacancie.about}
-                                </p>
-                                <h3>Habilidades Necessárias:</h3>
-                                <ul>
-                                    {selectedVacancie.Vacancie_skill.map(
-                                        (item) => (
-                                            <li key={item.skill.id}>
-                                                {item.skill.name}
-                                            </li>
-                                        )
-                                    )}
-                                </ul>
+                                <div className="search-vacancies-descriptions">
+                                    <hr />
+                                    <h3>Descrição:</h3>
+                                    <p className="search-vacancies-about">
+                                        {selectedVacancie.about}
+                                    </p>
+                                    <h3>Habilidades Necessárias:</h3>
+                                    <ul>
+                                        {selectedVacancie.Vacancie_skill.map(
+                                            (item) => (
+                                                <li key={item.skill.id}>
+                                                    {item.skill.name}
+                                                </li>
+                                            )
+                                        )}
+                                    </ul>
+                                </div>
                             </div>
                             <div className="search-vacancies-footer">
                                 <div className="search-vacancies-footer-button">
@@ -414,6 +450,16 @@ function SearchVacancies() {
                     ) : (
                         <div className="search-vacancies-no-data">
                             <h4>Nenhuma vaga selecionada</h4>
+                            <div className="search-vacancies-close">
+                                <IconButtonSmall
+                                    backgroundColor="#f2f4fd"
+                                    color="#3b3b3b"
+                                    icon={<IoClose />}
+                                    onClick={() => {
+                                        setInViewVacancie(false);
+                                    }}
+                                />
+                            </div>
                         </div>
                     )}
                 </div>

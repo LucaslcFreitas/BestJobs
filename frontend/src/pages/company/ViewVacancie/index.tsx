@@ -14,6 +14,8 @@ import AcademicGraduationCard from '../../../components/AcademicGraduationCard';
 import ExperienceCard from '../../../components/ExperienceCard';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import ButtonSecondary from '../../../components/ButtonSecondary';
+import { IoArrowBack, IoClose } from 'react-icons/io5';
+import IconButtonSmall from '../../../components/IconButtonSmall';
 
 const vacancieData: VacancieWithCandidacyType = {
     id: '78fb19ad-8de9-4534-a116-63704e7c31b5',
@@ -289,6 +291,9 @@ function ViewVacancie() {
     const [vacancie, setVacancie] = useState<VacancieWithCandidacyType>();
     const [selectedCandidate, setSelectedCandidate] = useState<InfoCandidate>();
 
+    //ToMediaQuery
+    const [inViewCandidate, setInViewCandidate] = useState(false);
+
     useEffect(() => {
         dispatch(startLoad());
         const tmpTimeout = setTimeout(() => {
@@ -394,7 +399,10 @@ function ViewVacancie() {
                                     ? 'Aprovado'
                                     : 'Reprovado'
                             }
-                            onClick={() => setSelectedCandidate(item)}
+                            onClick={() => {
+                                setSelectedCandidate(item);
+                                setInViewCandidate(true);
+                            }}
                             separator
                             selected={
                                 item.candidate.id ==
@@ -404,9 +412,23 @@ function ViewVacancie() {
                     ))}
                 </div>
             </div>
-            <div className="view-vacancie-content">
+            <div
+                className={`view-vacancie-content ${
+                    inViewCandidate ? 'view-vacancie-content-view' : ''
+                }`}
+            >
                 {selectedCandidate ? (
                     <>
+                        <div className="view-vacancie-close">
+                            <IconButtonSmall
+                                backgroundColor="#f2f4fd"
+                                color="#3b3b3b"
+                                icon={<IoArrowBack />}
+                                onClick={() => {
+                                    setInViewCandidate(false);
+                                }}
+                            />
+                        </div>
                         <div>
                             <div className="view-vacancie-content-header">
                                 <h2>{selectedCandidate.candidate.name}</h2>

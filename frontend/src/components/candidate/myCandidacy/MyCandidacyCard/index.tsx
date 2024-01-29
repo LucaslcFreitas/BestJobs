@@ -31,7 +31,7 @@ function MyCandidacyCard({
                     </p>
                 </div>
                 <p
-                    className={`${
+                    className={`my-candidacy-card-status ${
                         status === 'Aprovado'
                             ? 'my-candidacy-card-approved'
                             : status === 'Reprovado'

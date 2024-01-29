@@ -12,6 +12,9 @@
     &:first-child
         margin-bottom: 15px
 
+        h3
+            font-size: 18px
+
 .my-candidacy-card-flex-end
     align-items: flex-end
 
@@ -22,10 +25,28 @@
     align-items: flex-end
 
 .my-candidacy-card-company
+    font-size: 16px
     font-style: italic
+
+.my-candidacy-card-status
+    font-size: 16px
 
 .my-candidacy-card-approved
     color: #017113
 
 .my-candidacy-card-disapproved
     color: #DF0000
+
+@media(max-width: 600px)
+    .my-candidacy-card-buttons
+        flex-direction: column-reverse
+        gap: 10px
+
+@media(max-width: 1200px)
+    .my-candidacy-card-row
+        &:first-child
+            h3
+                font-size: 17px
+
+        p
+            font-size: 15px

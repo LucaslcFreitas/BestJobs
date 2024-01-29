@@ -11,6 +11,7 @@
     display: grid
     grid-template-columns: 1fr 2fr
     overflow: hidden
+    position: relative
 
 .view-vacancie-result
     height: 100%
@@ -18,7 +19,11 @@
 
     header
         padding: 15px
+        justify-content: space-between
         border-bottom: 2px solid #C3C3C3
+
+        >p
+            font-size: 16px
 
 .view-vacancie-buttons
     display: flex
@@ -66,6 +71,7 @@
     p
         margin: 3px 0
         letter-spacing: 0.5px
+        font-size: 16px
 
 .view-vacancie-candidate-about
     margin: 5px 0 25px 0
@@ -82,3 +88,107 @@
 
 .view-vacancie-footer-button
     width: 200px
+
+.view-vacancie-name
+    font-size: 19px
+
+.view-vacancie-close
+    display: none
+
+@media(max-width: 600px)
+    .view-vacancie-container
+        @include mixins.width-container-xxx-small
+        grid-template-columns: 1fr
+
+    .view-vacancie-result
+        border-right: none
+
+    .view-vacancie-content
+        display: none
+
+    .search-vacancies-filter-button
+        display: block
+
+    .view-vacancie-content-view
+        display: block
+        position: absolute
+        width: 100%
+        height: 100%
+        z-index: 100
+        background-color: variables.$background-primary
+
+    .view-vacancie-close
+        display: block
+
+    .view-vacancie-content-header
+        h2
+            font-size: 22px
+
+    .view-vacancie-content p, .view-vacancie-candidates
+        font-size: 15px
+
+    .view-vacancie-name
+        font-size: 19px
+
+    .view-vacancie-footer-button
+        width: 100px
+
+@media(min-width: 600px) and (max-width: 768px)
+    .view-vacancie-container
+        @include mixins.width-container-xxx-small
+
+    .view-vacancie-name
+        font-size: 16px
+
+    .view-vacancie-content-header
+        h2
+            font-size: 20px
+
+    .view-vacancie-content p, .view-vacancie-candidates
+        font-size: 13px !important
+
+    .view-vacancie-content
+        h3
+            font-size: 16px
+
+    .view-vacancie-footer-button
+        width: 100px
+
+@media(min-width: 768px) and (max-width: 992px)
+    .view-vacancie-container
+        @include mixins.width-container-xx-small
+
+    .view-vacancie-name
+        font-size: 17px
+
+    .view-vacancie-content-header
+        h2
+            font-size: 21px
+
+    .view-vacancie-content p, .view-vacancie-candidates
+        font-size: 14px
+
+    .view-vacancie-content
+        h3
+            font-size: 17px
+
+    .view-vacancie-footer-button
+        width: 150px
+
+@media(min-width: 992px) and (max-width: 1200px)
+    .view-vacancie-container
+        @include mixins.width-container-x-small
+
+    .view-vacancie-name
+        font-size: 18px
+
+    .view-vacancie-content-header
+        h2
+            font-size: 22px
+
+    .view-vacancie-content p, .view-vacancie-candidates
+        font-size: 15px
+
+    .view-vacancie-content
+        h3
+            font-size: 18px

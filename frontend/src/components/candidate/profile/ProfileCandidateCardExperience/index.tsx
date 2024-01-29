@@ -1,7 +1,7 @@
 import './styles.sass';
 import { FaEdit, FaTrash } from 'react-icons/fa';
-import IconButton from '../../../IconButton';
 import { ExperienceType } from '../../../../shared/types/ExperienceType';
+import IconButtonSmall from '../../../IconButtonSmall';
 
 type ProfileCandidateCardAcademicProps = {
     onClickEdit: (ExperienceData: ExperienceType) => void;
@@ -66,15 +66,15 @@ function ProfileCandidateCardExperience({
                         </p>
                     </div>
                     <div className="profile-card-experience-buttons">
-                        <IconButton
-                            color="#fff"
-                            backgroundColor="#1E90FF"
+                        <IconButtonSmall
+                            color="#1E90FF"
+                            backgroundColor="#f2f4fd"
                             icon={<FaEdit />}
                             onClick={handleClickEdit}
                         />
-                        <IconButton
-                            color="#fff"
-                            backgroundColor="#EB0303"
+                        <IconButtonSmall
+                            color="#EB0303"
+                            backgroundColor="#f2f4fd"
                             icon={<FaTrash />}
                             onClick={handleClickDelete}
                         />

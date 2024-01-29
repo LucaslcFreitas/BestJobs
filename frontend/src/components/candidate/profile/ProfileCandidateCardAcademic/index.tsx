@@ -1,7 +1,7 @@
 import './styles.sass';
-import IconButton from '../../../IconButton';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { AcademicGraduationType } from '../../../../shared/types/AcademicGraduationType';
+import IconButtonSmall from '../../../IconButtonSmall';
 
 type ProfileCandidateCardAcademicProps = {
     onClickEdit: (AcademicData: AcademicGraduationType) => void;
@@ -71,15 +71,15 @@ function ProfileCandidateCardAcademic({
                         </p>
                     </div>
                     <div className="profile-card-academic-buttons">
-                        <IconButton
-                            color="#fff"
-                            backgroundColor="#1E90FF"
+                        <IconButtonSmall
+                            color="#1E90FF"
+                            backgroundColor="#f2f4fd"
                             icon={<FaEdit />}
                             onClick={handleClickEdit}
                         />
-                        <IconButton
-                            color="#fff"
-                            backgroundColor="#EB0303"
+                        <IconButtonSmall
+                            color="#EB0303"
+                            backgroundColor="#f2f4fd"
                             icon={<FaTrash />}
                             onClick={handleClickDelete}
                         />

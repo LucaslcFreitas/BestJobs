@@ -29,6 +29,11 @@
     ul
         margin: 5px 0 10px 30px
 
+    h3
+        font-size: 18px
+    p
+        font-size: 16px
+
 .modal-detail-candidacy-content-header
     display: flex
     justify-content: space-between
@@ -39,7 +44,7 @@
 
 .modal-detail-candidacy-publication-date
     margin-top: 15px
-    font-size: 14px
+    font-size: 14px !important
 
 .modal-detail-candidacy-infos
     p
@@ -56,6 +61,10 @@
 .modal-detail-candidacy-footer-button
     width: 200px
 
+.modal-detail-candidacy-content-header-candidacy
+    white-space: nowrap
+    margin-left: 5px
+
 @keyframes fadeIn
     0%
         opacity: 0
@@ -69,3 +78,34 @@
     100%
         transform: translateY(-10px)
         opacity: 1
+
+@media(max-width: 600px)
+    .modal-detail-candidacy-content
+        width: 90% !important
+
+    .modal-detail-candidacy-footer-button
+        width: 100px
+
+@media(max-width: 768px)
+    .modal-detail-candidacy-content
+        width: 500px
+
+        h3
+            font-size: 16px
+        p
+            font-size: 14px
+
+    .modal-detail-candidacy-content-header-texts
+        h2
+            font-size: 25px
+
+@media(min-width: 768px) and (max-width: 992px)
+    .modal-detail-candidacy-content-header-texts
+        h2
+            font-size: 23px
+
+    .modal-detail-candidacy-content
+        h3
+            font-size: 17px
+        p
+            font-size: 15px

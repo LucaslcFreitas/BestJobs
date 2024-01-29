@@ -6,8 +6,14 @@ import { IoExitOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import ButtonPrimary from '../ButtonPrimary';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import IconButtonSmall from '../IconButtonSmall';
+import { IoMenu, IoClose } from 'react-icons/io5';
 
 function NavBar() {
+    //For media query
+    const [openMenu, setOpenMenu] = useState(false);
+
     const user = useSelector(useUser);
 
     console.log(user);
@@ -37,7 +43,11 @@ function NavBar() {
 
     return (
         <nav className="navbar" id="top">
-            <div className="navbar-container">
+            <div
+                className={`navbar-container ${
+                    openMenu ? 'navbar-container-opened' : ''
+                }`}
+            >
                 <div className="nav-title">
                     <h1 onClick={handleHome}>
                         Best <span>Jobs</span>
@@ -45,7 +55,7 @@ function NavBar() {
                     <MdWork />
                 </div>
 
-                <div className="nav-links">
+                <div className="nav-links" onClick={() => setOpenMenu(false)}>
                     {!user.token ? (
                         <>
                             <Link className="nav-link" to="/signin">
@@ -99,6 +109,16 @@ function NavBar() {
                             />
                         </>
                     )}
+                </div>
+                <div className="nav-show-user">
+                    <IconButtonSmall
+                        color="#3b3b3b"
+                        backgroundColor="#f2f4fd"
+                        icon={!openMenu ? <IoMenu /> : <IoClose />}
+                        onClick={() => {
+                            setOpenMenu((state) => !state);
+                        }}
+                    />
                 </div>
             </div>
         </nav>

@@ -8,6 +8,7 @@
 
     label
         color: variables.$color-default
+        font-size: 16px
 
     input
         accent-color: variables.$color-primary
@@ -16,3 +17,8 @@
         &:disabled
             accent-color: #e0e0e0
             background-color: #e0e0e0
+
+@media(max-width: 768px)
+    .checkbox-group
+        label
+            font-size: 15px

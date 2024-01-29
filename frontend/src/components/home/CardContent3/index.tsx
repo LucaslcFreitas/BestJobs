@@ -31,10 +31,11 @@ function CardContent3({
                 <div className="content3-front">
                     {icon}
                     <p className="content3-title">{title}</p>
+                    <p className="content3-description-front">{description}</p>
                     <IoIosArrowDown />
                 </div>
                 <div className="content3-back">
-                    <p className="content3-title">{description}</p>
+                    <p className="content3-description-back">{description}</p>
                 </div>
             </div>
         </motion.div>

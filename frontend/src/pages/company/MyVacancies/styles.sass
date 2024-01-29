@@ -16,8 +16,52 @@
         padding: 19px 25px
         border-bottom: 2px solid #C9C9C9
 
+        h1
+            font-size: 24px
+
 .my-vacancies-no-data
     margin: 25px 0
 
     p
         text-align: center
+
+@media(max-width: 600px)
+    .my-vacancies-container
+        @include mixins.width-container-xxx-small
+        min-height: 500px
+
+        header
+            padding: 18px
+            h1
+                font-size: 20px
+
+    .my-candidacy-no-data
+        p
+            font-size: 14px
+
+@media(min-width: 600px) and (max-width: 768px)
+    .my-vacancies-container
+        @include mixins.width-container-xxx-small
+
+        header
+            padding: 18px
+            h1
+                font-size: 20px
+
+@media(min-width: 768px) and (max-width: 992px)
+    .my-vacancies-container
+        @include mixins.width-container-xx-small
+
+        header
+            padding: 20px
+            h1
+                font-size: 20px
+
+@media(min-width: 992px) and (max-width: 1200px)
+    .my-vacancies-container
+        @include mixins.width-container-x-small
+
+        header
+            padding: 22px
+            h1
+                font-size: 22px

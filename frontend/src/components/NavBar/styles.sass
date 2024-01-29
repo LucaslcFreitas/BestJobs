@@ -4,6 +4,7 @@
 .navbar
     background-color: variables.$background-primary
     box-shadow: 0 2px 10px -2px #c9c9c9
+    height: 50px
 
 .navbar-container
     @include mixins.width-container-normal
@@ -72,3 +73,64 @@
 
         &:hover
             color: variables.$color-primary-hover
+
+.nav-show-user
+    display: none
+
+@media(max-width: 778px)
+    .navbar-container
+        @include mixins.width-container-xxx-small
+        margin-top: 0
+        margin-bottom: 0
+        padding: 5px
+
+@media(min-width: 768px) and (max-width: 992px)
+    .navbar-container
+        @include mixins.width-container-xx-small
+        margin-top: 0
+        margin-bottom: 0
+
+@media(max-width: 992px)
+
+    .nav-links
+        display: none
+
+    .nav-show-user
+        display: block
+
+    .navbar-container-opened
+        position: fixed
+        width: 100%
+        height: 100%
+        background-color: variables.$background-primary
+        flex-direction: column
+        justify-content: center
+        z-index: 3000
+
+        .nav-links
+            display: flex
+            gap: .8rem
+            height: auto
+            flex-direction: column
+            margin: 30px 0
+            border: 1px solid variables.$color-default-secondary
+            padding: 10px
+            border-radius: 5px
+
+        .nav-link::after
+            display: none
+
+        .nav-user
+            margin-bottom: 30px
+
+@media(min-width: 992px) and (max-width: 1200px)
+    .navbar-container
+        @include mixins.width-container-x-small
+        margin-top: 0
+        margin-bottom: 0
+
+@media(min-width: 1200px) and (max-width: 1600px)
+    .navbar-container
+        @include mixins.width-container-small
+        margin-top: 0
+        margin-bottom: 0

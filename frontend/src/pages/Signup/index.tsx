@@ -118,20 +118,16 @@ function Signup() {
     return (
         <section className="signup-container">
             <h1>Best Jobs</h1>
-            <div className="signup-content">
-                <div className="signup-type-user">
+            <div className="content">
+                <div className="type-user">
                     <p
-                        className={`${
-                            isCandidate ? 'signup-type-checked' : ''
-                        }`}
+                        className={`${isCandidate ? 'type-checked' : ''}`}
                         onClick={() => handleChangeTypeUser(true)}
                     >
                         Sou Candidato
                     </p>
                     <p
-                        className={`${
-                            !isCandidate ? 'signup-type-checked' : ''
-                        }`}
+                        className={`${!isCandidate ? 'type-checked' : ''}`}
                         onClick={() => handleChangeTypeUser(false)}
                     >
                         Sou Empresa
@@ -140,7 +136,7 @@ function Signup() {
                 <h4>
                     Cadastre {isCandidate ? 'seu currículo' : 'sua empresa'}
                 </h4>
-                <div className="signup-form">
+                <div className="form">
                     {isCandidate ? (
                         <FormTypeCandidate
                             name={nameCD}
@@ -179,7 +175,7 @@ function Signup() {
                             errorMessage={errorMsg}
                         />
                     )}
-                    <div className="signup-to-signin">
+                    <div className="to-signin">
                         <Link to={'/signin'}>Já tenho uma conta</Link>
                     </div>
                 </div>

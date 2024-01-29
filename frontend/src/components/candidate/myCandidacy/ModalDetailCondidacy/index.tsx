@@ -33,7 +33,9 @@ function ModalDetailCandidacy({
                                 ).format('DD-MM-YYYY')}
                             </p>
                         </div>
-                        <p>{candidacy.vacancie.Candidacy} candidaturas</p>
+                        <p className="modal-detail-candidacy-content-header-candidacy">
+                            {candidacy.vacancie.Candidacy} candidaturas
+                        </p>
                     </div>
                     <hr />
                     <div className="modal-detail-candidacy-infos">

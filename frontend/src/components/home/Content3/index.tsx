@@ -34,7 +34,7 @@ function Content3() {
     return (
         <div className="content3">
             <div className="content3-container">
-                <h1>A plataforma ideal para sua empresa</h1>
+                <h2>A plataforma ideal para sua empresa</h2>
                 <div className="content3-cards">
                     {dataCards.map((card, index) => (
                         <CardContent3 key={index} {...card} />

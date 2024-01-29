@@ -32,10 +32,10 @@ const dataCards: CardPropsContent2[] = [
 function Content2() {
     return (
         <div className="content2">
-            <h1>O site mais completo de 2023</h1>
+            <h2>O site mais completo de 2023</h2>
             <div className="content2-container">
                 <div className="content2-texts">
-                    <h1>Te apoiamos em sua jornada</h1>
+                    <h3>Te apoiamos em sua jornada</h3>
                     {dataCards.map((card, index) => (
                         <CardContent2
                             key={index}
