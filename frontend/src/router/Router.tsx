@@ -3,6 +3,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 //Layouts
 import DefaultLayout from '../layouts/DefaultLayout';
 
+//Protected
+import ProtectedRoute from './ProtectedRoute';
+
 //Pages
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
@@ -26,29 +29,77 @@ function Router() {
                 <Route path="/" element={<DefaultLayout />}>
                     <Route index element={<Home />} />
                     <Route path="/home" element={<Home />} />
-                    <Route path="/company" element={<MyVacancies />} />
+                    <Route
+                        path="/company"
+                        element={
+                            <ProtectedRoute typeUser="Company">
+                                <MyVacancies />
+                            </ProtectedRoute>
+                        }
+                    />
                     <Route
                         path="/company/myvacancies"
-                        element={<MyVacancies />}
+                        element={
+                            <ProtectedRoute typeUser="Company">
+                                <MyVacancies />
+                            </ProtectedRoute>
+                        }
                     />
-                    <Route path="/candidate" element={<ProfileCandidate />} />
+                    <Route
+                        path="/candidate"
+                        element={
+                            <ProtectedRoute typeUser="Candidate">
+                                <ProfileCandidate />
+                            </ProtectedRoute>
+                        }
+                    />
                     <Route
                         path="/candidate/profile"
-                        element={<ProfileCandidate />}
+                        element={
+                            <ProtectedRoute typeUser="Candidate">
+                                <ProfileCandidate />
+                            </ProtectedRoute>
+                        }
                     />
                     <Route
                         path="/candidate/candidacy"
-                        element={<MyCandidacy />}
+                        element={
+                            <ProtectedRoute typeUser="Candidate">
+                                <MyCandidacy />
+                            </ProtectedRoute>
+                        }
                     />
-                    <Route path="/vacancie" element={<SearchVacancies />} />
-                    <Route path="/vacancie/:id" element={<ViewVacancie />} />
+                    <Route
+                        path="/vacancie"
+                        element={
+                            <ProtectedRoute typeUser="Candidate">
+                                <SearchVacancies />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/vacancie/:id"
+                        element={
+                            <ProtectedRoute typeUser="Company">
+                                <ViewVacancie />
+                            </ProtectedRoute>
+                        }
+                    />
                     <Route
                         path="/vacancie/create"
-                        element={<CreateEditVacancie />}
+                        element={
+                            <ProtectedRoute typeUser="Company">
+                                <CreateEditVacancie />
+                            </ProtectedRoute>
+                        }
                     />
                     <Route
                         path="/vacancie/edit/:id"
-                        element={<CreateEditVacancie />}
+                        element={
+                            <ProtectedRoute typeUser="Company">
+                                <CreateEditVacancie />
+                            </ProtectedRoute>
+                        }
                     />
                     <Route path="*" element={<NotFound404 />} />
                 </Route>

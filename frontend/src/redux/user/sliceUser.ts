@@ -4,7 +4,7 @@ const initialState: User = {
     token: '123',
     name: 'Lucas Freitas',
     email: null,
-    type: 'Company'
+    type: 'Candidate'
 };
 
 interface User {
