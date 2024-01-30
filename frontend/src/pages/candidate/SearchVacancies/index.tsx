@@ -304,13 +304,13 @@ function SearchVacancies() {
                 closeInView={setInViewFilter}
             />
             <section className="search-container">
-                <div className="search-vacancies-result">
+                <div className="result">
                     <div>
                         <header>
                             <p>
                                 <b>Vagas:</b> <small>32 encontradas</small>
                             </p>
-                            <div className="search-vacancies-filter-button">
+                            <div className="filter-button">
                                 <IconButtonSmall
                                     backgroundColor="#f2f4fd"
                                     color="#3b3b3b"
@@ -321,7 +321,7 @@ function SearchVacancies() {
                                 />
                             </div>
                         </header>
-                        <div className="search-vacancies-list">
+                        <div className="vacancies-list">
                             {vacancies?.vacancies.map(
                                 (item, index, arrayVacancies) => {
                                     return (
@@ -346,16 +346,16 @@ function SearchVacancies() {
                             )}
                         </div>
                     </div>
-                    <div className="search-vacancies-pages">{...pages}</div>
+                    <div className="pages">{...pages}</div>
                 </div>
                 <div
-                    className={`search-vacancies-content ${
-                        inViewVacancie ? 'search-vacancies-content-view' : ''
+                    className={`content ${
+                        inViewVacancie ? 'content-view' : ''
                     }`}
                 >
                     {selectedVacancie ? (
                         <>
-                            <div className="search-vacancies-close">
+                            <div className="vacancie-close">
                                 <IconButtonSmall
                                     backgroundColor="#f2f4fd"
                                     color="#3b3b3b"
@@ -366,13 +366,13 @@ function SearchVacancies() {
                                 />
                             </div>
                             <div>
-                                <div className="search-vacancies-content-header">
-                                    <div className="search-vacancies-content-header-texts">
+                                <div className="content-header">
+                                    <div className="texts">
                                         <h2>
                                             {selectedVacancie.name_position}
                                         </h2>
                                         <p>{selectedVacancie.company.name}</p>
-                                        <p className="search-vacancies-publication-date">
+                                        <p className="publication-date">
                                             Publicado em{' '}
                                             {moment(
                                                 selectedVacancie.publication_date
@@ -385,7 +385,7 @@ function SearchVacancies() {
                                     </p>
                                 </div>
                                 <hr />
-                                <div className="search-vacancies-infos">
+                                <div className="infos">
                                     <p>
                                         <b>Tipos de Trabalho:</b>{' '}
                                         {selectedVacancie.job_type.name}
@@ -415,10 +415,10 @@ function SearchVacancies() {
                                         {selectedVacancie.locality}
                                     </p>
                                 </div>
-                                <div className="search-vacancies-descriptions">
+                                <div className="descriptions">
                                     <hr />
                                     <h3>Descrição:</h3>
-                                    <p className="search-vacancies-about">
+                                    <p className="about">
                                         {selectedVacancie.about}
                                     </p>
                                     <h3>Habilidades Necessárias:</h3>
@@ -433,8 +433,8 @@ function SearchVacancies() {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="search-vacancies-footer">
-                                <div className="search-vacancies-footer-button">
+                            <div className="vacancie-footer">
+                                <div className="button">
                                     <ButtonPrimary
                                         text="Candidatar"
                                         disable={selectedVacancie.is_candidate}
@@ -448,9 +448,9 @@ function SearchVacancies() {
                             </div>
                         </>
                     ) : (
-                        <div className="search-vacancies-no-data">
+                        <div className="no-data">
                             <h4>Nenhuma vaga selecionada</h4>
-                            <div className="search-vacancies-close">
+                            <div className="vacancie-close">
                                 <IconButtonSmall
                                     backgroundColor="#f2f4fd"
                                     color="#3b3b3b"

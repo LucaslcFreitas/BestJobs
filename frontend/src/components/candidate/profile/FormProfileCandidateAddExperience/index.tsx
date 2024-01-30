@@ -110,10 +110,7 @@ function FormProfileCandidateAddExperience({
     };
 
     return (
-        <div
-            id="formAddExperience"
-            className="form-profile-cadidate-add-experience"
-        >
+        <div id="formAddExperience" className="form-add-experience">
             <h3>{title}</h3>
             <form onSubmit={handleAddAcademicGraduation}>
                 <InputText
@@ -135,7 +132,7 @@ function FormProfileCandidateAddExperience({
                     value={locality}
                     onChangeInput={setLocality}
                 />
-                <div className="form-profile-cadidate-add-experience-flex">
+                <div className="row-flex">
                     <InputSelect
                         label="Atuação"
                         value={typeLocality.id}
@@ -166,7 +163,7 @@ function FormProfileCandidateAddExperience({
                         }))}
                     />
                 </div>
-                <div className="form-profile-cadidate-add-experience-flex">
+                <div className="row-flex">
                     <InputDate
                         label="Data de início"
                         value={start}
@@ -183,7 +180,7 @@ function FormProfileCandidateAddExperience({
                     value={description}
                     onChangeInput={setDescription}
                 />
-                <div className="form-profile-candidate-add-experience-buttons">
+                <div className="buttons">
                     <ButtonSecondary
                         text="Cancelar"
                         onClickButton={handleCancelAddGraduation}

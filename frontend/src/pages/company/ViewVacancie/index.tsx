@@ -358,15 +358,13 @@ function ViewVacancie() {
 
     return (
         <section className="view-vacancie-container">
-            <div className="view-vacancie-result">
+            <div className="result">
                 <header>
-                    <h3 className="view-vacancie-name">
-                        {vacancie?.name_position}
-                    </h3>
-                    <p className="view-vacancie-candidates">
+                    <h3 className="vacancie-name">{vacancie?.name_position}</h3>
+                    <p className="vacancie-candidates">
                         {vacancie?.Candidacy.length} candidatos
                     </p>
-                    <div className="view-vacancie-buttons">
+                    <div className="vacancie-buttons">
                         <LinkAction
                             text="Editar"
                             color="#3b3b3b"
@@ -387,7 +385,7 @@ function ViewVacancie() {
                         />
                     </div>
                 </header>
-                <div className="view-vacancie-list">
+                <div className="list-candidates">
                     {vacancie?.Candidacy.map((item, index) => (
                         <ViewVacancieCard
                             key={index}
@@ -412,14 +410,10 @@ function ViewVacancie() {
                     ))}
                 </div>
             </div>
-            <div
-                className={`view-vacancie-content ${
-                    inViewCandidate ? 'view-vacancie-content-view' : ''
-                }`}
-            >
+            <div className={`content ${inViewCandidate ? 'content-view' : ''}`}>
                 {selectedCandidate ? (
                     <>
-                        <div className="view-vacancie-close">
+                        <div className="vacancie-close">
                             <IconButtonSmall
                                 backgroundColor="#f2f4fd"
                                 color="#3b3b3b"
@@ -430,7 +424,7 @@ function ViewVacancie() {
                             />
                         </div>
                         <div>
-                            <div className="view-vacancie-content-header">
+                            <div className="content-header">
                                 <h2>{selectedCandidate.candidate.name}</h2>
                                 <p>
                                     <b>Status:</b>{' '}
@@ -451,18 +445,16 @@ function ViewVacancie() {
                             </div>
                             <hr />
                             <div>
-                                <h3 className="view-vacancie-title">
+                                <h3 className="section-titles">
                                     Sobre o Cadidato:
                                 </h3>
-                                <p className="view-vacancie-candidate-about">
+                                <p className="about-vacancie">
                                     {selectedCandidate.candidate.about_me}
                                 </p>
                             </div>
                             <hr />
                             <div>
-                                <h3 className="view-vacancie-title">
-                                    Experiência:
-                                </h3>
+                                <h3 className="section-titles">Experiência:</h3>
                                 {selectedCandidate.candidate.Experience
                                     .length ? (
                                     selectedCandidate.candidate.Experience.map(
@@ -478,14 +470,14 @@ function ViewVacancie() {
                                         )
                                     )
                                 ) : (
-                                    <p className="view-vacancie-candidate-no-data">
+                                    <p className="no-data">
                                         Nenhuma experiência registrada.
                                     </p>
                                 )}
                             </div>
                             <hr />
                             <div>
-                                <h3 className="view-vacancie-title">
+                                <h3 className="section-titles">
                                     Formação Acadêmica:
                                 </h3>
                                 {selectedCandidate.candidate.Academic_graduation
@@ -503,14 +495,14 @@ function ViewVacancie() {
                                         )
                                     )
                                 ) : (
-                                    <p className="view-vacancie-candidate-no-data">
+                                    <p className="no-data">
                                         Nenhuma formação acadêmica registrada.
                                     </p>
                                 )}
                             </div>
                         </div>
-                        <div className="view-vacancie-footer">
-                            <div className="view-vacancie-footer-button">
+                        <div className="vacancie-footer">
+                            <div className="footer-buttons">
                                 <ButtonSecondary
                                     text="Reprovar"
                                     disable={selectedCandidate.finished}
@@ -523,7 +515,7 @@ function ViewVacancie() {
                                     color="#fbfcff"
                                 />
                             </div>
-                            <div className="view-vacancie-footer-button">
+                            <div className="footer-buttons">
                                 <ButtonPrimary
                                     text="Aprovar"
                                     disable={selectedCandidate.finished}
@@ -537,7 +529,7 @@ function ViewVacancie() {
                         </div>
                     </>
                 ) : (
-                    <div className="view-vacancie-no-data">
+                    <div className="no-data-selected">
                         <h4>Nenhum candidato selecionado</h4>
                     </div>
                 )}

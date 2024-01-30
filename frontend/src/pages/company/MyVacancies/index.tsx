@@ -317,7 +317,7 @@ function MyVacancies() {
                     to="/vacancie/create"
                 />
             </header>
-            <div className="my-vacancies-list">
+            <div className="vacancies-list">
                 {myVacancies.length
                     ? myVacancies.map((item) => (
                           <MyVacancieCard
@@ -328,7 +328,7 @@ function MyVacancies() {
                           />
                       ))
                     : !loading && (
-                          <div className="my-vacancies-no-data">
+                          <div className="no-data">
                               <p>Nenhuma vaga encontrada.</p>
                           </div>
                       )}

@@ -12,32 +12,32 @@
     background-color: rgba(46, 44, 44, 0.5)
     animation: fadeIn 300ms
 
-.alert-info-content
-    width: 400px
-    background-color: variables.$background-primary
-    border-radius: 5px
-    overflow: hidden
-    transform: translateY(-10px)
-    animation: showContent 300ms
+    .content
+        width: 400px
+        background-color: variables.$background-primary
+        border-radius: 5px
+        overflow: hidden
+        transform: translateY(-10px)
+        animation: showContent 300ms
 
-    >h3
-        padding: 10px
-        color: variables.$color-alternative
-        background-color: variables.$background-alternative
-        margin-bottom: 10px
-        text-align: center
+        >h3
+            padding: 10px
+            color: variables.$color-alternative
+            background-color: variables.$background-alternative
+            margin-bottom: 10px
+            text-align: center
 
-    >p
-        padding: 10px
-        color: variables.$color-default
+        >p
+            padding: 10px
+            color: variables.$color-default
 
-.alert-info-button
-    display: flex
-    justify-content: flex-end
-    padding: 10px
+        .button
+            display: flex
+            justify-content: flex-end
+            padding: 10px
 
-.alert-info-container
-    width: 30%
+            .button-container
+                width: 30%
 
 @keyframes fadeIn
     0%
@@ -54,13 +54,15 @@
         opacity: 1
 
 @media(max-width: 600px)
-    .alert-info-content
-        width: 90%
+    .alert-info
+        .content
+            width: 90%
 
 @media(max-width: 992px)
-    .alert-info-content
-        >h3
-            font-size: 17px
+    .alert-info
+        .content
+            >h3
+                font-size: 17px
 
-        p
-            font-size: 15px
+            p
+                font-size: 15px

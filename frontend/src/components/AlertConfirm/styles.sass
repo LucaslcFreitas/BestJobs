@@ -12,35 +12,35 @@
     background-color: rgba(46, 44, 44, 0.5)
     animation: fadeIn 300ms
 
-.alert-confirm-content
-    width: 400px
-    background-color: variables.$background-primary
-    border-radius: 5px
-    overflow: hidden
-    transform: translateY(-10px)
-    animation: showContent 300ms
+    .content
+        width: 400px
+        background-color: variables.$background-primary
+        border-radius: 5px
+        overflow: hidden
+        transform: translateY(-10px)
+        animation: showContent 300ms
 
-    >h3
-        padding: 10px
-        color: variables.$color-alternative
-        background-color: variables.$background-alternative
-        margin-bottom: 10px
-        text-align: center
+        >h3
+            padding: 10px
+            color: variables.$color-alternative
+            background-color: variables.$background-alternative
+            margin-bottom: 10px
+            text-align: center
 
-    >p
-        padding: 10px
-        color: variables.$color-default
+        >p
+            padding: 10px
+            color: variables.$color-default
 
-.alert-confirm-button
-    display: flex
-    justify-content: flex-end
-    padding: 10px
+        .button
+            display: flex
+            justify-content: flex-end
+            padding: 10px
 
-.alert-confirm-container
-    display: flex
-    flex-direction: row
-    gap: 5px
-    width: 60%
+            .button-container
+                display: flex
+                flex-direction: row
+                gap: 5px
+                width: 60%
 
 @keyframes fadeIn
     0%
@@ -57,13 +57,15 @@
         opacity: 1
 
 @media(max-width: 600px)
-    .alert-confirm-content
-        width: 90%
+    .alert-confirm
+        .content
+            width: 90%
 
 @media(max-width: 992px)
-    .alert-confirm-content
-        >h3
-            font-size: 17px
+    .alert-confirm
+        .content
+            >h3
+                font-size: 17px
 
-        p
-            font-size: 15px
+            p
+                font-size: 15px

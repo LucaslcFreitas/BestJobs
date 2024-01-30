@@ -20,25 +20,25 @@ function ModalDetailCandidacy({
 
     return (
         <div className="modal-detail-candidacy">
-            <div className="modal-detail-candidacy-content">
+            <div className="content">
                 <div>
-                    <div className="modal-detail-candidacy-content-header">
-                        <div className="modal-detail-candidacy-content-header-texts">
+                    <div className="content-header">
+                        <div className="texts">
                             <h2>{candidacy.vacancie.name_position}</h2>
                             <p>{candidacy.vacancie.company.name}</p>
-                            <p className="modal-detail-candidacy-publication-date">
+                            <p className="publication-date">
                                 Publicado em{' '}
                                 {moment(
                                     candidacy.vacancie.publication_date
                                 ).format('DD-MM-YYYY')}
                             </p>
                         </div>
-                        <p className="modal-detail-candidacy-content-header-candidacy">
+                        <p className="candidacy">
                             {candidacy.vacancie.Candidacy} candidaturas
                         </p>
                     </div>
                     <hr />
-                    <div className="modal-detail-candidacy-infos">
+                    <div className="infos">
                         <p>
                             <b>Tipos de Trabalho:</b>{' '}
                             {candidacy.vacancie.job_type.name}
@@ -66,9 +66,7 @@ function ModalDetailCandidacy({
                     </div>
                     <hr />
                     <h3>Descrição:</h3>
-                    <p className="modal-detail-candidacy-about">
-                        {candidacy.vacancie.about}
-                    </p>
+                    <p className="about">{candidacy.vacancie.about}</p>
                     <h3>Habilidades Necessárias:</h3>
                     <ul>
                         {candidacy.vacancie.Vacancie_skill.map((item) => (
@@ -76,8 +74,8 @@ function ModalDetailCandidacy({
                         ))}
                     </ul>
                 </div>
-                <div className="modal-detail-candidacy-footer">
-                    <div className="modal-detail-candidacy-footer-button">
+                <div className="candidacy-footer">
+                    <div className="button-container">
                         <ButtonPrimary
                             text="Fechar"
                             onClickButton={onDismiss}

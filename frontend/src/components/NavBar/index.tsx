@@ -48,7 +48,7 @@ function NavBar() {
                     openMenu ? 'navbar-container-opened' : ''
                 }`}
             >
-                <div className="nav-title">
+                <div className="title">
                     <h1 onClick={handleHome}>
                         Best <span>Jobs</span>
                     </h1>

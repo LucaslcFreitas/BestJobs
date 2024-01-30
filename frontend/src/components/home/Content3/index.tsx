@@ -33,9 +33,9 @@ const dataCards: CardPropsContent3[] = [
 function Content3() {
     return (
         <div className="content3">
-            <div className="content3-container">
+            <div className="container">
                 <h2>A plataforma ideal para sua empresa</h2>
-                <div className="content3-cards">
+                <div className="cards">
                     {dataCards.map((card, index) => (
                         <CardContent3 key={index} {...card} />
                     ))}

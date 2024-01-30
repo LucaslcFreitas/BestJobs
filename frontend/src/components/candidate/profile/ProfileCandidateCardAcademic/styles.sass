@@ -4,41 +4,46 @@
     margin: 10px
     padding: 10px
 
-    h4
+    .data
+        display: flex
+        justify-content: space-between
+
+        h4
+            color: variables.$color-default
+            font-size: 18px
+            font-weight: bold
+            letter-spacing: 1px
+
+        .paragraph
+            color: variables.$color-default
+            letter-spacing: 0.8px
+            font-size: 15px
+
+        .buttons
+            display: flex
+            gap: 10px
+
+    .description
         color: variables.$color-default
-        font-size: 18px
         font-weight: bold
-        letter-spacing: 1px
-
-.profile-card-academic-data
-    display: flex
-    justify-content: space-between
-
-.profile-card-academic-paragraph
-    color: variables.$color-default
-    letter-spacing: 0.8px
-    font-size: 15px
-
-.profile-card-academic-description
-    color: variables.$color-default
-    font-weight: bold
-    font-size: 15px
-    margin-top: 10px
-    letter-spacing: 0.8px
-
-.profile-card-academic-buttons
-    display: flex
-    gap: 10px
+        font-size: 15px
+        margin-top: 10px
+        letter-spacing: 0.8px
 
 @media(max-width: 768px)
     .profile-candidate-card-academic
         margin: 5px
 
-        h4
-            font-size: 17px
+        .data
 
-    .profile-card-academic-paragraph, .profile-card-academic-description
-        font-size: 14px
+            h4
+                font-size: 17px
 
-    .profile-card-academic-buttons
-        gap: 5px
+            .paragraph
+                font-size: 14px
+
+            .buttons
+                gap: 5px
+
+        .description
+            font-size: 14px

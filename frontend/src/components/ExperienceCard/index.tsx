@@ -20,16 +20,14 @@ function ExperienceCard({
     return (
         <div className="experience-card">
             <h4>{experience.position}</h4>
-            <p className="experience-card-paragraph">
+            <p className="paragraph">
                 {experience.company_name} • {experience.locality}
             </p>
-            <p className="experience-card-paragraph">
+            <p className="paragraph">
                 {dateStartFormated} - {dateEndFormated} •{' '}
                 {experience.type_locality.name} • {experience.job_type.name}
             </p>
-            <p className="experience-card-paragraph">
-                Setor: {experience.sector.name}
-            </p>
+            <p className="paragraph">Setor: {experience.sector.name}</p>
             {separator && <hr />}
         </div>
     );

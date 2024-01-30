@@ -302,7 +302,7 @@ function ProfileCandidate() {
                 atualizado para se candidatar às vagas. Caso realize alterações,
                 estes ajustes serão replicados para todas as suas candidaturas.
             </p>
-            <div className="profile-candidate-cards">
+            <div className="cards">
                 <ProfileCandidateCard
                     title="Dados Pessoais"
                     icons={[]}

@@ -1,6 +1,6 @@
 @use '../../../../styles/variables'
 
-.form-profile-cadidate-add-academic
+.form-add-academic
     padding: 10px
     background-color: variables.$background-secondary
 
@@ -13,27 +13,29 @@
         flex-direction: column
         gap: .8rem
 
-.form-profile-cadidate-add-academic-flex
-    display: flex
-    gap: .8rem
+        .row-flex
+            display: flex
+            gap: .8rem
 
-.form-profile-candidate-add-academic-buttons
-    display: flex
-    gap: .8rem
-    width: 50%
+        .buttons
+            display: flex
+            gap: .8rem
+            width: 50%
 
 @media(max-width: 600px)
+    .form-add-academic
+        form
+            .row-flex
+                flex-direction: column
 
-    .form-profile-cadidate-add-academic-flex
-        flex-direction: column
-
-    .form-profile-candidate-add-academic-buttons
-        width: 70%
+            .buttons
+                width: 70%
 
 @media(max-width: 768px)
-    .form-profile-cadidate-add-academic
+    .form-add-academic
         >h3
             font-size: 16px
 
-    .form-profile-cadidate-add-academic-flex
-        gap: .4rem
+        form
+            .row-flex
+                gap: .4rem

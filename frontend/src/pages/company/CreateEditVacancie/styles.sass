@@ -13,40 +13,40 @@
         padding: 25px
         border-bottom: 2px solid #C9C9C9
 
-.create-vacancie-form
-    position: relative
-    width: 100%
-    display: grid
-    grid-template-columns: 1fr 1fr
-    height: 100%
-    padding: 15px
+    .vacancie-form
+        position: relative
+        width: 100%
+        display: grid
+        grid-template-columns: 1fr 1fr
+        height: 100%
+        padding: 15px
 
-.create-vacancie-form-part
-    min-height: 490px
-    padding: 10px
+        .form-part
+            min-height: 490px
+            padding: 10px
 
-    h3
-        font-size: 18px
+            h3
+                font-size: 18px
 
-    &:first-child
-        border-right: 2px solid #C3C3C3
+            &:first-child
+                border-right: 2px solid #C3C3C3
 
-.create-vacancie-input-container
-    margin: 15px 0
+            .input-container
+                margin: 15px 0
 
-.create-vacancie-skills
-    display: flex
-    gap: 5px
-    flex-wrap: wrap
-    margin: 10px 0
-    padding: 5px
+            .skills
+                display: flex
+                gap: 5px
+                flex-wrap: wrap
+                margin: 10px 0
+                padding: 5px
 
-.create-vacancie-button
-    display: flex
-    justify-content: flex-end
+            .button
+                display: flex
+                justify-content: flex-end
 
-.create-vacancie-button-container
-    width: 200px
+            .button-container
+                width: 200px
 
 @media(max-width: 768px)
     .create-vacancie-container
@@ -57,18 +57,18 @@
             h1
                 font-size: 20px
 
-    .create-vacancie-form
-        grid-template-columns: 1fr
+        .vacancie-form
+            grid-template-columns: 1fr
 
-    .create-vacancie-form-part
-        min-height: 100px
-        padding-bottom: 0
+            .form-part
+                min-height: 100px
+                padding-bottom: 0
 
-        h3
-            font-size: 16px
+                h3
+                    font-size: 16px
 
-        &:first-child
-            border-right: none
+                &:first-child
+                    border-right: none
 
 @media(min-width: 768px) and (max-width: 992px)
     .create-vacancie-container
@@ -79,9 +79,10 @@
             h1
                 font-size: 20px
 
-    .create-vacancie-form-part
-        h3
-            font-size: 17px
+        .vacancie-form
+            .form-part
+                h3
+                    font-size: 17px
 
 @media(min-width: 992px) and (max-width: 1200px)
     .create-vacancie-container

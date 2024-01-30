@@ -51,21 +51,19 @@ function ProfileCandidateCardExperience({
     return (
         <>
             <div className="profile-candidate-card-experience">
-                <div className="profile-card-experience-data">
+                <div className="data">
                     <div>
                         <h4>{position}</h4>
-                        <p className="profile-card-experience-paragraph">
+                        <p className="paragraph">
                             {company_name} • {locality}
                         </p>
-                        <p className="profile-card-experience-paragraph">
+                        <p className="paragraph">
                             {dateStartFormated} - {dateEndFormated} •{' '}
                             {type_locality.name} • {job_type.name}
                         </p>
-                        <p className="profile-card-experience-paragraph">
-                            Setor: {sector.name}
-                        </p>
+                        <p className="paragraph">Setor: {sector.name}</p>
                     </div>
-                    <div className="profile-card-experience-buttons">
+                    <div className="buttons">
                         <IconButtonSmall
                             color="#1E90FF"
                             backgroundColor="#f2f4fd"
@@ -80,9 +78,7 @@ function ProfileCandidateCardExperience({
                         />
                     </div>
                 </div>
-                <p className="profile-card-experience-description">
-                    {description}
-                </p>
+                <p className="description">{description}</p>
             </div>
             {separator && <hr />}
         </>

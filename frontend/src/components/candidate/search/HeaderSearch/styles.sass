@@ -9,23 +9,32 @@
     min-height: 50px
     padding: 10px 0
 
-.header-search-container
-    @include mixins.width-container-small
-    margin-top: 0
-    margin-bottom: 0
-    display: flex
-    align-items: center
-    gap: 15px
+    .container
+        @include mixins.width-container-small
+        margin-top: 0
+        margin-bottom: 0
+        display: flex
+        align-items: center
+        gap: 15px
 
-.header-search-item
-    width: 200px
+        .search-item
+            width: 200px
 
-.header-search-close
-    display: none
+        .filter-close
+            display: none
 
 @media(max-width: 600px)
     .header-search
         display: none
+
+        .container
+            @include mixins.width-container-xxx-small
+            margin: 0
+            flex-direction: column
+            height: 100%
+
+            .filter-close
+                display: block
 
     .header-search-view
         display: block
@@ -39,30 +48,24 @@
         background-color: rgba(58, 57, 57, 0.8)
         z-index: 500
 
-    .header-search-container
-        @include mixins.width-container-xxx-small
-        margin: 0
-        flex-direction: column
-        height: 100%
-
-    .header-search-close
-        display: block
-
 @media(min-width: 600px) and (max-width: 768px)
-    .header-search-container
-        @include mixins.width-container-xxx-small
-        margin-top: 0
-        margin-bottom: 0
-        padding: 0 10px
+    .header-search
+        .container
+            @include mixins.width-container-xxx-small
+            margin-top: 0
+            margin-bottom: 0
+            padding: 0 10px
 
 @media(min-width: 768px) and (max-width: 992px)
-    .header-search-container
-        @include mixins.width-container-xx-small
-        margin-top: 0
-        margin-bottom: 0
+    .header-search
+        .container
+            @include mixins.width-container-xx-small
+            margin-top: 0
+            margin-bottom: 0
 
 @media(min-width: 992px) and (max-width: 1200px)
-    .header-search-container
-        @include mixins.width-container-x-small
-        margin-top: 0
-        margin-bottom: 0
+    .header-search
+        .container
+            @include mixins.width-container-x-small
+            margin-top: 0
+            margin-bottom: 0

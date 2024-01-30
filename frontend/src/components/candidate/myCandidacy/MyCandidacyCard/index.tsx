@@ -23,31 +23,29 @@ function MyCandidacyCard({
 
     return (
         <div className="my-candidacy-card">
-            <div className="my-candidacy-card-row">
+            <div className="row">
                 <div>
                     <h3>{candidacy.vacancie.name_position}</h3>
-                    <p className="my-candidacy-card-company">
-                        {candidacy.vacancie.company.name}
-                    </p>
+                    <p className="company">{candidacy.vacancie.company.name}</p>
                 </div>
                 <p
-                    className={`my-candidacy-card-status ${
+                    className={`status ${
                         status === 'Aprovado'
-                            ? 'my-candidacy-card-approved'
+                            ? 'status-approved'
                             : status === 'Reprovado'
-                            ? 'my-candidacy-card-disapproved'
+                            ? 'status-disapproved'
                             : ''
                     }`}
                 >
                     {status}
                 </p>
             </div>
-            <div className="my-candidacy-card-row my-candidacy-card-flex-end">
+            <div className="row card-flex-end">
                 <p>
                     Candidatado em:{' '}
                     {moment(candidacy.create_at).format('DD-MM-YYYY')}
                 </p>
-                <div className="my-candidacy-card-buttons">
+                <div className="buttons">
                     {status === 'Em Análise' && (
                         <LinkAction
                             text="Desistir"

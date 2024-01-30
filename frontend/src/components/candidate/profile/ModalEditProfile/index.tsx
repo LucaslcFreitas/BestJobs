@@ -14,7 +14,7 @@ function ModalEditProfile({ show, children }: ModalEditProfileProps) {
 
     return (
         <div className="modal-edit-profile">
-            <div className="modal-edit-profile-content">{children}</div>
+            <div className="content">{children}</div>
         </div>
     );
 }

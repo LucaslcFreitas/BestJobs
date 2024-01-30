@@ -19,20 +19,16 @@ function ProfileCandidateCard({
         <section className="profile-candidate-card">
             <header>
                 <h2>{title}</h2>
-                <div className="profile-candidate-card-icons">
-                    {icons.map((icon) => icon)}
-                </div>
+                <div className="icons">{icons.map((icon) => icon)}</div>
             </header>
             {loading ? (
-                <div className="profile-candidate-card-loading">
+                <div className="loading">
                     <LoaderLocal show={true} />
                 </div>
             ) : children ? (
                 children
             ) : (
-                <p className="profile-candidate-card-no-data">
-                    Nenhuma informação encontrada
-                </p>
+                <p className="no-data">Nenhuma informação encontrada</p>
             )}
         </section>
     );

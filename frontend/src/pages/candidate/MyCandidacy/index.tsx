@@ -8,7 +8,7 @@ import {
     showAlertConfirm,
     hideAlertConfirm,
 } from '../../../redux/alert/sliceAlertConfirm';
-import ModalDetailCandidacy from '../../../components/candidate/myCandidacy/ModalDetailCondidacy';
+import ModalDetailCandidacy from '../../../components/candidate/myCandidacy/ModalDetailCandidacy';
 
 const myCandicacyData: MyCandidacyType[] = [
     {
@@ -309,7 +309,7 @@ function MyCandidacy() {
             <header>
                 <h1>Minhas Candidaturas</h1>
             </header>
-            <div className="my-candidacy-list">
+            <div className="candidacy-list">
                 {myCandidacy
                     ? myCandidacy.map((item) => (
                           <MyCandidacyCard
@@ -320,7 +320,7 @@ function MyCandidacy() {
                           />
                       ))
                     : !loading && (
-                          <div className="my-candidacy-no-data">
+                          <div className="no-data">
                               <p>Nenhuma candidatura encontrada.</p>
                           </div>
                       )}

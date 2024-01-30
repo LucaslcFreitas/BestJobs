@@ -13,21 +13,23 @@
     background-color: rgba(46, 44, 44, 0.5)
     z-index: 1000
 
-.modal-edit-profile-content
-    width: 700px
-    height: auto
-    border-radius: 10px
-    overflow: hidden
-    background-color: variables.$background-secondary
-    padding: 5px
-    z-index: 1001
+    .content
+        width: 700px
+        height: auto
+        border-radius: 10px
+        overflow: hidden
+        background-color: variables.$background-secondary
+        padding: 5px
+        z-index: 1001
 
 @media(max-width: 600px)
-    .modal-edit-profile-content
-        width: 90%
-        max-height: 90vh
-        overflow-y: auto
+    .modal-edit-profile
+        .content
+            width: 90%
+            max-height: 90vh
+            overflow-y: auto
 
 @media(min-width: 600px) and (max-width: 768px)
-    .modal-edit-profile-content
-        width: 550px
+    .modal-edit-profile
+        .content
+            width: 550px

@@ -22,11 +22,11 @@ function AlertInfo({
 
     return (
         <div className="alert-info">
-            <div className="alert-info-content">
+            <div className="content">
                 <h3>{title}</h3>
                 <p>{info}</p>
-                <div className="alert-info-button">
-                    <div className="alert-info-container">
+                <div className="button">
+                    <div className="button-container">
                         <ButtonPrimary
                             text={textButton}
                             onClickButton={onDismiss}

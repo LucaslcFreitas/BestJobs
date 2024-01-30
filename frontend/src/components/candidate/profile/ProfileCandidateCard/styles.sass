@@ -19,22 +19,22 @@
             color: variables.$color-default
             padding-bottom: 5px
 
+        .icons
+            display: flex
+            gap: 0.5rem
+
+    .no-data
+        color: variables.$color-default-secondary
+        margin-top: 15px
+        text-align: center
+
+    .loading
+        position: relative
+        min-height: 200px
+
     hr
         border-top: 1px solid #c9c9c9
         margin: 0 15px
-
-.profile-candidate-card-icons
-    display: flex
-    gap: 0.5rem
-
-.profile-candidate-card-no-data
-    color: variables.$color-default-secondary
-    margin-top: 15px
-    text-align: center
-
-.profile-candidate-card-loading
-    position: relative
-    min-height: 200px
 
 @media(max-width: 768px)
     .profile-candidate-card
@@ -45,8 +45,8 @@
             >h2
                 font-size: 20px
 
-    .profile-candidate-card-no-data
-        margin-bottom: 10px
+        .no-data
+            margin-bottom: 10px
 
 @media(min-width: 768px) and (max-width: 992px)
     .profile-candidate-card

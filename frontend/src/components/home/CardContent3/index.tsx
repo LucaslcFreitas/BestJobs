@@ -27,15 +27,15 @@ function CardContent3({
             transition={{ duration: 0.3, delay: animationDelay }}
             viewport={{ once: true, amount: 0.1 }}
         >
-            <div className="content3-inner">
-                <div className="content3-front">
+            <div className="inner">
+                <div className="front">
                     {icon}
-                    <p className="content3-title">{title}</p>
-                    <p className="content3-description-front">{description}</p>
+                    <p className="title">{title}</p>
+                    <p className="description-front">{description}</p>
                     <IoIosArrowDown />
                 </div>
-                <div className="content3-back">
-                    <p className="content3-description-back">{description}</p>
+                <div className="back">
+                    <p className="description-back">{description}</p>
                 </div>
             </div>
         </motion.div>

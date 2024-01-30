@@ -24,7 +24,7 @@ function SearchVacancieCard({
                 }`}
                 onClick={onClick}
             >
-                <div className="search-vacancie-card-labels">
+                <div className="labels">
                     <h3>{title}</h3>
                     <p>{subtitle}</p>
                 </div>

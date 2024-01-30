@@ -6,8 +6,8 @@ import { FaSquareXTwitter } from 'react-icons/fa6';
 function Footer() {
     return (
         <footer className="footer">
-            <div className="footer-container">
-                <div className="footer-main">
+            <div className="container">
+                <div className="main">
                     <div>
                         <p>
                             Best <span>Jobs</span>

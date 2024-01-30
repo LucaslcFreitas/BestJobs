@@ -24,7 +24,7 @@ function ViewVacancieCard({
                 }`}
                 onClick={onClick}
             >
-                <div className="view-vacancie-card-labels">
+                <div className="labels">
                     <h3>{title}</h3>
                     <p>{status}</p>
                 </div>

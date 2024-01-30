@@ -86,10 +86,7 @@ function FormProfileCandidateAddAcademic({
     };
 
     return (
-        <div
-            id="formAddAcademic"
-            className="form-profile-cadidate-add-academic"
-        >
+        <div id="formAddAcademic" className="form-add-academic">
             <h3>{title}</h3>
             <form onSubmit={handleAddAcademicGraduation}>
                 <InputText
@@ -113,7 +110,7 @@ function FormProfileCandidateAddAcademic({
                         label: item.name,
                     }))}
                 />
-                <div className="form-profile-cadidate-add-academic-flex">
+                <div className="row-flex">
                     <InputDate
                         label="Data de início"
                         value={startDate}
@@ -142,7 +139,7 @@ function FormProfileCandidateAddAcademic({
                     value={description}
                     onChangeInput={setDescription}
                 />
-                <div className="form-profile-candidate-add-academic-buttons">
+                <div className="buttons">
                     <ButtonSecondary
                         text="Cancelar"
                         onClickButton={handleCancelAddGraduation}

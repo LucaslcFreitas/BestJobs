@@ -22,10 +22,8 @@ function AcademicGraduationCard({
     return (
         <div className="academic-graduation-card">
             <h4>{academicGraduation.course_name}</h4>
-            <p className="academic-graduation-card-paragraph">
-                {academicGraduation.instituition}
-            </p>
-            <p className="academic-graduation-card-paragraph">
+            <p className="paragraph">{academicGraduation.instituition}</p>
+            <p className="paragraph">
                 {dateStartFormated} -{' '}
                 {academicGraduation.date_conclusion
                     ? 'Em progresso'
@@ -37,13 +35,11 @@ function AcademicGraduationCard({
                         : 'Não Concluído'
                     : ''}
             </p>
-            <p className="academic-graduation-card-paragraph">
+            <p className="paragraph">
                 Área: {academicGraduation.study_area.name}
             </p>
 
-            <p className="academic-graduation-card-description">
-                {academicGraduation.description}
-            </p>
+            <p className="description">{academicGraduation.description}</p>
             {separator && <hr />}
         </div>
     );

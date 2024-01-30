@@ -4,42 +4,45 @@
     padding: 5px
     border-bottom: 1px solid #C3C3C3
 
-.my-vacancie-card-row
-    display: flex
-    justify-content: space-between
-    gap: 5px
+    .card-row
+        display: flex
+        justify-content: space-between
+        gap: 5px
 
-    &:first-child
-        margin-bottom: 15px
-
-    p
-        font-size: 16px
-
-    h3
-        font-size: 19px
-
-.my-vacancie-card-flex-end
-    align-items: flex-end
-
-.my-vacancie-card-buttons
-    display: flex
-    justify-content: space-between
-    gap: 25px
-    align-items: flex-end
-
-.my-vacancie-card-candidacy
-    font-style: italic
-
-@media(max-width: 600px)
-    .my-vacancie-card-buttons
-        flex-direction: column-reverse
-        gap: 10px
-
-@media(max-width: 1200px)
-    .my-vacancie-card-row
         &:first-child
-            h3
-                font-size: 17px
+            margin-bottom: 15px
 
         p
-            font-size: 15px
+            font-size: 16px
+
+        h3
+            font-size: 19px
+
+        .my-vacancie-card-candidacy
+            font-style: italic
+
+        .card-buttons
+            display: flex
+            justify-content: space-between
+            gap: 25px
+            align-items: flex-end
+
+    .my-vacancie-card-flex-end
+        align-items: flex-end
+
+@media(max-width: 600px)
+    .my-vacancie-card
+        .card-row
+            .card-buttons
+                flex-direction: column-reverse
+                gap: 10px
+
+@media(max-width: 1200px)
+    .my-vacancie-card
+        .card-row
+            &:first-child
+                h3
+                    font-size: 17px
+
+            p
+                font-size: 15px

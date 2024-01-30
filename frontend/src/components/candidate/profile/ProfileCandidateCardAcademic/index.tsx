@@ -48,13 +48,11 @@ function ProfileCandidateCardAcademic({
     return (
         <>
             <div className="profile-candidate-card-academic">
-                <div className="profile-card-academic-data">
+                <div className="data">
                     <div>
                         <h4>{course_name}</h4>
-                        <p className="profile-card-academic-paragraph">
-                            {instituition}
-                        </p>
-                        <p className="profile-card-academic-paragraph">
+                        <p className="paragraph">{instituition}</p>
+                        <p className="paragraph">
                             {dateStartFormated} -{' '}
                             {!date_conclusion
                                 ? 'Em progresso'
@@ -66,11 +64,9 @@ function ProfileCandidateCardAcademic({
                                     : 'Não Concluído'
                                 : ''}
                         </p>
-                        <p className="profile-card-academic-paragraph">
-                            Área: {study_area.name}
-                        </p>
+                        <p className="paragraph">Área: {study_area.name}</p>
                     </div>
-                    <div className="profile-card-academic-buttons">
+                    <div className="buttons">
                         <IconButtonSmall
                             color="#1E90FF"
                             backgroundColor="#f2f4fd"
@@ -85,9 +81,7 @@ function ProfileCandidateCardAcademic({
                         />
                     </div>
                 </div>
-                <p className="profile-card-academic-description">
-                    {description}
-                </p>
+                <p className="description">{description}</p>
             </div>
             {separator && <hr />}
         </>

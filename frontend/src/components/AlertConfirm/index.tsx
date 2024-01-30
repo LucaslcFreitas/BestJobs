@@ -27,11 +27,11 @@ function AlertConfirm({
 
     return (
         <div className="alert-confirm">
-            <div className="alert-confirm-content">
+            <div className="content">
                 <h3>{title}</h3>
                 <p>{info}</p>
-                <div className="alert-confirm-button">
-                    <div className="alert-confirm-container">
+                <div className="button">
+                    <div className="button-container">
                         <ButtonSecondary
                             text={textButtonCancel}
                             onClickButton={onDismiss}

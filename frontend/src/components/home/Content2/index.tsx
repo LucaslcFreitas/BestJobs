@@ -34,7 +34,7 @@ function Content2() {
         <div className="content2">
             <h2>O site mais completo de 2023</h2>
             <div className="content2-container">
-                <div className="content2-texts">
+                <div className="texts">
                     <h3>Te apoiamos em sua jornada</h3>
                     {dataCards.map((card, index) => (
                         <CardContent2
@@ -45,7 +45,7 @@ function Content2() {
                         />
                     ))}
                 </div>
-                <div className="content2-image">
+                <div className="image">
                     <img src={ImgBackground} alt="O site mais completo" />
                 </div>
             </div>

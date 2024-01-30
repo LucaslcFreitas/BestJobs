@@ -52,8 +52,8 @@ function HeaderSearch({
         <header
             className={`header-search ${inView ? 'header-search-view' : ''}`}
         >
-            <div className="header-search-container">
-                <div className="header-search-close">
+            <div className="container">
+                <div className="filter-close">
                     <IconButtonSmall
                         backgroundColor="#f2f4fd"
                         color="#3b3b3b"
@@ -63,7 +63,7 @@ function HeaderSearch({
                         }}
                     />
                 </div>
-                <div className="header-search-item">
+                <div className="search-item">
                     <InputSelect
                         options={sectors.map((item) => ({
                             value: item.id,
@@ -75,7 +75,7 @@ function HeaderSearch({
                         light
                     />
                 </div>
-                <div className="header-search-item">
+                <div className="search-item">
                     <InputSelect
                         options={jobTypes.map((item) => ({
                             value: item.id,
@@ -87,7 +87,7 @@ function HeaderSearch({
                         light
                     />
                 </div>
-                <div className="header-search-item">
+                <div className="search-item">
                     <InputSelect
                         options={localityTypes.map((item) => ({
                             value: item.id,

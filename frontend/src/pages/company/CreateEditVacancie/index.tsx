@@ -125,10 +125,10 @@ function CreateEditVacancie() {
             <header>
                 <h1>{id ? 'Editar' : 'Criar'} Vaga</h1>
             </header>
-            <form className="create-vacancie-form">
-                <div className="create-vacancie-form-part">
+            <form className="vacancie-form">
+                <div className="form-part">
                     <h3>Dados da Vaga</h3>
-                    <div className="create-vacancie-input-container">
+                    <div className="input-container">
                         <InputText
                             label="Nome da Vaga"
                             type="text"
@@ -136,7 +136,7 @@ function CreateEditVacancie() {
                             onChangeInput={setNamePosition}
                         />
                     </div>
-                    <div className="create-vacancie-input-container">
+                    <div className="input-container">
                         <InputText
                             label="Local de Atuação"
                             type="text"
@@ -144,7 +144,7 @@ function CreateEditVacancie() {
                             onChangeInput={setLocality}
                         />
                     </div>
-                    <div className="create-vacancie-input-container">
+                    <div className="input-container">
                         <InputText
                             label="Expectativa Salarial"
                             type="number"
@@ -154,7 +154,7 @@ function CreateEditVacancie() {
                             }
                         />
                     </div>
-                    <div className="create-vacancie-input-container">
+                    <div className="input-container">
                         <InputTextArea
                             label="Descrição da Área"
                             value={about}
@@ -162,9 +162,9 @@ function CreateEditVacancie() {
                         />
                     </div>
                 </div>
-                <div className="create-vacancie-form-part">
+                <div className="form-part">
                     <h3>Características da Vaga</h3>
-                    <div className="create-vacancie-input-container">
+                    <div className="input-container">
                         <InputSelect
                             label="Tipo de Trabalho"
                             value={jobType?.id || ''}
@@ -175,7 +175,7 @@ function CreateEditVacancie() {
                             onChange={setJobType}
                         />
                     </div>
-                    <div className="create-vacancie-input-container">
+                    <div className="input-container">
                         <InputSelect
                             label="Modelo"
                             value={typeLocality?.id || ''}
@@ -186,7 +186,7 @@ function CreateEditVacancie() {
                             onChange={setTypeLocality}
                         />
                     </div>
-                    <div className="create-vacancie-input-container">
+                    <div className="input-container">
                         <InputSelect
                             label="Setor da Vaga"
                             value={sector?.id || ''}
@@ -197,7 +197,7 @@ function CreateEditVacancie() {
                             onChange={setSector}
                         />
                     </div>
-                    <div className="create-vacancie-input-container">
+                    <div className="input-container">
                         <InputSelect
                             label="Habilidades"
                             value={auxSkill?.id || ''}
@@ -214,7 +214,7 @@ function CreateEditVacancie() {
                             }
                         />
                     </div>
-                    <div className="create-vacancie-skills">
+                    <div className="skills">
                         <SkillCard
                             skill={{
                                 id: '1',
@@ -244,8 +244,8 @@ function CreateEditVacancie() {
                             onDelete={handleDeleteSkill}
                         />
                     </div>
-                    <div className="create-vacancie-button">
-                        <div className="create-vacancie-button-container">
+                    <div className="button">
+                        <div className="button-container">
                             <ButtonPrimary
                                 text={id ? 'Salvar' : 'Publicar'}
                                 isSubmit
