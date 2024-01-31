@@ -3,6 +3,10 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { startLoad, stopLoad } from '../../redux/loader/sliceLoader';
+import { userLogin } from '../../redux/user/sliceUser';
+import api from '../../services/api';
+import endpoints from '../../services/endpoints';
+import { isEmail } from '../../utils/validateEmail';
 
 import InputText from '../../components/InputText';
 import SwitchUserLogin from '../../components/SwitchUserLogin';
@@ -31,16 +35,69 @@ function Signin() {
             return;
         }
 
+        if (!isEmail(email)) {
+            setErrorMessage('E-mail inválido');
+            return;
+        }
+
         if (!inLogin) {
             setInLogin(true);
             dispatch(startLoad());
             setEmailError('');
 
-            setTimeout(() => {
-                setInLogin(false);
+            //timeout para fins visuais
+            const timeout = setTimeout(() => {
+                api.post(
+                    isCandidate
+                        ? endpoints.LOGIN_CANDIDATE
+                        : endpoints.LOGIN_COMPANY,
+                    {
+                        email,
+                        password,
+                    }
+                )
+                    .then((response) => {
+                        console.log(response);
+                        dispatch(
+                            userLogin({
+                                token: response.data.token,
+                                name: response.data.name,
+                                email: response.data.email,
+                                type:
+                                    response.data.type === 'candidate'
+                                        ? 'Candidate'
+                                        : 'Company',
+                            })
+                        );
+                        setInLogin(false);
+                        dispatch(stopLoad());
+                        navigate('/home');
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        switch (error.response.data.error) {
+                            case 'Invalid credentials':
+                                setErrorMessage('Credenciais inválidas');
+                                break;
+                            case 'User already exists':
+                                setErrorMessage('Usuário inexistente');
+                                break;
+                            case 'Missing parameters':
+                                setErrorMessage('Preencha todos os campos');
+                                break;
+                            default:
+                                setErrorMessage('Falha ao verificar usuário');
+                                break;
+                        }
+                        setInLogin(false);
+                        dispatch(stopLoad());
+                    });
+            }, 1000);
+
+            return () => {
                 dispatch(stopLoad());
-                navigate('/home');
-            }, 3000);
+                clearTimeout(timeout);
+            };
         }
     };
 

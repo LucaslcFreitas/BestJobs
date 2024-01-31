@@ -4,6 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { OptionSelect } from '../../components/InputSelect';
 import { useDispatch } from 'react-redux';
 import { startLoad, stopLoad } from '../../redux/loader/sliceLoader';
+import api from '../../services/api';
+import endpoints from '../../services/endpoints';
+import { userLogin } from '../../redux/user/sliceUser';
+import { isEmail } from '../../utils/validateEmail';
+import { isCPF, formatCPF } from '../../utils/validateCPF';
 
 import FormTypeCandidate from '../../components/signup/FormTypeCandidate';
 import FormTypeCompany from '../../components/signup/FormTypeCompany';
@@ -77,13 +82,59 @@ function Signup() {
             return;
         }
 
+        if (!isEmail(emailCD)) {
+            setErrorMsg('E-mail inválido');
+            return;
+        }
+
+        if (!isCPF(cpfCD)) {
+            setErrorMsg('CPF inválido');
+            return;
+        }
+
         setInSignup(true);
         dispatch(startLoad());
+
+        //timeout para fins visuais
         setTimeout(() => {
-            setInSignup(false);
-            dispatch(stopLoad());
-            navigate('/candidate/profile');
-        }, 5000);
+            api.post(endpoints.SIGNUP_CANDIDATE, {
+                name: nameCD,
+                email: emailCD,
+                cpf: formatCPF(cpfCD),
+                password: passwordCD,
+                about_me: aboutMeCD,
+            })
+                .then((response) => {
+                    console.log(response);
+                    dispatch(
+                        userLogin({
+                            token: response.data.token,
+                            name: response.data.name,
+                            email: response.data.email,
+                            type: 'Candidate',
+                        })
+                    );
+                    setInSignup(false);
+                    dispatch(stopLoad());
+                    navigate('/candidate/profile');
+                })
+                .catch((error) => {
+                    console.log(error);
+                    switch (error.response.data.error) {
+                        case 'Failed to create user':
+                            setErrorMsg('Falha ao criar usuário');
+                            break;
+                        case 'Missing parameters':
+                            setErrorMsg('Preencha todos os campos');
+                            break;
+                        default:
+                            setErrorMsg('Falha ao verificar usuário');
+                            break;
+                    }
+                    setInSignup(false);
+                    dispatch(stopLoad());
+                });
+        }, 2000);
     };
 
     const signupCompany = () => {
@@ -99,13 +150,53 @@ function Signup() {
             return;
         }
 
+        if (!isEmail(emailCP)) {
+            setErrorMsg('E-mail inválido');
+            return;
+        }
+
         setInSignup(true);
         dispatch(startLoad());
         setTimeout(() => {
-            setInSignup(false);
-            dispatch(stopLoad());
-            navigate('/company/profile');
-        }, 5000);
+            api.post(endpoints.SIGNUP_COMPANY, {
+                name: nameCP,
+                slogan: sloganCP,
+                number_of_employees: numberOfEmployeersCP,
+                email: emailCP,
+                password: passwordCP,
+                description: descriptionCP,
+            })
+                .then((response) => {
+                    console.log(response);
+                    dispatch(
+                        userLogin({
+                            token: response.data.token,
+                            name: response.data.name,
+                            email: response.data.email,
+                            type: 'Company',
+                        })
+                    );
+                    setInSignup(false);
+                    dispatch(stopLoad());
+                    navigate('/home');
+                })
+                .catch((error) => {
+                    console.log(error);
+                    switch (error.response.data.error) {
+                        case 'Failed to create company':
+                            setErrorMsg('Falha ao criar usuário');
+                            break;
+                        case 'Missing parameters':
+                            setErrorMsg('Preencha todos os campos');
+                            break;
+                        default:
+                            setErrorMsg('Falha ao verificar usuário');
+                            break;
+                    }
+                    setInSignup(false);
+                    dispatch(stopLoad());
+                });
+        }, 2000);
     };
 
     const handleChangeTypeUser = (type: boolean) => {

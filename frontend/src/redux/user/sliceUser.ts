@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: User = {
-    token: '123',
-    name: 'Lucas Freitas',
+    token: null,
+    name: null,
     email: null,
-    type: 'Candidate'
+    type: null
 };
 
 interface User {
@@ -18,14 +18,17 @@ const sliceUser = createSlice({
     name: 'User',
     initialState: initialState,
     reducers: {
-        userLoginLogout(state, { payload }: PayloadAction<User>) {
+        userLogin(state, { payload }: PayloadAction<User>) {
             return payload;
+        },
+        userLogout() {
+            return initialState;
         }
     }
 });
 
 export default sliceUser.reducer;
-export const { userLoginLogout } = sliceUser.actions;
+export const { userLogin, userLogout } = sliceUser.actions;
 
 export const useUser = (state: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
     return state.user as User;
