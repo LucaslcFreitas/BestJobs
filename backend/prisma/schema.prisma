@@ -36,7 +36,7 @@ model Academic_graduation {
   id_study_area   String
   study_area      Study_area @relation(fields: [id_study_area], references: [id])
   start_date      DateTime
-  date_conclusion DateTime
+  date_conclusion DateTime?
   conclued        Boolean
   description     String
   id_candidate    String

@@ -18,8 +18,8 @@ export class CreateAcademicGraduationController {
             course_name,
             id_study_area,
             start_date,
-            date_conclusion,
-            conclued,
+            date_conclusion = '',
+            conclued = true,
             description,
         }: CreateAcademicGraduation = request.body;
         const userId: string = request.auth_user_id!;
@@ -29,15 +29,13 @@ export class CreateAcademicGraduationController {
             !course_name ||
             !id_study_area ||
             !start_date ||
-            !date_conclusion ||
-            !conclued ||
             !description
         ) {
             return response.status(400).json({ error: 'Missing parameters' });
         }
 
         const startDateParse = new Date(start_date);
-        const dateConclusionParse = new Date(date_conclusion);
+        const dateConclusionParse = date_conclusion ? new Date(date_conclusion) : null;
 
         const studyArea = await prismaClient.study_area.findUnique({
             where: {
@@ -70,6 +68,7 @@ export class CreateAcademicGraduationController {
 
         return response.json({
             id: academicGraduation.id,
+            course_name: academicGraduation.course_name,
             instituition: academicGraduation.instituition,
             study_area: studyArea,
             start_date: academicGraduation.start_date,
