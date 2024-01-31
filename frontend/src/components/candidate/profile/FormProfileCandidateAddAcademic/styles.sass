@@ -1,4 +1,5 @@
 @use '../../../../styles/variables'
+@use '../../../../styles/mixins'
 
 .form-add-academic
     padding: 10px
@@ -21,6 +22,22 @@
             display: flex
             gap: .8rem
             width: 50%
+
+        .error
+            color: variables.$color-error
+            margin-left: 10px
+
+    .error-loading
+        @include mixins.center
+        flex-direction: column
+
+        >p
+            font-size: 16px
+            text-align: center
+            margin: 15px 5px
+
+        .button-container
+            width: 200px
 
 @media(max-width: 600px)
     .form-add-academic

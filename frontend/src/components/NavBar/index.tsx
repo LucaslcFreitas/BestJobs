@@ -1,6 +1,6 @@
 import './styles.sass';
 import { useDispatch, useSelector } from 'react-redux';
-import { userLoginLogout, useUser } from '../../redux/user/sliceUser';
+import { userLogout, useUser } from '../../redux/user/sliceUser';
 import { MdWork } from 'react-icons/md';
 import { IoExitOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
@@ -31,14 +31,7 @@ function NavBar() {
     };
 
     const handleLogout = () => {
-        dispatch(
-            userLoginLogout({
-                token: null,
-                name: null,
-                email: null,
-                type: null,
-            })
-        );
+        dispatch(userLogout());
     };
 
     return (

@@ -57,11 +57,10 @@ function ProfileCandidateCardAcademic({
                             {!date_conclusion
                                 ? 'Em progresso'
                                 : dateEndFormated}{' '}
-                            •{' '}
                             {date_conclusion
                                 ? conclued
-                                    ? 'Concluído'
-                                    : 'Não Concluído'
+                                    ? '• Concluído'
+                                    : '• Não Concluído'
                                 : ''}
                         </p>
                         <p className="paragraph">Área: {study_area.name}</p>

@@ -4,6 +4,14 @@ import {
     showAlertConfirm,
     hideAlertConfirm,
 } from '../../../redux/alert/sliceAlertConfirm';
+import {
+    showAlertInfo,
+    hideAlertInfo,
+} from '../../../redux/alert/sliceAlertInfo';
+import { startLoad, stopLoad } from '../../../redux/loader/sliceLoader';
+import api from '../../../services/api';
+import { useSelector } from 'react-redux';
+import { useUser } from '../../../redux/user/sliceUser';
 import ProfileCandidateCard from '../../../components/candidate/profile/ProfileCandidateCard';
 import ProfileCandidateCardData from '../../../components/candidate/profile/ProfileCandidateCardData';
 import { MdOutlineAdd } from 'react-icons/md';
@@ -20,89 +28,7 @@ import { AcademicGraduationType } from '../../../shared/types/AcademicGraduation
 import { ExperienceType } from '../../../shared/types/ExperienceType';
 import ModalEditProfile from '../../../components/candidate/profile/ModalEditProfile';
 import { UserType } from '../../../shared/types/UserData';
-
-const userDataPre: UserType = {
-    name: 'Lucas Freitas',
-    email: 'lucaslcfjf@hotmail.com',
-    cpf: '11111111111',
-    description: 'Desenvolvedor Front-end',
-};
-
-const academicGraduationsDataPre: AcademicGraduationType[] = [
-    {
-        id: '79f4b4ea-570a-43ee-83f5-b591b638fe8e',
-        instituition: 'Universidade Federal de Juiz de Fora',
-        course_name: 'Sistemas de Informação',
-        study_area: {
-            id: 'd3b5b254-0e19-464c-9a33-33cc633b6312',
-            name: 'Engenharia/Tecnologia',
-        },
-        start_date: '2023-06-15T16:35:19.047Z',
-        date_conclusion: '2023-06-15T16:39:19.047Z',
-        conclued: true,
-        description:
-            'Curso Universitário da área de tecnologia realizado em uma das principáis universidade de Minas Gerais.',
-    },
-    {
-        id: '79f4b4ea-570a-43ee-83f5-b591b638fe8f',
-        instituition: 'Instituto Federal de Juiz de Fora',
-        course_name: 'Informática para Internet',
-        study_area: {
-            id: 'd3b5b254-0e19-464c-9a33-33cc633b6312',
-            name: 'Engenharia/Tecnologia',
-        },
-        start_date: '2023-06-15T16:35:19.047Z',
-        date_conclusion: '2023-06-15T16:39:19.047Z',
-        conclued: true,
-        description:
-            'Curso técnico voltado para desenvolvimento de sistemas web.',
-    },
-];
-
-const experiencesDataPre: ExperienceType[] = [
-    {
-        id: '1466d8e9-a3a8-411f-aa43-a685ca64e672',
-        position: 'Desenvolvedor Fron-end',
-        company_name: 'UFJF',
-        locality: 'Juiz de Fora',
-        type_locality: {
-            id: 'db113946-2467-4c27-aece-6a24f9631271',
-            name: 'Presencial',
-        },
-        job_type: {
-            id: 'e538fddc-762a-448b-be71-28b3545cd12d',
-            name: 'Tempo Integral',
-        },
-        sector: {
-            id: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-            name: 'Tecnologia da Informação',
-        },
-        description: 'Desenvolvimento de aplicações web',
-        start: '2023-06-15T16:35:19.047Z',
-        end: '2023-06-15T16:39:19.047Z',
-    },
-    {
-        id: '1466d8e9-a3a8-411f-aa43-a685ca64e673',
-        position: 'Desenvolvedor Back-end',
-        company_name: 'Microsoft',
-        locality: 'Juiz de Fora',
-        type_locality: {
-            id: 'db113946-2467-4c27-aece-6a24f9631271',
-            name: 'Remoto',
-        },
-        job_type: {
-            id: 'e538fddc-762a-448b-be71-28b3545cd12d',
-            name: 'Tempo Integral',
-        },
-        sector: {
-            id: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-            name: 'Tecnologia da Informação',
-        },
-        description: 'Desenvolvimento de apis node',
-        start: '2023-06-15T16:35:19.047Z',
-        end: '2023-06-15T16:39:19.047Z',
-    },
-];
+import endpoints from '../../../services/endpoints';
 
 const academicDataEmpty: AcademicGraduationType = {
     id: '',
@@ -141,6 +67,8 @@ const experienceDataEmpty: ExperienceType = {
 };
 
 function ProfileCandidate() {
+    const user = useSelector(useUser);
+
     // const alertInfo = useSelector(useAlertInfo);
     const dispatch = useDispatch();
 
@@ -174,18 +102,61 @@ function ProfileCandidate() {
         useState<ExperienceType>(experienceDataEmpty);
 
     useEffect(() => {
-        const userTimeout = setTimeout(() => {
-            setUserData(userDataPre);
-            setAcademicGraduationData(academicGraduationsDataPre);
-            setExperiencesData(experiencesDataPre);
+        //timeout para fins visuais
+        const timeout = setTimeout(() => {
+            api.get(endpoints.GET_MY_CANDIDATE, {
+                headers: {
+                    'Content-Type': 'text/plain',
+                    Authorization: `Bearer ${user.token}`,
+                },
+            })
+                .then((response) => {
+                    setUserData({
+                        name: response.data.name,
+                        email: response.data.email,
+                        cpf: response.data.cpf,
+                        description: response.data.about_me,
+                    });
+                    setUserLoading(false);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    setUserLoading(false);
+                });
 
-            setUserLoading(false);
-            setAcademicLoading(false);
-            setExperienceLoading(false);
-        }, 3000);
+            api.get(endpoints.GET_MY_ACADEMIC_GRADUATION, {
+                headers: {
+                    'Content-Type': 'text/plain',
+                    Authorization: `Bearer ${user.token}`,
+                },
+            })
+                .then((response) => {
+                    setAcademicGraduationData(response.data);
+                    setAcademicLoading(false);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    setAcademicLoading(false);
+                });
+
+            api.get(endpoints.GET_MY_EXPERIENCE, {
+                headers: {
+                    'Content-Type': 'text/plain',
+                    Authorization: `Bearer ${user.token}`,
+                },
+            })
+                .then((response) => {
+                    setExperiencesData(response.data);
+                    setExperienceLoading(false);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    setExperienceLoading(false);
+                });
+        }, 2000);
 
         return () => {
-            clearTimeout(userTimeout);
+            clearTimeout(timeout);
         };
     }, []);
 
@@ -193,20 +164,101 @@ function ProfileCandidate() {
     const handleSetEditAcademic = (academicData: AcademicGraduationType) => {
         setAcademicEditData(academicData);
         setShowEditFormAcademic(true);
-        console.log(academicData);
     };
+
     const handleAddAcademicGraduation = (
         graduation: AcademicGraduationType
     ) => {
-        const newGraduations = academicGraduationsData.concat([graduation]);
-        //Setar loadind para API
-        setAcademicGraduationData(newGraduations);
-        setShowAddFormAcademic(false);
+        dispatch(startLoad());
+        api.post(
+            endpoints.CREATE_ACADEMIC,
+            {
+                instituition: graduation.instituition,
+                course_name: graduation.course_name,
+                id_study_area: graduation.study_area.id,
+                start_date: graduation.start_date,
+                date_conclusion: graduation.date_conclusion,
+                conclued: graduation.conclued,
+                description: graduation.description,
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${user.token}`,
+                },
+            }
+        )
+            .then((response) => {
+                const newGraduations = academicGraduationsData.concat([
+                    response.data,
+                ]);
+                setAcademicGraduationData(newGraduations);
+                setShowAddFormAcademic(false);
+                dispatch(stopLoad());
+            })
+            .catch((error) => {
+                dispatch(stopLoad());
+                console.log(error);
+                dispatch(
+                    showAlertInfo({
+                        title: 'Error',
+                        info: 'Falha ao adicionar nova formação acadêmica. Tente novamente mais tarde.',
+                        onDismiss: () => {
+                            dispatch(hideAlertInfo());
+                        },
+                        show: true,
+                        textButton: 'OK',
+                    })
+                );
+            });
     };
+
     const handleEditAcademicGraduation = (
         graduation: AcademicGraduationType
     ) => {
-        console.log(graduation);
+        dispatch(startLoad());
+        api.put(
+            endpoints.UPDATE_ACADEMIC + graduation.id,
+            {
+                instituition: graduation.instituition,
+                course_name: graduation.course_name,
+                id_study_area: graduation.study_area.id,
+                start_date: graduation.start_date,
+                date_conclusion: graduation.date_conclusion,
+                conclued: graduation.conclued,
+                description: graduation.description,
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${user.token}`,
+                },
+            }
+        )
+            .then((response) => {
+                const newGraduations = academicGraduationsData.map((item) => {
+                    if (item.id === graduation.id) return response.data;
+                    return item;
+                });
+                setAcademicGraduationData(newGraduations);
+                setShowAddFormAcademic(false);
+                dispatch(stopLoad());
+            })
+            .catch((error) => {
+                dispatch(stopLoad());
+                console.log(error);
+                dispatch(
+                    showAlertInfo({
+                        title: 'Error',
+                        info: 'Falha ao editar formação acadêmica. Tente novamente mais tarde.',
+                        onDismiss: () => {
+                            dispatch(hideAlertInfo());
+                        },
+                        show: true,
+                        textButton: 'OK',
+                    })
+                );
+            });
     };
     const handleDeleteAcademic = (id: string) => {
         dispatch(
@@ -218,9 +270,37 @@ function ProfileCandidate() {
                 show: true,
                 onDismiss: () => dispatch(hideAlertConfirm()),
                 onConfirm: () => {
-                    console.log('excluido!');
-                    //Chamar API para exclusão de formação acadêmica
                     dispatch(hideAlertConfirm());
+                    dispatch(startLoad());
+                    api.delete(endpoints.DELETE_ACADEMIC + id, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${user.token}`,
+                        },
+                    })
+                        .then((response) => {
+                            const graduations = academicGraduationsData.filter(
+                                (item) => item.id !== id
+                            );
+                            setAcademicGraduationData(graduations);
+                            console.log(response);
+                            dispatch(stopLoad());
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                            dispatch(stopLoad());
+                            dispatch(
+                                showAlertInfo({
+                                    title: 'Error',
+                                    info: 'Falha ao excluir formação acadêmica',
+                                    show: true,
+                                    textButton: 'OK',
+                                    onDismiss: () => {
+                                        dispatch(hideAlertInfo());
+                                    },
+                                })
+                            );
+                        });
                 },
             })
         );
@@ -234,13 +314,95 @@ function ProfileCandidate() {
         console.log(experienceData);
     };
     const handleAddExperience = (experience: ExperienceType) => {
-        const newExperiences = experiencesData.concat([experience]);
-        //Setar loadind para API
-        setExperiencesData(newExperiences);
-        setShowAddFormExperience(false);
+        dispatch(startLoad());
+        api.post(
+            endpoints.CREATE_EXPERIENCE,
+            {
+                description: experience.description,
+                id_sector: experience.sector.id,
+                position: experience.position,
+                company_name: experience.company_name,
+                locality: experience.locality,
+                id_type_locality: experience.type_locality.id,
+                id_job_type: experience.job_type.id,
+                start: experience.start,
+                end: experience.end,
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${user.token}`,
+                },
+            }
+        )
+            .then((response) => {
+                const newExperiences = experiencesData.concat([response.data]);
+                setExperiencesData(newExperiences);
+                setShowAddFormExperience(false);
+                dispatch(stopLoad());
+            })
+            .catch((error) => {
+                dispatch(stopLoad());
+                console.log(error);
+                dispatch(
+                    showAlertInfo({
+                        title: 'Error',
+                        info: 'Falha ao adicionar nova experiência. Tente novamente mais tarde.',
+                        onDismiss: () => {
+                            dispatch(hideAlertInfo());
+                        },
+                        show: true,
+                        textButton: 'OK',
+                    })
+                );
+            });
     };
     const handleEditExperience = (experience: ExperienceType) => {
-        console.log(experience);
+        dispatch(startLoad());
+        api.put(
+            endpoints.UPDATE_EXPERIENCE + experience.id,
+            {
+                description: experience.description,
+                id_sector: experience.sector.id,
+                position: experience.position,
+                company_name: experience.company_name,
+                locality: experience.locality,
+                id_type_locality: experience.type_locality.id,
+                id_job_type: experience.job_type.id,
+                start: experience.start,
+                end: experience.end,
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${user.token}`,
+                },
+            }
+        )
+            .then((response) => {
+                const newExperiences = experiencesData.map((item) => {
+                    if (item.id === experience.id) return response.data;
+                    return item;
+                });
+                setExperiencesData(newExperiences);
+                setShowAddFormExperience(false);
+                dispatch(stopLoad());
+            })
+            .catch((error) => {
+                dispatch(stopLoad());
+                console.log(error);
+                dispatch(
+                    showAlertInfo({
+                        title: 'Error',
+                        info: 'Falha ao editar experiência. Tente novamente mais tarde.',
+                        onDismiss: () => {
+                            dispatch(hideAlertInfo());
+                        },
+                        show: true,
+                        textButton: 'OK',
+                    })
+                );
+            });
     };
 
     const handleDeleteExperience = (id: string) => {
@@ -253,13 +415,40 @@ function ProfileCandidate() {
                 show: true,
                 onDismiss: () => dispatch(hideAlertConfirm()),
                 onConfirm: () => {
-                    console.log('excluido!');
-                    //Chamar API para exclusão de experiência
                     dispatch(hideAlertConfirm());
+                    dispatch(startLoad());
+                    api.delete(endpoints.DELETE_EXPERIENCE + id, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${user.token}`,
+                        },
+                    })
+                        .then((response) => {
+                            const experiences = experiencesData.filter(
+                                (item) => item.id !== id
+                            );
+                            setExperiencesData(experiences);
+                            console.log(response);
+                            dispatch(stopLoad());
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                            dispatch(stopLoad());
+                            dispatch(
+                                showAlertInfo({
+                                    title: 'Error',
+                                    info: 'Falha ao excluir experiência',
+                                    show: true,
+                                    textButton: 'OK',
+                                    onDismiss: () => {
+                                        dispatch(hideAlertInfo());
+                                    },
+                                })
+                            );
+                        });
                 },
             })
         );
-        console.log(id);
     };
 
     const handleShowFormAddAcademic = () => {
@@ -334,6 +523,7 @@ function ProfileCandidate() {
                                 title="Editar formação"
                                 onAddForm={handleEditAcademicGraduation}
                                 addOperation={false}
+                                closeOnAdd={true}
                                 preId={academicEditData.id}
                                 preCourseName={academicEditData.course_name}
                                 preInstituition={academicEditData.instituition}
@@ -397,6 +587,7 @@ function ProfileCandidate() {
                                 changeVisible={setShowEditFormExperience}
                                 title="Editar experiência"
                                 onAddForm={handleEditExperience}
+                                closeOnAdd={true}
                                 addOperation={false}
                                 preId={experienceEditData.id}
                                 prePosition={experienceEditData.position}

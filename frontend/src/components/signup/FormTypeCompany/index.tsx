@@ -79,7 +79,7 @@ function FormTypeCompany({
                 value={description}
                 onChangeInput={setDescription}
             />
-            {errorMessage && <p>{errorMessage}</p>}
+            {errorMessage && <p className="signup-error">{errorMessage}</p>}
             <ButtonPrimary
                 text="Cadastrar"
                 onClickButton={() => onSubmit(null)}
