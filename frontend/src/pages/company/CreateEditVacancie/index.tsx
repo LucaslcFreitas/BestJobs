@@ -1,6 +1,6 @@
 import './styles.sass';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import {
     SectorType,
     JobType,
@@ -12,62 +12,28 @@ import InputTextArea from '../../../components/InputTextArea';
 import InputSelect from '../../../components/InputSelect';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import SkillCard from '../../../components/company/createEditVacancie/SkillCard';
+import { useSelector, useDispatch } from 'react-redux';
+import { startLoad, stopLoad } from '../../../redux/loader/sliceLoader';
+import {
+    showAlertInfo,
+    hideAlertInfo,
+} from '../../../redux/alert/sliceAlertInfo';
+import { useUser } from '../../../redux/user/sliceUser';
+import api from '../../../services/api';
+import endpoints from '../../../services/endpoints';
 
-const sectorsData: SectorType[] = [
-    {
-        id: 'd7e4d20f-4957-4486-b532-a6a3b5022f11',
-        name: 'Administração',
-    },
-    {
-        id: '0b76adb3-5bf9-487b-8104-1e7b55424268',
-        name: 'Recursos Humanos',
-    },
-    {
-        id: 'fa651483-b2ee-4665-9599-1758c6bf18f0',
-        name: 'Financeiro',
-    },
-    {
-        id: '3aaa7e2e-7826-4a25-825d-094be351ac49',
-        name: 'Marketing e Vendas',
-    },
-    {
-        id: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-        name: 'Tecnologia da Informação',
-    },
-];
-
-const jobTypeData: JobType[] = [
-    {
-        id: 'e538fddc-762a-448b-be71-28b3545cd12d',
-        name: 'Tempo Integral',
-    },
-    {
-        id: '74bafd17-09bf-4eb1-838e-8d1a200800c1',
-        name: 'Estágio',
-    },
-    {
-        id: 'b76bad37-b149-49d2-a01d-e2e47e98b802',
-        name: 'Prestador de Serviços',
-    },
-];
-
-const localityTypeData: LocalityType[] = [
-    {
-        id: '13e072dd-0248-43e2-9e93-1db8f4987250',
-        name: 'Romoto',
-    },
-    {
-        id: 'db113946-2467-4c27-aece-6a24f9631271',
-        name: 'Presencial',
-    },
-    {
-        id: '9be69eac-a6e4-4fd8-962b-b32bdcdbd671',
-        name: 'Híbrido',
-    },
-];
+const emptySkill: SkillType = {
+    id: '',
+    name: '',
+    id_sector: '',
+};
 
 function CreateEditVacancie() {
     const { id } = useParams();
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const user = useSelector(useUser);
 
     //States
     //Form
@@ -88,36 +54,266 @@ function CreateEditVacancie() {
 
     //Carregar dados API
     useEffect(() => {
-        const tmpTimeout = setTimeout(() => {
-            setSectors(sectorsData);
-            setSector(sectorsData[0]);
-            setJobTypes(jobTypeData);
-            setJobType(jobTypeData[0]);
-            setTypeLocalitys(localityTypeData);
-            setTypeLocality(localityTypeData[0]);
-        }, 3000);
+        dispatch(startLoad());
+
+        //timeout para fins visuais
+        const timeout = setTimeout(() => {
+            api.get(endpoints.GET_TYPE_LOCALITY)
+                .then((response) => {
+                    setTypeLocalitys(response.data);
+                    setTypeLocality(response.data[0]);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    dispatch(stopLoad());
+                    dispatch(
+                        showAlertInfo({
+                            title: 'Error',
+                            info: 'Falha ao carregar os dados',
+                            show: true,
+                            textButton: 'OK',
+                            onDismiss: () => {
+                                dispatch(hideAlertInfo());
+                            },
+                        })
+                    );
+                });
+            api.get(endpoints.GET_JOB_TYPE)
+                .then((response) => {
+                    setJobTypes(response.data);
+                    setJobType(response.data[0]);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    dispatch(stopLoad());
+                    dispatch(
+                        showAlertInfo({
+                            title: 'Error',
+                            info: 'Falha ao carregar os dados',
+                            show: true,
+                            textButton: 'OK',
+                            onDismiss: () => {
+                                dispatch(hideAlertInfo());
+                            },
+                        })
+                    );
+                });
+            api.get(endpoints.GET_SECTOR)
+                .then((response) => {
+                    setSectors(response.data);
+                    setSector(response.data[0]);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    dispatch(stopLoad());
+                    dispatch(
+                        showAlertInfo({
+                            title: 'Error',
+                            info: 'Falha ao carregar os dados',
+                            show: true,
+                            textButton: 'OK',
+                            onDismiss: () => {
+                                dispatch(hideAlertInfo());
+                            },
+                        })
+                    );
+                });
+        }, 2000);
 
         return () => {
-            clearTimeout(tmpTimeout);
+            clearTimeout(timeout);
         };
     }, []);
 
+    useEffect(() => {
+        if (typeLocalitys.length && jobTypes.length && sectors.length) {
+            if (id) {
+                api.get(`${endpoints.GET_COMPANY_VACANCIE}${id}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                })
+                    .then((response) => {
+                        setNamePosition(response.data.name_position);
+                        setLocality(response.data.locality);
+                        setSalaryExpectation(
+                            Number(response.data.salary_expectation)
+                        );
+                        setAbout(response.data.about);
+                        setJobType(response.data.job_type);
+                        setTypeLocality(response.data.type_locality);
+                        setSector(response.data.sector);
+                        setMySkills(
+                            response.data.Vacancie_skill.map(
+                                (item: { skill: SkillType }) => {
+                                    return item.skill;
+                                }
+                            )
+                        );
+                        dispatch(stopLoad());
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        dispatch(stopLoad());
+                        dispatch(
+                            showAlertInfo({
+                                title: 'Error',
+                                info: 'Falha ao carregar os dados',
+                                show: true,
+                                textButton: 'OK',
+                                onDismiss: () => {
+                                    dispatch(hideAlertInfo());
+                                },
+                            })
+                        );
+                    });
+            } else {
+                dispatch(stopLoad());
+            }
+        }
+    }, [typeLocalitys, jobTypes, sectors]);
+
     //Reset
     useEffect(() => {
-        setMySkills([]);
-    }, [skills]);
+        if (sector) {
+            dispatch(startLoad());
+            setAuxSkill(undefined);
+            // setMySkills([]);
+            api.get(`${endpoints.GET_SKILL}sector=${sector.id}`)
+                .then((response) => {
+                    setSkills([emptySkill].concat(response.data));
+                    setAuxSkill(emptySkill);
+                    dispatch(stopLoad());
+                })
+                .catch((error) => {
+                    console.log(error);
+                    dispatch(stopLoad());
+                    dispatch(
+                        showAlertInfo({
+                            title: 'Error',
+                            info: 'Falha ao carregar as skills',
+                            show: true,
+                            textButton: 'OK',
+                            onDismiss: () => {
+                                dispatch(hideAlertInfo());
+                            },
+                        })
+                    );
+                });
+        }
+    }, [sector]);
 
-    //Buscar a vaga em caso de edit
     useEffect(() => {
-        console.log('id:' + id);
-    }, [id]);
+        if (auxSkill && auxSkill.id != '') {
+            if (!verifyMySkillExistent(auxSkill)) {
+                const newMySkills: SkillType[] = [auxSkill].concat(mySkills);
+                setMySkills(newMySkills);
+            }
+            setAuxSkill(emptySkill);
+        }
+    }, [auxSkill]);
 
-    const handleCreateEditVacancie = () => {
-        console.log('CreateEditVacancie');
+    const verifyMySkillExistent = (skill: SkillType) => {
+        const located = mySkills.filter((item) => item.id === skill.id);
+        return located.length === 1;
+    };
+
+    const handleSubmitForm = (e: React.FormEvent | null) => {
+        if (e) {
+            e.preventDefault();
+        }
+
+        if (id) handleEditVacancie();
+        else handleCreateVacancie();
+    };
+
+    const handleCreateVacancie = () => {
+        dispatch(startLoad());
+        api.post(
+            endpoints.CREATE_VACANCIE,
+            {
+                name_position: namePosition,
+                about,
+                id_sector: sector?.id,
+                salary_expectation: salaryExpectation,
+                id_job_type: jobType?.id,
+                id_type_locality: typeLocality?.id,
+                locality,
+                skills: mySkills.map((item) => item.id),
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${user.token}`,
+                },
+            }
+        )
+            .then(() => {
+                dispatch(stopLoad());
+                navigate('/company/myvacancies');
+            })
+            .catch((error) => {
+                console.log(error);
+                dispatch(stopLoad());
+                dispatch(
+                    showAlertInfo({
+                        title: 'Error',
+                        info: 'Falha ao publicar vaga',
+                        show: true,
+                        textButton: 'OK',
+                        onDismiss: () => {
+                            dispatch(hideAlertInfo());
+                        },
+                    })
+                );
+            });
+    };
+
+    const handleEditVacancie = () => {
+        dispatch(startLoad());
+        api.put(
+            `${endpoints.UPDATE_VACANCIE}${id}`,
+            {
+                name_position: namePosition,
+                about,
+                salary_expectation: salaryExpectation,
+                id_job_type: jobType?.id,
+                id_type_locality: typeLocality?.id,
+                locality,
+                skills: mySkills.map((item) => item.id),
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${user.token}`,
+                },
+            }
+        )
+            .then(() => {
+                dispatch(stopLoad());
+                navigate('/company/myvacancies');
+            })
+            .catch((error) => {
+                console.log(error);
+                dispatch(stopLoad());
+                dispatch(
+                    showAlertInfo({
+                        title: 'Error',
+                        info: 'Falha ao publicar vaga',
+                        show: true,
+                        textButton: 'OK',
+                        onDismiss: () => {
+                            dispatch(hideAlertInfo());
+                        },
+                    })
+                );
+            });
     };
 
     const handleDeleteSkill = (skill: SkillType) => {
-        console.log(skill.name);
+        const skillsFilted = mySkills.filter((item) => item.id !== skill.id);
+        setMySkills(skillsFilted);
     };
 
     return (
@@ -125,7 +321,7 @@ function CreateEditVacancie() {
             <header>
                 <h1>{id ? 'Editar' : 'Criar'} Vaga</h1>
             </header>
-            <form className="vacancie-form">
+            <form onSubmit={handleSubmitForm} className="vacancie-form">
                 <div className="form-part">
                     <h3>Dados da Vaga</h3>
                     <div className="input-container">
@@ -194,11 +390,16 @@ function CreateEditVacancie() {
                                 value: item.id,
                                 label: item.name,
                             }))}
-                            onChange={setSector}
+                            disable={id ? true : false}
+                            onChange={(sec: { id: string; name: string }) => {
+                                setSector(sec);
+                                setMySkills([]);
+                            }}
                         />
                     </div>
                     <div className="input-container">
                         <InputSelect
+                            required={false}
                             label="Habilidades"
                             value={auxSkill?.id || ''}
                             options={skills.map((item) => ({
@@ -215,41 +416,19 @@ function CreateEditVacancie() {
                         />
                     </div>
                     <div className="skills">
-                        <SkillCard
-                            skill={{
-                                id: '1',
-                                name: 'Javascript',
-                                id_sector: '1',
-                            }}
-                            onDelete={handleDeleteSkill}
-                        />
-                        <SkillCard
-                            skill={{ id: '2', name: 'HTML', id_sector: '2' }}
-                            onDelete={handleDeleteSkill}
-                        />
-                        <SkillCard
-                            skill={{ id: '3', name: 'CSS', id_sector: '3' }}
-                            onDelete={handleDeleteSkill}
-                        />
-                        <SkillCard
-                            skill={{ id: '4', name: 'React', id_sector: '4' }}
-                            onDelete={handleDeleteSkill}
-                        />
-                        <SkillCard
-                            skill={{ id: '5', name: 'SQL', id_sector: '5' }}
-                            onDelete={handleDeleteSkill}
-                        />
-                        <SkillCard
-                            skill={{ id: '6', name: 'Node', id_sector: '6' }}
-                            onDelete={handleDeleteSkill}
-                        />
+                        {mySkills.map((item) => (
+                            <SkillCard
+                                skill={item}
+                                onDelete={handleDeleteSkill}
+                            />
+                        ))}
                     </div>
                     <div className="button">
                         <div className="button-container">
                             <ButtonPrimary
                                 text={id ? 'Salvar' : 'Publicar'}
                                 isSubmit
-                                onClickButton={handleCreateEditVacancie}
+                                onClickButton={() => handleSubmitForm(null)}
                             />
                         </div>
                     </div>

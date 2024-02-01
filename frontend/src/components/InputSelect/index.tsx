@@ -7,6 +7,8 @@ type InputSelectProps = {
     onChange: ({ id, name }: { id: string; name: string }) => void;
     label: string;
     light?: boolean;
+    required?: boolean;
+    disable?: boolean;
 };
 
 type OptionSelect = {
@@ -20,6 +22,8 @@ function InputSelect({
     onChange,
     label,
     light = false,
+    required = true,
+    disable = false,
 }: InputSelectProps) {
     const id = useId();
 
@@ -36,11 +40,12 @@ function InputSelect({
         <div className={`input-select ${light && 'input-select-light'}`}>
             <label htmlFor={id}>{label}</label>
             <select
-                required
+                required={required}
                 id={id}
                 name="inputselect"
                 value={value}
                 onChange={(e) => handleOnChange(e.target.value)}
+                disabled={disable}
             >
                 {options.map((item, index) => (
                     <option key={index} value={item.value}>
