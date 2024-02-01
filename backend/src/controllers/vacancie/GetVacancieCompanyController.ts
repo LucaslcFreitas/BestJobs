@@ -52,6 +52,7 @@ export class GetVacancieCompanyController {
                 },
                 Candidacy: {
                     select: {
+                        id: true,
                         finished: true,
                         approved: true,
                         candidate: {
