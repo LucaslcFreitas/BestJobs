@@ -15,7 +15,13 @@ const endpoints = {
     GET_STUDY_AREAS: '/study_area',
     GET_TYPE_LOCALITY: '/type_locality',
     GET_JOB_TYPE: '/job_type',
-    GET_SECTOR: '/sector'
+    GET_SECTOR: '/sector',
+    SEARCH_VACANCIE: '/vacancie?',
+    GET_MY_VACANCIE: '/vacancie/my',
+    CLOSE_VACANCIE: '/vacancie/close/',
+    CREATE_CANDIDACY: '/candidacy',
+    GET_MY_CANDIDACY: '/candidacy/my',
+    DELETE_CANDIDACY: '/candidacy/'
 }
 
 export default endpoints;
