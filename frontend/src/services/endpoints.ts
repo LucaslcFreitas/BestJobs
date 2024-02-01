@@ -19,6 +19,8 @@ const endpoints = {
     SEARCH_VACANCIE: '/vacancie?',
     GET_MY_VACANCIE: '/vacancie/my',
     CLOSE_VACANCIE: '/vacancie/close/',
+    GET_COMPANY_VACANCIE: '/vacancie/company/',
+    DELETE_VACANCIE: '/vacancie/',
     CREATE_CANDIDACY: '/candidacy',
     GET_MY_CANDIDACY: '/candidacy/my',
     DELETE_CANDIDACY: '/candidacy/'

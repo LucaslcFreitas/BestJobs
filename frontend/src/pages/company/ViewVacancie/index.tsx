@@ -1,9 +1,10 @@
 import './styles.sass';
 import LinkAction from '../../../components/LinkAction';
 import ViewVacancieCard from '../../../components/company/viewVacancie/ViewVacancieCard';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { VacancieWithCandidacyType } from '../../../shared/types/VacancieType';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { startLoad, stopLoad } from '../../../redux/loader/sliceLoader';
 import {
     showAlertConfirm,
@@ -14,270 +15,15 @@ import AcademicGraduationCard from '../../../components/AcademicGraduationCard';
 import ExperienceCard from '../../../components/ExperienceCard';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import ButtonSecondary from '../../../components/ButtonSecondary';
-import { IoArrowBack, IoClose } from 'react-icons/io5';
+import { IoArrowBack } from 'react-icons/io5';
 import IconButtonSmall from '../../../components/IconButtonSmall';
-
-const vacancieData: VacancieWithCandidacyType = {
-    id: '78fb19ad-8de9-4534-a116-63704e7c31b5',
-    name_position: 'Desenvolvedor Front-end',
-    about: 'Desenvolver aplicações React',
-    salary_expectation: 2000,
-    publication_date: '2023-11-20T20:45:58.353Z',
-    publisehd: true,
-    locality: 'Juiz de Fora',
-    sector: {
-        id: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-        name: 'Tecnologia da Informação',
-    },
-    job_type: {
-        id: 'e538fddc-762a-448b-be71-28b3545cd12d',
-        name: 'Tempo Integral',
-    },
-    type_locality: {
-        id: '13e072dd-0248-43e2-9e93-1db8f4987250',
-        name: 'Romoto',
-    },
-    company: {
-        name: 'Empresa DEV',
-        description: 'Fábrica de software',
-        number_of_employees: '100 - 500 funcionários',
-        slogan: 'A melhor empresa do mundo',
-    },
-    Vacancie_skill: [
-        {
-            skill: {
-                id: '3e32adba-e2d9-4333-895d-2f6fde1883d2',
-                name: 'JavaScript',
-                id_sector: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-            },
-        },
-        {
-            skill: {
-                id: 'e9437aeb-312b-4c3f-bf14-3608f4c4504f',
-                name: 'React',
-                id_sector: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-            },
-        },
-    ],
-    Candidacy: [
-        {
-            finished: false,
-            approved: false,
-            candidate: {
-                id: '5b7d9389-eec0-4efa-a659-e31c487dceda',
-                name: 'Lucas',
-                email: 'lucaslcfjf@hotmail.com',
-                cpf: '111.111.111-11',
-                about_me: 'Desenvolvedor web',
-                Academic_graduation: [
-                    {
-                        id: '79f4b4ea-570a-43ee-83f5-b591b638fe8e',
-                        instituition: 'Universidade Federal de Juiz de Fora',
-                        course_name: 'Sistemas de Informação',
-                        study_area: {
-                            id: 'd3b5b254-0e19-464c-9a33-33cc633b6312',
-                            name: 'Engenharia/Tecnologia',
-                        },
-                        start_date: '2023-06-15T16:35:19.047Z',
-                        date_conclusion: '2023-06-15T16:39:19.047Z',
-                        conclued: true,
-                        description: 'Curso Universitário',
-                    },
-                ],
-                Experience: [
-                    {
-                        id: '1466d8e9-a3a8-411f-aa43-a685ca64e672',
-                        description: 'Desenvolvimento de aplicações web',
-                        sector: {
-                            id: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                            name: 'Tecnologia da Informação',
-                        },
-                        position: 'Desenvolvedor Fron-End',
-                        company_name: 'Universidade Federal de Juiz de Fora',
-                        locality: 'Juiz de Fora - MG',
-                        type_locality: {
-                            id: 'db113946-2467-4c27-aece-6a24f9631271',
-                            name: 'Presencial',
-                        },
-                        job_type: {
-                            id: 'e538fddc-762a-448b-be71-28b3545cd12d',
-                            name: 'Tempo Integral',
-                        },
-                        start: '2023-06-15T16:35:19.047Z',
-                        end: '2023-06-15T16:39:19.047Z',
-                    },
-                ],
-            },
-        },
-        {
-            finished: true,
-            approved: true,
-            candidate: {
-                id: '5b7d9389-eec0-4efa-a659-e31c487dcedb',
-                name: 'Lucas',
-                email: 'lucaslcfjf@hotmail.com',
-                cpf: '111.111.111-11',
-                about_me: 'Desenvolvedor web',
-                Academic_graduation: [
-                    {
-                        id: '79f4b4ea-570a-43ee-83f5-b591b638fe8e',
-                        instituition: 'Universidade Federal de Juiz de Fora',
-                        course_name: 'Sistemas de Informação',
-                        study_area: {
-                            id: 'd3b5b254-0e19-464c-9a33-33cc633b6312',
-                            name: 'Engenharia/Tecnologia',
-                        },
-                        start_date: '2023-06-15T16:35:19.047Z',
-                        date_conclusion: '2023-06-15T16:39:19.047Z',
-                        conclued: true,
-                        description: 'Curso Universitário',
-                    },
-                ],
-                Experience: [
-                    {
-                        id: '1466d8e9-a3a8-411f-aa43-a685ca64e672',
-                        description: 'Desenvolvimento de aplicações web',
-                        sector: {
-                            id: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                            name: 'Tecnologia da Informação',
-                        },
-                        position: 'Desenvolvedor Fron-End',
-                        company_name: 'Universidade Federal de Juiz de Fora',
-                        locality: 'Juiz de Fora - MG',
-                        type_locality: {
-                            id: 'db113946-2467-4c27-aece-6a24f9631271',
-                            name: 'Presencial',
-                        },
-                        job_type: {
-                            id: 'e538fddc-762a-448b-be71-28b3545cd12d',
-                            name: 'Tempo Integral',
-                        },
-                        start: '2023-06-15T16:35:19.047Z',
-                        end: '2023-06-15T16:39:19.047Z',
-                    },
-                ],
-            },
-        },
-        {
-            finished: true,
-            approved: false,
-            candidate: {
-                id: '5b7d9389-eec0-4efa-a659-e31c487dcedc',
-                name: 'Lucas',
-                email: 'lucaslcfjf@hotmail.com',
-                cpf: '111.111.111-11',
-                about_me: 'Desenvolvedor web',
-                Academic_graduation: [],
-                Experience: [
-                    {
-                        id: '1466d8e9-a3a8-411f-aa43-a685ca64e672',
-                        description: 'Desenvolvimento de aplicações web',
-                        sector: {
-                            id: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                            name: 'Tecnologia da Informação',
-                        },
-                        position: 'Desenvolvedor Fron-End',
-                        company_name: 'Universidade Federal de Juiz de Fora',
-                        locality: 'Juiz de Fora - MG',
-                        type_locality: {
-                            id: 'db113946-2467-4c27-aece-6a24f9631271',
-                            name: 'Presencial',
-                        },
-                        job_type: {
-                            id: 'e538fddc-762a-448b-be71-28b3545cd12d',
-                            name: 'Tempo Integral',
-                        },
-                        start: '2023-06-15T16:35:19.047Z',
-                        end: '2023-06-15T16:39:19.047Z',
-                    },
-                ],
-            },
-        },
-        {
-            finished: true,
-            approved: true,
-            candidate: {
-                id: '5b7d9389-eec0-4efa-a659-e31c487dcedd',
-                name: 'Lucas',
-                email: 'lucaslcfjf@hotmail.com',
-                cpf: '111.111.111-11',
-                about_me: 'Desenvolvedor web',
-                Academic_graduation: [
-                    {
-                        id: '79f4b4ea-570a-43ee-83f5-b591b638fe8e',
-                        instituition: 'Universidade Federal de Juiz de Fora',
-                        course_name: 'Sistemas de Informação',
-                        study_area: {
-                            id: 'd3b5b254-0e19-464c-9a33-33cc633b6312',
-                            name: 'Engenharia/Tecnologia',
-                        },
-                        start_date: '2023-06-15T16:35:19.047Z',
-                        date_conclusion: '2023-06-15T16:39:19.047Z',
-                        conclued: true,
-                        description: 'Curso Universitário',
-                    },
-                    {
-                        id: '79f4b4ea-570a-43ee-83f5-b591b638fe8f',
-                        instituition: 'Universidade Federal de Juiz de Fora',
-                        course_name: 'Sistemas de Informação',
-                        study_area: {
-                            id: 'd3b5b254-0e19-464c-9a33-33cc633b6312',
-                            name: 'Engenharia/Tecnologia',
-                        },
-                        start_date: '2023-06-15T16:35:19.047Z',
-                        date_conclusion: '2023-06-15T16:39:19.047Z',
-                        conclued: true,
-                        description: 'Curso Universitário',
-                    },
-                ],
-                Experience: [
-                    {
-                        id: '1466d8e9-a3a8-411f-aa43-a685ca64e672',
-                        description: 'Desenvolvimento de aplicações web',
-                        sector: {
-                            id: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                            name: 'Tecnologia da Informação',
-                        },
-                        position: 'Desenvolvedor Fron-End',
-                        company_name: 'Universidade Federal de Juiz de Fora',
-                        locality: 'Juiz de Fora - MG',
-                        type_locality: {
-                            id: 'db113946-2467-4c27-aece-6a24f9631271',
-                            name: 'Presencial',
-                        },
-                        job_type: {
-                            id: 'e538fddc-762a-448b-be71-28b3545cd12d',
-                            name: 'Tempo Integral',
-                        },
-                        start: '2023-06-15T16:35:19.047Z',
-                        end: '2023-06-15T16:39:19.047Z',
-                    },
-                    {
-                        id: '1466d8e9-a3a8-411f-aa43-a685ca64e673',
-                        description: 'Desenvolvimento de aplicações web',
-                        sector: {
-                            id: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                            name: 'Tecnologia da Informação',
-                        },
-                        position: 'Desenvolvedor Fron-End',
-                        company_name: 'Universidade Federal de Juiz de Fora',
-                        locality: 'Juiz de Fora - MG',
-                        type_locality: {
-                            id: 'db113946-2467-4c27-aece-6a24f9631271',
-                            name: 'Presencial',
-                        },
-                        job_type: {
-                            id: 'e538fddc-762a-448b-be71-28b3545cd12d',
-                            name: 'Tempo Integral',
-                        },
-                        start: '2023-06-15T16:35:19.047Z',
-                        end: '2023-06-15T16:39:19.047Z',
-                    },
-                ],
-            },
-        },
-    ],
-};
+import api from '../../../services/api';
+import endpoints from '../../../services/endpoints';
+import { useUser } from '../../../redux/user/sliceUser';
+import {
+    hideAlertInfo,
+    showAlertInfo,
+} from '../../../redux/alert/sliceAlertInfo';
 
 type InfoCandidate = {
     finished: boolean;
@@ -287,6 +33,11 @@ type InfoCandidate = {
 
 function ViewVacancie() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const user = useSelector(useUser);
+
+    let { id } = useParams();
 
     const [vacancie, setVacancie] = useState<VacancieWithCandidacyType>();
     const [selectedCandidate, setSelectedCandidate] = useState<InfoCandidate>();
@@ -295,38 +46,110 @@ function ViewVacancie() {
     const [inViewCandidate, setInViewCandidate] = useState(false);
 
     useEffect(() => {
-        dispatch(startLoad());
-        const tmpTimeout = setTimeout(() => {
-            setVacancie(vacancieData);
-            dispatch(stopLoad());
-        }, 3000);
+        if (!id) {
+            navigate('/');
+        } else {
+            dispatch(startLoad());
+            //timeout para fins visuais
+            const timeout = setTimeout(() => {
+                api.get(`${endpoints.GET_COMPANY_VACANCIE}${id}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                })
+                    .then((response) => {
+                        setVacancie(response.data);
+                        dispatch(stopLoad());
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        dispatch(
+                            showAlertInfo({
+                                title: 'Error',
+                                info: 'Falha ao buscar os dados!',
+                                textButton: 'OK',
+                                show: true,
+                                onDismiss: () => dispatch(hideAlertInfo()),
+                            })
+                        );
+                    });
+            }, 2000);
 
-        return () => {
-            clearTimeout(tmpTimeout);
-        };
+            return () => {
+                clearTimeout(timeout);
+            };
+        }
     }, []);
 
     const handleEditVacancie = () => {
-        console.log('Edit');
+        navigate(`/vacancie/edit/${id}`);
     };
 
     const handleCloseVacancie = () => {
         dispatch(
             showAlertConfirm({
-                title: 'Confirmar Fechamento de Vaga',
-                info: 'Deseja encerrar esta vaga? Esta ação não poderá ser desfeita.',
+                title: 'Encerrar Vaga',
+                info: `Deseja realmente encerrar a vaga \"${
+                    vacancie!.name_position
+                }\"? Esta ação não pode ser revertida e todos os candidatos em análise serão marcados como Reprovado.`,
                 show: true,
-                onDismiss: () => {
-                    dispatch(hideAlertConfirm());
-                },
-                onConfirm: () => {
-                    dispatch(hideAlertConfirm());
-                },
                 textButtonCancel: 'Não',
                 textButtonConfirm: 'Sim',
+                onDismiss: () => dispatch(hideAlertConfirm()),
+                onConfirm: () => {
+                    dispatch(hideAlertConfirm());
+                    closeVacancie();
+                },
             })
         );
-        console.log('Edit');
+    };
+
+    const closeVacancie = () => {
+        dispatch(startLoad());
+        api.put(
+            `${endpoints.CLOSE_VACANCIE}${vacancie!.id}`,
+            {},
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${user.token}`,
+                },
+            }
+        )
+            .then(() => {
+                const candidacyEdited = vacancie!.Candidacy.map((item) => {
+                    if (item.finished) {
+                        return item;
+                    }
+                    return {
+                        ...item,
+                        finished: true,
+                        approved: false,
+                    };
+                });
+                const vacancieEdited: VacancieWithCandidacyType = {
+                    ...vacancie!,
+                    Candidacy: candidacyEdited,
+                    publisehd: false,
+                };
+                setVacancie(vacancieEdited);
+                setSelectedCandidate(undefined);
+                dispatch(stopLoad());
+            })
+            .catch((error) => {
+                console.log(error);
+                dispatch(stopLoad());
+                dispatch(
+                    showAlertInfo({
+                        title: 'Error',
+                        info: 'Falha ao encerrar vaga!',
+                        textButton: 'OK',
+                        show: true,
+                        onDismiss: () => dispatch(hideAlertInfo()),
+                    })
+                );
+            });
     };
 
     const handleDeleteVacancie = () => {
@@ -340,12 +163,40 @@ function ViewVacancie() {
                 },
                 onConfirm: () => {
                     dispatch(hideAlertConfirm());
+                    deleteVacancie();
                 },
                 textButtonCancel: 'Não',
                 textButtonConfirm: 'Sim',
             })
         );
         console.log('Delete');
+    };
+
+    const deleteVacancie = () => {
+        dispatch(startLoad());
+        api.delete(`${endpoints.DELETE_VACANCIE}${vacancie!.id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${user.token}`,
+            },
+        })
+            .then(() => {
+                dispatch(stopLoad());
+                navigate('/company/myvacancies');
+            })
+            .catch((error) => {
+                console.log(error);
+                dispatch(stopLoad());
+                dispatch(
+                    showAlertInfo({
+                        title: 'Error',
+                        info: 'Falha ao deletar vaga!',
+                        textButton: 'OK',
+                        show: true,
+                        onDismiss: () => dispatch(hideAlertInfo()),
+                    })
+                );
+            });
     };
 
     const handleApproveCandidate = (candidate: InfoCandidate) => {
@@ -364,26 +215,30 @@ function ViewVacancie() {
                     <p className="vacancie-candidates">
                         {vacancie?.Candidacy.length} candidatos
                     </p>
-                    <div className="vacancie-buttons">
-                        <LinkAction
-                            text="Editar"
-                            color="#3b3b3b"
-                            colorHover="#6e6e6e"
-                            onClick={handleEditVacancie}
-                        />
-                        <LinkAction
-                            text="Encerrar"
-                            color="#3b3b3b"
-                            colorHover="#6e6e6e"
-                            onClick={handleCloseVacancie}
-                        />
-                        <LinkAction
-                            text="Excluir"
-                            color="#DF0000"
-                            colorHover="#AE0000"
-                            onClick={handleDeleteVacancie}
-                        />
-                    </div>
+                    {vacancie && vacancie.publisehd ? (
+                        <div className="vacancie-buttons">
+                            <LinkAction
+                                text="Editar"
+                                color="#3b3b3b"
+                                colorHover="#6e6e6e"
+                                onClick={handleEditVacancie}
+                            />
+                            <LinkAction
+                                text="Encerrar"
+                                color="#3b3b3b"
+                                colorHover="#6e6e6e"
+                                onClick={handleCloseVacancie}
+                            />
+                            <LinkAction
+                                text="Excluir"
+                                color="#DF0000"
+                                colorHover="#AE0000"
+                                onClick={handleDeleteVacancie}
+                            />
+                        </div>
+                    ) : (
+                        <></>
+                    )}
                 </header>
                 <div className="list-candidates">
                     {vacancie?.Candidacy.map((item, index) => (
