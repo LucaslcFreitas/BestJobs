@@ -21,168 +21,10 @@ import { startLoad, stopLoad } from '../../../redux/loader/sliceLoader';
 import IconButtonSmall from '../../../components/IconButtonSmall';
 import { FaFilter } from 'react-icons/fa';
 import { IoArrowBack, IoClose } from 'react-icons/io5';
-
-const sectorsData: SectorType[] = [
-    {
-        id: 'all',
-        name: 'Todos',
-    },
-    {
-        id: 'd7e4d20f-4957-4486-b532-a6a3b5022f11',
-        name: 'Administração',
-    },
-    {
-        id: '0b76adb3-5bf9-487b-8104-1e7b55424268',
-        name: 'Recursos Humanos',
-    },
-    {
-        id: 'fa651483-b2ee-4665-9599-1758c6bf18f0',
-        name: 'Financeiro',
-    },
-    {
-        id: '3aaa7e2e-7826-4a25-825d-094be351ac49',
-        name: 'Marketing e Vendas',
-    },
-    {
-        id: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-        name: 'Tecnologia da Informação',
-    },
-];
-
-const jobTypeData: JobType[] = [
-    {
-        id: 'all',
-        name: 'Todos',
-    },
-    {
-        id: 'e538fddc-762a-448b-be71-28b3545cd12d',
-        name: 'Tempo Integral',
-    },
-    {
-        id: '74bafd17-09bf-4eb1-838e-8d1a200800c1',
-        name: 'Estágio',
-    },
-    {
-        id: 'b76bad37-b149-49d2-a01d-e2e47e98b802',
-        name: 'Prestador de Serviços',
-    },
-];
-
-const localityTypeData: LocalityType[] = [
-    {
-        id: 'all',
-        name: 'Todos',
-    },
-    {
-        id: '13e072dd-0248-43e2-9e93-1db8f4987250',
-        name: 'Romoto',
-    },
-    {
-        id: 'db113946-2467-4c27-aece-6a24f9631271',
-        name: 'Presencial',
-    },
-    {
-        id: '9be69eac-a6e4-4fd8-962b-b32bdcdbd671',
-        name: 'Híbrido',
-    },
-];
-
-const vacanciesData: SearchVacancieType = {
-    vacancies: [
-        {
-            id: '78fb19ad-8de9-4534-a116-63704e7c31b5',
-            name_position: 'Desenvolvedor Front-end',
-            about: 'Desenvolver aplicações React',
-            salary_expectation: 2000,
-            publication_date: '2023-11-20T20:45:58.353Z',
-            publisehd: true,
-            locality: 'Juiz de Fora',
-            sector: {
-                id: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                name: 'Tecnologia da Informação',
-            },
-            job_type: {
-                id: 'e538fddc-762a-448b-be71-28b3545cd12d',
-                name: 'Tempo Integral',
-            },
-            type_locality: {
-                id: '13e072dd-0248-43e2-9e93-1db8f4987250',
-                name: 'Romoto',
-            },
-            Vacancie_skill: [
-                {
-                    skill: {
-                        id: '3e32adba-e2d9-4333-895d-2f6fde1883d2',
-                        name: 'JavaScript',
-                        id_sector: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                    },
-                },
-                {
-                    skill: {
-                        id: 'e9437aeb-312b-4c3f-bf14-3608f4c4504f',
-                        name: 'React',
-                        id_sector: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                    },
-                },
-            ],
-            company: {
-                name: 'Empresa DEV',
-                description: 'Fábrica de software',
-                number_of_employees: '100 - 500 funcionários',
-                slogan: 'A melhor empresa do mundo',
-            },
-            Candidacy: 4,
-            is_candidate: true,
-        },
-        {
-            id: '78fb19ad-8de9-4534-a116-63704e7c31b6',
-            name_position: 'Desenvolvedor Back-end',
-            about: 'Desenvolver aplicações Node',
-            salary_expectation: 3000,
-            publication_date: '2023-11-20T20:45:58.353Z',
-            publisehd: true,
-            locality: 'São Paulo',
-            sector: {
-                id: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                name: 'Tecnologia da Informação',
-            },
-            job_type: {
-                id: 'e538fddc-762a-448b-be71-28b3545cd12d',
-                name: 'Tempo Integral',
-            },
-            type_locality: {
-                id: '13e072dd-0248-43e2-9e93-1db8f4987250',
-                name: 'Presencial',
-            },
-            Vacancie_skill: [
-                {
-                    skill: {
-                        id: '3e32adba-e2d9-4333-895d-2f6fde1883d2',
-                        name: 'JavaScript',
-                        id_sector: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                    },
-                },
-                {
-                    skill: {
-                        id: 'e9437aeb-312b-4c3f-bf14-3608f4c4504g',
-                        name: 'Node',
-                        id_sector: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                    },
-                },
-            ],
-            company: {
-                name: 'BackComp',
-                description: 'Fábrica de software',
-                number_of_employees: '100 - 500 funcionários',
-                slogan: 'A melhor empresa de São Paulo',
-            },
-            Candidacy: 4,
-            is_candidate: false,
-        },
-    ],
-    pages: 5,
-    number_vacancies: 2,
-};
+import api from '../../../services/api';
+import { useUser } from '../../../redux/user/sliceUser';
+import { useSelector } from 'react-redux';
+import endpoints from '../../../services/endpoints';
 
 type OrderingType = {
     id: string;
@@ -190,23 +32,30 @@ type OrderingType = {
 };
 
 function SearchVacancies() {
+    //TODO: quando a parte da empresa estiver pronta, testar esta página com grande quantidade de vagas para testar a paginação
+    const user = useSelector(useUser);
+
     const dispatch = useDispatch();
     const queryParameters = new URLSearchParams(window.location.search);
     //Header
     //sector
-    const [sector, setSector] = useState(sectorsData[0]);
+    const [sector, setSector] = useState<SectorType | undefined>();
     const [sectors, setSectors] = useState<SectorType[]>([]);
     //jobType
-    const [jobType, setJobType] = useState(jobTypeData[0]);
+    const [jobType, setJobType] = useState<JobType | undefined>();
     const [jobTypes, setJobTypes] = useState<JobType[]>([]);
     //localityType
-    const [localityType, setLocalityType] = useState(localityTypeData[0]);
+    const [localityType, setLocalityType] = useState<
+        LocalityType | undefined
+    >();
     const [localityTypes, setLocalityTypes] = useState<LocalityType[]>([]);
 
     //Data
     const [vacancies, setVacancies] = useState<SearchVacancieType>();
     const [selectedVacancie, setSelectedVacancie] = useState<VacancieType>();
-    const page = Number(queryParameters.get('page')) || 1;
+    const [numberPages, setNumberPages] = useState(1);
+    const [numberVacancies, setNumberVacancies] = useState(0);
+    const [page, setPage] = useState(Number(queryParameters.get('page')) || 1);
 
     //ToMediaQuery
     const [inViewVacancie, setInViewVacancie] = useState(false);
@@ -216,11 +65,88 @@ function SearchVacancies() {
         dispatch(startLoad());
 
         const tmpTimeout = setTimeout(() => {
-            setSectors(sectorsData);
-            setJobTypes(jobTypeData);
-            setLocalityTypes(localityTypeData);
-            setVacancies(vacanciesData);
-        }, 3000);
+            api.get(endpoints.GET_TYPE_LOCALITY)
+                .then((response) => {
+                    const localityAll: LocalityType = {
+                        id: 'all',
+                        name: 'Todos',
+                    };
+                    const auxLocalityTypes: LocalityType[] = [
+                        localityAll,
+                    ].concat(response.data);
+                    setLocalityTypes(auxLocalityTypes);
+                    setLocalityType(localityAll);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    dispatch(stopLoad());
+                    dispatch(
+                        showAlertInfo({
+                            title: 'Error',
+                            info: 'Falha ao carregar os dados',
+                            show: true,
+                            textButton: 'OK',
+                            onDismiss: () => {
+                                dispatch(hideAlertInfo());
+                            },
+                        })
+                    );
+                });
+            api.get(endpoints.GET_JOB_TYPE)
+                .then((response) => {
+                    const jobAll: JobType = {
+                        id: 'all',
+                        name: 'Todos',
+                    };
+                    const auxJobTypes: JobType[] = [jobAll].concat(
+                        response.data
+                    );
+                    setJobType(jobAll);
+                    setJobTypes(auxJobTypes);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    dispatch(stopLoad());
+                    dispatch(
+                        showAlertInfo({
+                            title: 'Error',
+                            info: 'Falha ao carregar os dados',
+                            show: true,
+                            textButton: 'OK',
+                            onDismiss: () => {
+                                dispatch(hideAlertInfo());
+                            },
+                        })
+                    );
+                });
+            api.get(endpoints.GET_SECTOR)
+                .then((response) => {
+                    const sectorAll: SectorType = {
+                        id: 'all',
+                        name: 'Todos',
+                    };
+                    const auxSectorTypes: SectorType[] = [sectorAll].concat(
+                        response.data
+                    );
+                    setSector(sectorAll);
+                    setSectors(auxSectorTypes);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    dispatch(stopLoad());
+                    dispatch(
+                        showAlertInfo({
+                            title: 'Error',
+                            info: 'Falha ao carregar os dados',
+                            show: true,
+                            textButton: 'OK',
+                            onDismiss: () => {
+                                dispatch(hideAlertInfo());
+                            },
+                        })
+                    );
+                });
+        }, 2000);
 
         return () => {
             clearTimeout(tmpTimeout);
@@ -229,54 +155,135 @@ function SearchVacancies() {
 
     useEffect(() => {
         if (
+            sector &&
             sectors.length &&
+            jobType &&
             jobTypes.length &&
+            localityType &&
             localityTypes.length &&
-            vacancies
+            page
         ) {
-            console.log('foi');
-            dispatch(stopLoad());
+            setSelectedVacancie(undefined);
+            fetchVacancies();
         }
-    }, [sectors, jobTypes, localityTypes, vacancies]);
+    }, [sector, sectors, jobType, jobTypes, localityType, localityTypes, page]);
 
-    useEffect(() => {
-        console.log('foi2');
-        setSelectedVacancie(undefined);
+    const fetchVacancies = () => {
         dispatch(startLoad());
-
-        const tmpTimeout = setTimeout(() => {
-            dispatch(stopLoad());
-        }, 3000);
-
-        return () => {
-            clearTimeout(tmpTimeout);
-        };
-    }, [sector, jobType, localityType]);
+        api.get(
+            `${endpoints.SEARCH_VACANCIE}${
+                sector?.id !== 'all' ? `sector=${sector?.id}&` : ''
+            }${jobType?.id !== 'all' ? `job_type=${jobType?.id}&` : ''}${
+                localityType?.id !== 'all'
+                    ? `type_locality=${localityType?.id}&`
+                    : ''
+            }${page != 1 ? `page=${page}` : ''}`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${user.token}`,
+                },
+            }
+        )
+            .then((response) => {
+                setVacancies(response.data);
+                setNumberPages(response.data.pages);
+                setNumberVacancies(response.data.number_vacancies);
+                dispatch(stopLoad());
+            })
+            .catch((error) => {
+                console.log(error);
+                dispatch(stopLoad());
+                dispatch(
+                    showAlertInfo({
+                        title: 'Error',
+                        info: 'Falha ao carregar os dados',
+                        show: true,
+                        textButton: 'OK',
+                        onDismiss: () => {
+                            dispatch(hideAlertInfo());
+                        },
+                    })
+                );
+            });
+    };
 
     useEffect(() => {
         console.log(selectedVacancie);
     }, [selectedVacancie]);
 
     const handleChangePage = (page: number) => {
-        console.log(page);
+        setPage(page);
     };
 
     const handleVacancieCandidate = (vacancie: VacancieType) => {
-        dispatch(
-            showAlertInfo({
-                title: 'Candidatura Realizada',
-                info: 'Candidatura realizada com sucesso. Boa Sorte!',
-                textButton: 'OK',
-                show: true,
-                onDismiss: () => dispatch(hideAlertInfo()),
+        api.post(
+            endpoints.CREATE_CANDIDACY,
+            {
+                id_vacancie: vacancie.id,
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${user.token}`,
+                },
+            }
+        )
+            .then(() => {
+                const alterVacancies = vacancies?.vacancies.map((item) => {
+                    if (item.id === vacancie.id) {
+                        return {
+                            ...item,
+                            is_candidate: true,
+                        };
+                    }
+                    return item;
+                });
+                setSelectedVacancie((state) => {
+                    if (state) {
+                        return {
+                            ...state,
+                            is_candidate: true,
+                        };
+                    }
+                });
+                setVacancies({
+                    vacancies: alterVacancies ? alterVacancies : [],
+                    number_vacancies: vacancies
+                        ? vacancies.number_vacancies
+                        : 0,
+                    pages: vacancies ? vacancies?.pages : 1,
+                });
+                dispatch(
+                    showAlertInfo({
+                        title: 'Candidatura Realizada',
+                        info: 'Candidatura realizada com sucesso. Boa Sorte!',
+                        textButton: 'OK',
+                        show: true,
+                        onDismiss: () => dispatch(hideAlertInfo()),
+                    })
+                );
             })
-        );
+            .catch((error) => {
+                console.log(error);
+                dispatch(
+                    showAlertInfo({
+                        title: 'Error',
+                        info: 'Falha ao realizar candidatura',
+                        show: true,
+                        textButton: 'OK',
+                        onDismiss: () => {
+                            dispatch(hideAlertInfo());
+                        },
+                    })
+                );
+            });
         console.log(vacancie.name_position);
     };
 
     let pages = [];
     if (vacancies) {
-        for (let i = 0; i < vacancies.pages; i++) {
+        for (let i = 0; i < numberPages; i++) {
             pages.push(
                 <SearchPageCard
                     key={i}
@@ -308,7 +315,8 @@ function SearchVacancies() {
                     <div>
                         <header>
                             <p>
-                                <b>Vagas:</b> <small>32 encontradas</small>
+                                <b>Vagas:</b>{' '}
+                                <small>{numberVacancies} encontradas</small>
                             </p>
                             <div className="filter-button">
                                 <IconButtonSmall

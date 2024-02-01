@@ -16,7 +16,7 @@ type MyCandidacyType = {
 }
 
 type VacancieWithCandidacyType = {
-    id: string;
+    id?: string;
     name_position: string;
     about: string;
     salary_expectation: number;
@@ -29,6 +29,7 @@ type VacancieWithCandidacyType = {
     Vacancie_skill: { skill: SkillType }[];
     company: CompanyType;
     Candidacy: {
+        id: string;
         finished: boolean;
         approved: boolean;
         candidate: CandidateType
