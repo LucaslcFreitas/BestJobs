@@ -2,216 +2,20 @@ import './styles.sass';
 import { useEffect, useState } from 'react';
 import MyCandidacyCard from '../../../components/candidate/myCandidacy/MyCandidacyCard';
 import { MyCandidacyType } from '../../../shared/types/VacancieType';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useUser } from '../../../redux/user/sliceUser';
 import { startLoad, stopLoad } from '../../../redux/loader/sliceLoader';
 import {
     showAlertConfirm,
     hideAlertConfirm,
 } from '../../../redux/alert/sliceAlertConfirm';
 import ModalDetailCandidacy from '../../../components/candidate/myCandidacy/ModalDetailCandidacy';
-
-const myCandicacyData: MyCandidacyType[] = [
-    {
-        id: '46af5fa5-6278-491c-a522-ac6f5cec671e',
-        create_at: '2023-11-20T23:44:10.708Z',
-        approved: false,
-        finished: false,
-        vacancie: {
-            id: '78fb19ad-8de9-4534-a116-63704e7c31b5',
-            name_position: 'Desenvolvedor Front-end',
-            about: 'Desenvolver aplicações React',
-            salary_expectation: 2000,
-            publication_date: '2023-11-20T20:45:58.353Z',
-            publisehd: true,
-            locality: 'Juiz de Fora',
-            sector: {
-                id: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                name: 'Tecnologia da Informação',
-            },
-            job_type: {
-                id: 'e538fddc-762a-448b-be71-28b3545cd12d',
-                name: 'Tempo Integral',
-            },
-            type_locality: {
-                id: '13e072dd-0248-43e2-9e93-1db8f4987250',
-                name: 'Romoto',
-            },
-            Vacancie_skill: [
-                {
-                    skill: {
-                        id: '3e32adba-e2d9-4333-895d-2f6fde1883d2',
-                        name: 'JavaScript',
-                        id_sector: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                    },
-                },
-                {
-                    skill: {
-                        id: 'e9437aeb-312b-4c3f-bf14-3608f4c4504f',
-                        name: 'React',
-                        id_sector: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                    },
-                },
-            ],
-            company: {
-                name: 'Empresa DEV',
-                description: 'Fábrica de software',
-                number_of_employees: '100 - 500 funcionários',
-                slogan: 'A melhor empresa do mundo',
-            },
-            Candidacy: 4,
-        },
-    },
-    {
-        id: '498cc65d-eb45-4eb3-b88f-9cec6061b316',
-        create_at: '2023-11-20T23:56:29.094Z',
-        approved: true,
-        finished: true,
-        vacancie: {
-            id: '78fb19ad-8de9-4534-a116-63704e7c31b5',
-            name_position: 'Desenvolvedor Front-end',
-            about: 'Desenvolver aplicações React',
-            salary_expectation: 2000,
-            publication_date: '2023-11-20T20:45:58.353Z',
-            publisehd: true,
-            locality: 'Juiz de Fora',
-            sector: {
-                id: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                name: 'Tecnologia da Informação',
-            },
-            job_type: {
-                id: 'e538fddc-762a-448b-be71-28b3545cd12d',
-                name: 'Tempo Integral',
-            },
-            type_locality: {
-                id: '13e072dd-0248-43e2-9e93-1db8f4987250',
-                name: 'Romoto',
-            },
-            Vacancie_skill: [
-                {
-                    skill: {
-                        id: '3e32adba-e2d9-4333-895d-2f6fde1883d2',
-                        name: 'JavaScript',
-                        id_sector: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                    },
-                },
-                {
-                    skill: {
-                        id: 'e9437aeb-312b-4c3f-bf14-3608f4c4504f',
-                        name: 'React',
-                        id_sector: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                    },
-                },
-            ],
-            company: {
-                name: 'Empresa DEV',
-                description: 'Fábrica de software',
-                number_of_employees: '100 - 500 funcionários',
-                slogan: 'A melhor empresa do mundo',
-            },
-            Candidacy: 4,
-        },
-    },
-    {
-        id: '1b9cedc2-47a3-45c5-a5a4-7c94aa7bc1a0',
-        create_at: '2023-11-20T23:59:22.018Z',
-        approved: false,
-        finished: true,
-        vacancie: {
-            id: '78fb19ad-8de9-4534-a116-63704e7c31b5',
-            name_position: 'Desenvolvedor Front-end',
-            about: 'Desenvolver aplicações React',
-            salary_expectation: 2000,
-            publication_date: '2023-11-20T20:45:58.353Z',
-            publisehd: true,
-            locality: 'Juiz de Fora',
-            sector: {
-                id: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                name: 'Tecnologia da Informação',
-            },
-            job_type: {
-                id: 'e538fddc-762a-448b-be71-28b3545cd12d',
-                name: 'Tempo Integral',
-            },
-            type_locality: {
-                id: '13e072dd-0248-43e2-9e93-1db8f4987250',
-                name: 'Romoto',
-            },
-            Vacancie_skill: [
-                {
-                    skill: {
-                        id: '3e32adba-e2d9-4333-895d-2f6fde1883d2',
-                        name: 'JavaScript',
-                        id_sector: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                    },
-                },
-                {
-                    skill: {
-                        id: 'e9437aeb-312b-4c3f-bf14-3608f4c4504f',
-                        name: 'React',
-                        id_sector: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                    },
-                },
-            ],
-            company: {
-                name: 'Empresa DEV',
-                description: 'Fábrica de software',
-                number_of_employees: '100 - 500 funcionários',
-                slogan: 'A melhor empresa do mundo',
-            },
-            Candidacy: 4,
-        },
-    },
-    {
-        id: 'feb1d198-ace0-40cf-aa73-4deed2578bef',
-        create_at: '2023-11-21T00:10:17.239Z',
-        approved: true,
-        finished: true,
-        vacancie: {
-            id: '78fb19ad-8de9-4534-a116-63704e7c31b5',
-            name_position: 'Desenvolvedor Front-end',
-            about: 'Desenvolver aplicações React',
-            salary_expectation: 2000,
-            publication_date: '2023-11-20T20:45:58.353Z',
-            publisehd: true,
-            locality: 'Juiz de Fora',
-            sector: {
-                id: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                name: 'Tecnologia da Informação',
-            },
-            job_type: {
-                id: 'e538fddc-762a-448b-be71-28b3545cd12d',
-                name: 'Tempo Integral',
-            },
-            type_locality: {
-                id: '13e072dd-0248-43e2-9e93-1db8f4987250',
-                name: 'Romoto',
-            },
-            Vacancie_skill: [
-                {
-                    skill: {
-                        id: '3e32adba-e2d9-4333-895d-2f6fde1883d2',
-                        name: 'JavaScript',
-                        id_sector: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                    },
-                },
-                {
-                    skill: {
-                        id: 'e9437aeb-312b-4c3f-bf14-3608f4c4504f',
-                        name: 'React',
-                        id_sector: 'f839a454-90ed-4fdd-8b83-62b14196f72c',
-                    },
-                },
-            ],
-            company: {
-                name: 'Empresa DEV',
-                description: 'Fábrica de software',
-                number_of_employees: '100 - 500 funcionários',
-                slogan: 'A melhor empresa do mundo',
-            },
-            Candidacy: 4,
-        },
-    },
-];
+import api from '../../../services/api';
+import endpoints from '../../../services/endpoints';
+import {
+    hideAlertInfo,
+    showAlertInfo,
+} from '../../../redux/alert/sliceAlertInfo';
 
 const candidacyInitial: MyCandidacyType = {
     id: '',
@@ -250,6 +54,8 @@ const candidacyInitial: MyCandidacyType = {
 };
 
 function MyCandidacy() {
+    const user = useSelector(useUser);
+
     const dispatch = useDispatch();
     const [myCandidacy, setMyCandidacy] = useState<MyCandidacyType[]>();
     const [loading, setLoading] = useState(true);
@@ -259,21 +65,37 @@ function MyCandidacy() {
 
     useEffect(() => {
         dispatch(startLoad());
-        const tmpTimeout = setTimeout(() => {
-            setMyCandidacy(myCandicacyData);
-        }, 3000);
+        //timeout para fins visuais
+        const timeout = setTimeout(() => {
+            api.get(endpoints.GET_MY_CANDIDACY, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${user.token}`,
+                },
+            })
+                .then((response) => {
+                    setMyCandidacy(response.data);
+                    setLoading(false);
+                    dispatch(stopLoad());
+                })
+                .catch((error) => {
+                    console.log(error);
+                    dispatch(
+                        showAlertInfo({
+                            title: 'Error',
+                            info: 'Falha ao buscar os dados!',
+                            textButton: 'OK',
+                            show: true,
+                            onDismiss: () => dispatch(hideAlertInfo()),
+                        })
+                    );
+                });
+        }, 2000);
 
         return () => {
-            clearTimeout(tmpTimeout);
+            clearTimeout(timeout);
         };
     }, []);
-
-    useEffect(() => {
-        if (myCandidacy) {
-            setLoading(false);
-            dispatch(stopLoad());
-        }
-    }, [myCandidacy]);
 
     const handleDesist = (candidacy: MyCandidacyType) => {
         dispatch(
@@ -283,15 +105,43 @@ function MyCandidacy() {
                 show: true,
                 textButtonCancel: 'Não',
                 textButtonConfirm: 'Sim',
-                onConfirm: () => confirmDesist(candidacy),
+                onConfirm: () => {
+                    dispatch(hideAlertConfirm());
+                    confirmDesist(candidacy);
+                },
                 onDismiss: () => dispatch(hideAlertConfirm()),
             })
         );
     };
 
     const confirmDesist = (candidacy: MyCandidacyType) => {
-        console.log(candidacy.vacancie.name_position);
-        dispatch(hideAlertConfirm());
+        dispatch(startLoad());
+        api.delete(`${endpoints.DELETE_CANDIDACY}${candidacy.id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${user.token}`,
+            },
+        })
+            .then(() => {
+                const candidacies = myCandidacy?.filter(
+                    (item) => item.id != candidacy.id
+                );
+                setMyCandidacy(candidacies);
+                dispatch(stopLoad());
+            })
+            .catch((error) => {
+                console.log(error);
+                dispatch(stopLoad());
+                dispatch(
+                    showAlertInfo({
+                        title: 'Error',
+                        info: 'Falha ao excluir candidatura',
+                        textButton: 'OK',
+                        show: true,
+                        onDismiss: () => dispatch(hideAlertInfo()),
+                    })
+                );
+            });
     };
 
     const handleDetail = (candidacy: MyCandidacyType) => {
