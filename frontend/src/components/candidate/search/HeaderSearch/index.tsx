@@ -9,13 +9,13 @@ import IconButtonSmall from '../../../IconButtonSmall';
 import { IoClose } from 'react-icons/io5';
 
 type HeaderSearchProps = {
-    sector: SectorType;
+    sector?: SectorType;
     sectors: SectorType[];
     onChangeSector: (newSector: SectorType) => void;
-    jobType: JobType;
+    jobType?: JobType;
     jobTypes: JobType[];
     onChangeJobType: (newJobType: JobType) => void;
-    localityType: LocalityType;
+    localityType?: LocalityType;
     localityTypes: LocalityType[];
     onChangeLocalityType: (newLocalityType: LocalityType) => void;
     inView?: boolean;
@@ -70,7 +70,7 @@ function HeaderSearch({
                             label: item.name,
                         }))}
                         label="Setor"
-                        value={sector.id}
+                        value={sector ? sector.id : ''}
                         onChange={handleChangeSector}
                         light
                     />
@@ -82,7 +82,7 @@ function HeaderSearch({
                             label: item.name,
                         }))}
                         label="Tipo de Trabalho"
-                        value={jobType.id}
+                        value={jobType ? jobType.id : ''}
                         onChange={handleChangeJobType}
                         light
                     />
@@ -94,7 +94,7 @@ function HeaderSearch({
                             label: item.name,
                         }))}
                         label="Modelo"
-                        value={localityType.id}
+                        value={localityType ? localityType.id : ''}
                         onChange={handleChangeLocalityType}
                         light
                     />

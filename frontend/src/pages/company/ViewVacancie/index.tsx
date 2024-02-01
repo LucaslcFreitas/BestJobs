@@ -26,6 +26,7 @@ import {
 } from '../../../redux/alert/sliceAlertInfo';
 
 type InfoCandidate = {
+    id: string;
     finished: boolean;
     approved: boolean;
     candidate: CandidateType;
@@ -200,11 +201,113 @@ function ViewVacancie() {
     };
 
     const handleApproveCandidate = (candidate: InfoCandidate) => {
-        console.log('Approve Candidate: ' + candidate);
+        dispatch(startLoad());
+        api.put(
+            `${endpoints.APPROVE_CANDIDACY}${candidate.id}`,
+            {},
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${user.token}`,
+                },
+            }
+        )
+            .then(() => {
+                const editedCandidacies: InfoCandidate[] = vacancie
+                    ? vacancie.Candidacy.map((item) => {
+                          if (item.id === candidate.id) {
+                              return {
+                                  ...item,
+                                  approved: true,
+                                  finished: true,
+                              };
+                          }
+                          return item;
+                      })
+                    : [];
+                const editedVacancie: VacancieWithCandidacyType | undefined =
+                    vacancie
+                        ? {
+                              ...vacancie,
+                              Candidacy: editedCandidacies,
+                          }
+                        : undefined;
+                setVacancie(editedVacancie);
+                setSelectedCandidate({
+                    ...candidate,
+                    approved: true,
+                    finished: true,
+                });
+                dispatch(stopLoad());
+            })
+            .catch((error) => {
+                console.log(error);
+                dispatch(stopLoad());
+                dispatch(
+                    showAlertInfo({
+                        title: 'Error',
+                        info: 'Falha ao aprovar candidato!',
+                        textButton: 'OK',
+                        show: true,
+                        onDismiss: () => dispatch(hideAlertInfo()),
+                    })
+                );
+            });
     };
 
     const handleDisapproveCandidate = (candidate: InfoCandidate) => {
-        console.log('Approve Candidate: ' + candidate);
+        dispatch(startLoad());
+        api.put(
+            `${endpoints.DISAPPROVE_CANDIDACY}${candidate.id}`,
+            {},
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${user.token}`,
+                },
+            }
+        )
+            .then(() => {
+                const editedCandidacies: InfoCandidate[] = vacancie
+                    ? vacancie.Candidacy.map((item) => {
+                          if (item.id === candidate.id) {
+                              return {
+                                  ...item,
+                                  approved: false,
+                                  finished: true,
+                              };
+                          }
+                          return item;
+                      })
+                    : [];
+                const editedVacancie: VacancieWithCandidacyType | undefined =
+                    vacancie
+                        ? {
+                              ...vacancie,
+                              Candidacy: editedCandidacies,
+                          }
+                        : undefined;
+                setVacancie(editedVacancie);
+                setSelectedCandidate({
+                    ...candidate,
+                    approved: false,
+                    finished: true,
+                });
+                dispatch(stopLoad());
+            })
+            .catch((error) => {
+                console.log(error);
+                dispatch(stopLoad());
+                dispatch(
+                    showAlertInfo({
+                        title: 'Error',
+                        info: 'Falha ao reprovar candidato!',
+                        textButton: 'OK',
+                        show: true,
+                        onDismiss: () => dispatch(hideAlertInfo()),
+                    })
+                );
+            });
     };
 
     return (

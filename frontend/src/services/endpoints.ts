@@ -26,7 +26,9 @@ const endpoints = {
     DELETE_VACANCIE: '/vacancie/',
     CREATE_CANDIDACY: '/candidacy',
     GET_MY_CANDIDACY: '/candidacy/my',
-    DELETE_CANDIDACY: '/candidacy/'
+    DELETE_CANDIDACY: '/candidacy/',
+    APPROVE_CANDIDACY: '/candidacy/approve/',
+    DISAPPROVE_CANDIDACY: '/candidacy/disapprove/'
 }
 
 export default endpoints;
