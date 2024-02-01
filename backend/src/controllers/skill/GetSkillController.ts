@@ -3,15 +3,15 @@ import { prismaClient } from '../../database/prismaClient';
 
 export class GetSkillController {
     async handle(request: Request, response: Response) {
-        const { id_sector } = request.body;
+        const { sector } = request.query;
 
-        if (!id_sector) {
+        if (!sector && typeof sector === 'string') {
             return response.status(400).json({ error: 'Missing parameters' });
         }
 
         const skills = await prismaClient.skill.findMany({
             where: {
-                id_sector,
+                id_sector: sector as string,
             },
         });
 
