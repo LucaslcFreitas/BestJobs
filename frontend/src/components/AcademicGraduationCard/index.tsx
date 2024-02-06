@@ -25,14 +25,13 @@ function AcademicGraduationCard({
             <p className="paragraph">{academicGraduation.instituition}</p>
             <p className="paragraph">
                 {dateStartFormated} -{' '}
-                {academicGraduation.date_conclusion
+                {!academicGraduation.date_conclusion
                     ? 'Em progresso'
                     : dateEndFormated}{' '}
-                •{' '}
                 {academicGraduation.date_conclusion
                     ? academicGraduation.conclued
-                        ? 'Concluído'
-                        : 'Não Concluído'
+                        ? '• Concluído'
+                        : '• Não Concluído'
                     : ''}
             </p>
             <p className="paragraph">
