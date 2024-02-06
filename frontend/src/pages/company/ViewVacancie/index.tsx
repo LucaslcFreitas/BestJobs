@@ -47,6 +47,8 @@ function ViewVacancie() {
     const [inViewCandidate, setInViewCandidate] = useState(false);
 
     useEffect(() => {
+        document.title = 'Visualizar Vaga | Best Jobs';
+
         if (!id) {
             navigate('/');
         } else {

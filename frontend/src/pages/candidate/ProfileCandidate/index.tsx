@@ -102,6 +102,8 @@ function ProfileCandidate() {
         useState<ExperienceType>(experienceDataEmpty);
 
     useEffect(() => {
+        document.title = 'Meu Perfil | Best Jobs';
+
         //timeout para fins visuais
         const timeout = setTimeout(() => {
             api.get(endpoints.GET_MY_CANDIDATE, {

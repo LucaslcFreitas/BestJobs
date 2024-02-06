@@ -62,6 +62,8 @@ function SearchVacancies() {
     const [inViewFilter, setInViewFilter] = useState(false);
 
     useEffect(() => {
+        document.title = 'Pesquisar Vagas | Best Jobs';
+
         dispatch(startLoad());
 
         const tmpTimeout = setTimeout(() => {

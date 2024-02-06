@@ -1,5 +1,5 @@
 import './styles.sass';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { OptionSelect } from '../../components/InputSelect';
 import { useDispatch } from 'react-redux';
@@ -64,6 +64,10 @@ function Signup() {
     const [emailCP, setEmailCP] = useState('');
     const [passwordCP, setPasswordCP] = useState('');
     const [descriptionCP, setDescriptionCP] = useState('');
+
+    useEffect(() => {
+        document.title = 'Criar Conta | Best Jobs';
+    }, []);
 
     const handleSubmit = (e: React.FormEvent | null) => {
         if (e) {

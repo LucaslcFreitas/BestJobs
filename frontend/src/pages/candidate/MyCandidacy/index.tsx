@@ -64,6 +64,8 @@ function MyCandidacy() {
         useState<MyCandidacyType>(candidacyInitial);
 
     useEffect(() => {
+        document.title = 'Minhas Candidaturas | Best Jobs';
+
         dispatch(startLoad());
         //timeout para fins visuais
         const timeout = setTimeout(() => {

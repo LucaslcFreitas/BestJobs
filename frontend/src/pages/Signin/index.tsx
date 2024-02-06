@@ -1,5 +1,5 @@
 import './styles.sass';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { startLoad, stopLoad } from '../../redux/loader/sliceLoader';
@@ -23,6 +23,10 @@ function Signin() {
     const [errorMessage, setErrorMessage] = useState('');
 
     const [inLogin, setInLogin] = useState(false);
+
+    useEffect(() => {
+        document.title = 'Login | Best Jobs';
+    }, []);
 
     const handleLogin = (e: React.FormEvent | null) => {
         if (e) {

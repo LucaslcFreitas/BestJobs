@@ -54,6 +54,10 @@ function CreateEditVacancie() {
 
     //Carregar dados API
     useEffect(() => {
+        document.title = id
+            ? 'Editar Vaga | Best Jobs'
+            : 'Criar Vaga | Best Jobs';
+
         dispatch(startLoad());
 
         //timeout para fins visuais

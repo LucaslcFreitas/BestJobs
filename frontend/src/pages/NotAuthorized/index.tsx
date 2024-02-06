@@ -1,9 +1,14 @@
 import './styles.sass';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function NotAuthorized() {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        document.title = 'Acesso não Autorizado | Best Jobs';
+    }, []);
 
     return (
         <div className="not-authorized">

@@ -30,6 +30,8 @@ function MyVacancies() {
     );
 
     useEffect(() => {
+        document.title = 'Minhas Vagas | Best Jobs';
+
         dispatch(startLoad());
         //timeout para fins visuais
         const timeout = setTimeout(() => {
