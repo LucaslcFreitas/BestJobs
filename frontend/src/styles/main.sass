@@ -1,0 +1,21 @@
+@use 'variables'
+
+*
+    padding: 0
+    margin: 0
+    font-family: variables.$font-stack
+    box-sizing: border-box
+    text-decoration: none
+
+body
+    background-color: variables.$background-secondary
+
+.main-content
+    min-height: 600px
+
+p, h1, h2, h3, h4, h5, h6, small, b, li
+    color: variables.$color-default
+
+@media(max-width: 778px)
+    .main-content
+        min-height: 500px

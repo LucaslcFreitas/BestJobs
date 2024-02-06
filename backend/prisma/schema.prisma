@@ -1,0 +1,162 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Candidate {
+  id                  String                @id @default(uuid())
+  name                String                @db.VarChar(255)
+  email               String                @unique @db.VarChar(255)
+  cpf                 String                @unique @db.VarChar(255)
+  password            String                @db.VarChar(255)
+  about_me            String
+  Academic_graduation Academic_graduation[]
+  Candidacy           Candidacy[]
+  Experience          Experience[]
+
+  @@map("candidate")
+}
+
+model Study_area {
+  id                  String                @id @default(uuid())
+  name                String                @db.VarChar(255)
+  Academic_graduation Academic_graduation[]
+
+  @@map("study_area")
+}
+
+model Academic_graduation {
+  id              String     @id @default(uuid())
+  instituition    String     @db.VarChar(255)
+  course_name     String     @db.VarChar(255)
+  id_study_area   String
+  study_area      Study_area @relation(fields: [id_study_area], references: [id])
+  start_date      DateTime
+  date_conclusion DateTime?
+  conclued        Boolean
+  description     String
+  id_candidate    String
+  candidate       Candidate  @relation(fields: [id_candidate], references: [id])
+
+  @@map("academic_graduation")
+}
+
+model Sector {
+  id         String       @id @default(uuid())
+  name       String       @unique @db.VarChar(128)
+  Experience Experience[]
+  Skil       Skill[]
+  Vacancie   Vacancie[]
+
+  @@map("sector")
+}
+
+model Job_type {
+  id         String       @id @default(uuid())
+  name       String       @db.VarChar(128)
+  Experience Experience[]
+  Vacancie   Vacancie[]
+
+  @@map("job_type")
+}
+
+model Type_locality {
+  id         String       @id @default(uuid())
+  name       String       @db.VarChar(128)
+  Experience Experience[]
+  Vacancie   Vacancie[]
+
+  @@map("type_locality")
+}
+
+model Experience {
+  id               String        @id @default(uuid())
+  description      String
+  id_sector        String
+  sector           Sector        @relation(fields: [id_sector], references: [id])
+  position         String
+  company_name     String        @db.VarChar(255)
+  locality         String        @db.VarChar(128)
+  id_type_locality String
+  type_locality    Type_locality @relation(fields: [id_type_locality], references: [id])
+  id_job_type      String
+  job_type         Job_type      @relation(fields: [id_job_type], references: [id])
+  start            DateTime
+  end              DateTime
+  id_candidate     String
+  candidate        Candidate     @relation(fields: [id_candidate], references: [id])
+
+  @@map("experience")
+}
+
+model Company {
+  id                  String     @id @default(uuid())
+  name                String     @db.VarChar(255)
+  slogan              String
+  number_of_employees String     @db.VarChar(255)
+  email               String     @unique @db.VarChar(255)
+  password            String     @db.VarChar(512)
+  description         String
+  Vacancie            Vacancie[]
+
+  @@map("company")
+}
+
+model Skill {
+  id             String           @id @default(uuid())
+  name           String           @db.VarChar(128)
+  id_sector      String
+  sector         Sector           @relation(fields: [id_sector], references: [id])
+  Vacancie_skill Vacancie_skill[]
+
+  @@map("skill")
+}
+
+model Vacancie {
+  id                 String           @id @default(uuid())
+  id_company         String
+  company            Company          @relation(fields: [id_company], references: [id])
+  name_position      String           @db.VarChar(255)
+  about              String
+  id_sector          String
+  sector             Sector           @relation(fields: [id_sector], references: [id])
+  salary_expectation Float?
+  publication_date   DateTime         @default(now())
+  publisehd          Boolean          @default(true)
+  id_job_type        String
+  job_type           Job_type         @relation(fields: [id_job_type], references: [id])
+  id_type_locality   String
+  type_locality      Type_locality    @relation(fields: [id_type_locality], references: [id])
+  locality           String           @db.VarChar(128)
+  Vacancie_skill     Vacancie_skill[]
+  Candidacy          Candidacy[]
+
+  @@map("vacancie")
+}
+
+model Vacancie_skill {
+  id          String   @id @default(uuid())
+  id_skill    String
+  skill       Skill    @relation(fields: [id_skill], references: [id])
+  id_vacancie String
+  vacancie    Vacancie @relation(fields: [id_vacancie], references: [id])
+
+  @@map("vacancie_skill")
+}
+
+model Candidacy {
+  id           String    @id @default(uuid())
+  id_candidate String
+  candidate    Candidate @relation(fields: [id_candidate], references: [id])
+  id_vacancie  String
+  vacancie     Vacancie  @relation(fields: [id_vacancie], references: [id])
+  finished     Boolean   @default(false)
+  approved     Boolean   @default(false)
+  create_at    DateTime  @default(now())
+
+  @@map("candidacy")
+}

@@ -1,0 +1,32 @@
+@use '../../styles/variables'
+
+.input-date
+    position: relative
+    width: auto
+
+    label
+        display: block
+        font-size: 16px
+        color: variables.$color-default
+
+    input
+        border: solid 2px variables.$background-alternative
+        padding: 5px
+        font-size: 15px
+        color: variables.$color-default
+        border-radius: 10px
+        width: 100%
+        height: 50px
+
+        &:disabled
+            background-color: #e0e0e0
+            border: solid 2px #9e9e9e
+
+@media(max-width: 768px)
+    .input-date
+        input
+            font-size: 14px
+            height: 42px
+
+        label
+            font-size: 15px

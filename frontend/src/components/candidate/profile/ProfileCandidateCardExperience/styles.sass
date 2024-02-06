@@ -1,0 +1,49 @@
+@use '../../../../styles/variables'
+
+.profile-candidate-card-experience
+    margin: 10px
+    padding: 10px
+
+    .data
+        display: flex
+        justify-content: space-between
+
+        h4
+            color: variables.$color-default
+            font-size: 18px
+            font-weight: bold
+            letter-spacing: 1px
+
+        .paragraph
+            color: variables.$color-default
+            letter-spacing: 0.8px
+            font-size: 15px
+
+        .buttons
+            display: flex
+            gap: 10px
+
+    .description
+        color: variables.$color-default
+        font-weight: bold
+        font-size: 15px
+        margin-top: 10px
+        letter-spacing: 0.8px
+
+@media(max-width: 768px)
+    .profile-candidate-card-experience
+        margin: 5px
+
+        .data
+
+            h4
+                font-size: 17px
+
+            .paragraph
+                font-size: 14px
+
+            .buttons
+                gap: 5px
+
+        .description
+            font-size: 14px

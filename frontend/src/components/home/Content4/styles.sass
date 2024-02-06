@@ -1,0 +1,58 @@
+@use '../../../styles/variables'
+@use '../../../styles/mixins'
+
+.content4
+    @include mixins.center
+    @include mixins.width-container-small
+    flex-direction: column
+    padding-top: 45px
+    padding-bottom: 45px
+
+    h2
+        color: variables.$color-default
+        text-align: center
+        margin-bottom: 30px
+        font-size: 30px
+
+    div
+        width: 400px
+
+@media(max-width: 600px)
+    .content4
+        padding-left: 10px
+        padding-right: 10px
+        @include mixins.width-container-xxx-small
+
+        h2
+            font-size: 20px
+
+        div
+            width: 200px
+
+@media(min-width: 600px) and (max-width: 768px)
+    .content4
+        @include mixins.width-container-xxx-small
+
+        h2
+            font-size: 25px
+
+        div
+            width: 300px
+
+@media(min-width: 768px) and (max-width: 992px)
+    .content4
+        @include mixins.width-container-xx-small
+
+        h2
+            font-size: 25px
+
+        div
+            width: 300px
+
+@media(min-width: 992px) and (max-width: 1200px)
+    .content4
+        @include mixins.width-container-x-small
+
+@media(min-width: 1200px) and (max-width: 1600px)
+    .content4
+        @include mixins.width-container-x-small

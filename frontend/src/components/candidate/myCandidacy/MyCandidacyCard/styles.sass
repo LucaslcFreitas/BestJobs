@@ -1,0 +1,55 @@
+
+.my-candidacy-card
+    margin: 15px
+    padding: 5px
+    border-bottom: 1px solid #C3C3C3
+
+    .row
+        display: flex
+        justify-content: space-between
+        gap: 5px
+
+        &:first-child
+            margin-bottom: 15px
+
+            h3
+                font-size: 18px
+
+        .company
+            font-size: 16px
+            font-style: italic
+
+        .status
+            font-size: 16px
+
+        .status-approved
+            color: #017113
+
+        .status-disapproved
+            color: #DF0000
+
+        .buttons
+            display: flex
+            justify-content: space-between
+            gap: 25px
+            align-items: flex-end
+
+    .card-flex-end
+        align-items: flex-end
+
+@media(max-width: 600px)
+    .my-candidacy-card
+        .row
+            .buttons
+                flex-direction: column-reverse
+                gap: 10px
+
+@media(max-width: 1200px)
+    .my-candidacy-card
+        .row
+            &:first-child
+                h3
+                    font-size: 17px
+
+            p
+                font-size: 15px

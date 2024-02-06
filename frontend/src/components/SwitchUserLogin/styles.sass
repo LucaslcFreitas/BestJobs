@@ -1,0 +1,32 @@
+@use '../../styles/variables'
+
+.switch-user-login
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    border-radius: 10px
+    border: 2px solid variables.$color-primary
+    margin: 10px 0
+    overflow: hidden
+
+    .switch-content
+        width: 100%
+        text-align: center
+        padding: 10px
+        cursor: pointer
+        transition: all .2s linear
+
+        p
+            font-size: 16px
+
+    .switch-user-checked
+        background-color: variables.$color-primary
+        color: variables.$color-alternative
+
+        p
+            color: variables.$color-alternative
+
+@media(max-width: 768px)
+    .switch-user-login
+        .switch-content
+            p
+                font-size: 14px

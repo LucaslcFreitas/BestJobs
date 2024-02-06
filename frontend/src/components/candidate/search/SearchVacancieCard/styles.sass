@@ -1,0 +1,73 @@
+@use '../../../../styles/variables'
+
+.search-vacancie-card
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 15px
+    color: variables.$color-default
+    transition: 100ms ease-in-out
+
+    &:hover
+        background-color: rgba(108, 99, 255, 0.3)
+        cursor: pointer
+
+    svg
+        font-size: 20px
+
+    .labels
+        h3
+            font-size: 16px
+            letter-spacing: 1px
+
+        p
+            font-size: 16px
+
+.search-vacancie-card-selected
+    background-color: rgba(108, 99, 255, 0.3)
+
+@media(max-width: 600px)
+    .search-vacancie-card
+        &:hover
+            background-color: transparent
+
+        .labels
+            h3
+                font-size: 15px
+                letter-spacing: .3px
+
+            p
+                font-size: 15px
+
+    .search-vacancie-card-selected
+        background-color: transparent
+
+@media(min-width: 600px) and (max-width: 768px)
+    .search-vacancie-card
+        .labels
+            h3
+                font-size: 14px
+                letter-spacing: .3px
+
+            p
+                font-size: 14px
+
+@media(min-width: 768px) and (max-width: 992px)
+    .search-vacancie-card
+        .labels
+            h3
+                font-size: 14px
+                letter-spacing: .5px
+
+            p
+                font-size: 14px
+
+@media(min-width: 992px) and (max-width: 1200px)
+    .search-vacancie-card
+        .labels
+            h3
+                font-size: 15px
+                letter-spacing: .8px
+
+            p
+                font-size: 15px

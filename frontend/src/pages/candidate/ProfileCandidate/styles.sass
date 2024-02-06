@@ -1,0 +1,61 @@
+@use '../../../styles/variables'
+@use '../../../styles/mixins'
+
+.profile-candidate
+    @include mixins.width-container-small
+
+    >h1, >p
+        color: variables.$color-default
+
+    >p
+        font-size: 18px
+        margin-top: 5px
+        line-height: 25px
+
+    .cards
+        display: flex
+        flex-direction: column
+        gap: 2rem
+        padding: 15px 0
+
+@media(max-width: 600px)
+    .profile-candidate
+        @include mixins.width-container-xxx-small
+        padding: 0 15px
+
+        h1
+            font-size: 24px
+
+        >p
+            font-size: 15px
+
+@media(min-width: 600px) and (max-width: 768px)
+    .profile-candidate
+        @include mixins.width-container-xxx-small
+        padding: 0 30px
+
+        h1
+            font-size: 24px
+
+        >p
+            font-size: 15px
+
+@media(min-width: 768px) and (max-width: 992px)
+    .profile-candidate
+        @include mixins.width-container-xx-small
+
+        h1
+            font-size: 26px
+
+        >p
+            font-size: 16px
+
+@media(min-width: 992px) and (max-width: 1200px)
+    .profile-candidate
+        @include mixins.width-container-x-small
+
+        h1
+            font-size: 28px
+
+        >p
+            font-size: 17px

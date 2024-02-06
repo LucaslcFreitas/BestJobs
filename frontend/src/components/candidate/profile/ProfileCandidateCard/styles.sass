@@ -1,0 +1,61 @@
+@use '../../../../styles/variables'
+
+.profile-candidate-card
+    padding: 10px
+    background-color: variables.$background-primary
+    box-shadow: 0 0px 7px -2px #c9c9c9
+    border-radius: 10px
+    border: 1px solid #E4E4E4
+
+    >header
+        margin: 10px 15px
+        display: flex
+        justify-content: space-between
+        align-items: center
+        border-bottom: 2px solid #3B3B3B
+        padding-bottom: 5px
+
+        >h2
+            color: variables.$color-default
+            padding-bottom: 5px
+
+        .icons
+            display: flex
+            gap: 0.5rem
+
+    .no-data
+        color: variables.$color-default-secondary
+        margin-top: 15px
+        text-align: center
+
+    .loading
+        position: relative
+        min-height: 200px
+
+    hr
+        border-top: 1px solid #c9c9c9
+        margin: 0 15px
+
+@media(max-width: 768px)
+    .profile-candidate-card
+        padding: 5px
+        >header
+            margin: 5px 15px
+
+            >h2
+                font-size: 20px
+
+        .no-data
+            margin-bottom: 10px
+
+@media(min-width: 768px) and (max-width: 992px)
+    .profile-candidate-card
+        >header
+            >h2
+                font-size: 20px
+
+@media(min-width: 992px) and (max-width: 1200px)
+    .profile-candidate-card
+        >header
+            >h2
+                font-size: 22px
